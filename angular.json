@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "claiminfluence"
+    }
+  },
+  "defaultProject": "claiminfluence",
+  "cli": {
+    "analytics": "32c68306-42a9-4d27-95cc-5d003904f6cf"
+  }
 }

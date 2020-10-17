@@ -1,0 +1,20 @@
+<div class = "game">
+    <!-- <div class="game"><p>Game works {{ this.identifier }}</p>
+        <in-progress [identifier]= 'identifier'></in-progress>
+    </div> -->
+    <div class = "game-container">
+        <select #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers)">
+            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +2" [ngValue]=2>2</option>
+            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +3" [ngValue]=3>3</option>
+            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +4" [ngValue]=4>4</option>
+            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +5" [ngValue]=5>5</option>
+            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +6" [ngValue]=6>6</option>
+        </select>
+        <div class="player-avatar" id="position-1-avatar"></div>
+        <div class="player-avatar" id="position-2-avatar-6-player"></div>
+        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 2"></div>
+        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 3"></div>
+        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 4"></div>
+        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 5"></div>
+    </div>
+</div>

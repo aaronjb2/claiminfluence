@@ -1,0 +1,20 @@
+.game {
+    padding-top: 38px;
+}
+
+.game-container {
+    top: 38px;
+    height: 800px;
+    width: 800px;
+    border: 2px solid black;
+    margin: 0 auto;
+    position: absolute;
+    top:70px;
+}
+
+.player-avatar {
+    height: 180px;
+    width: 180px;
+    border: 2px solid black;
+    position: relative;
+}

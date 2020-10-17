@@ -1,0 +1,7 @@
+{
+    "/getGameData/*": {
+        "target": "http://localhost:4848",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
