@@ -17,7 +17,7 @@ const io = socket(
 );
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../build/index.html'))
+    res.sendFile(path.join(__dirname, '../build/dist/claiminfluence/src/index.html'))
   })
 
 app.get('/getGameData/:identifier', (req, res) => {
