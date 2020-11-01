@@ -3,7 +3,7 @@ require('dotenv').config();
 const socket = require('socket.io');
 const app = express();
 app.use(express.json());
-app.use( express.static( `${__dirname}/../build` ) );
+// app.use( express.static( `${__dirname}/../build` ) );
 
 const { SERVER_PORT } = process.env;
 
