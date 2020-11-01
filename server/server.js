@@ -4,7 +4,7 @@ const socket = require('socket.io');
 const path = require('path');
 const app = express();
 app.use(express.json());
-app.use( express.static( `${__dirname}/../build` ) );
+// app.use( express.static( `${__dirname}/../build` ) );
 
 const { SERVER_PORT } = process.env;
 
@@ -17,7 +17,7 @@ const io = socket(
 );
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../build/index.html'))
+    res.sendFile(path.join(__dirname, '../build/index.html'))
   })
 
 app.get('/getGameData/:identifier', (req, res) => {
