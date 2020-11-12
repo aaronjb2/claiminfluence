@@ -66,7 +66,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "claiminfluence:build"
+            "browserTarget": "claiminfluence:build",
+            "host": "0.0.0.0",
+            "port": 4857
           },
           "configurations": {
             "production": {
