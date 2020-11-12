@@ -4,7 +4,7 @@ const socket = require('socket.io');
 const path = require('path');
 const app = express();
 app.use(express.json());
-app.use( express.static( `${__dirname}/../build` ) );
+app.use( express.static( `${__dirname}/../../build` ) );
 
 const { SERVER_PORT } = process.env;
 
@@ -16,10 +16,10 @@ const io = socket(
     })
 );
 
-app.get('*', function (req, res) {
-    const index = path.join(__dirname, 'build', 'index.html');
-    res.sendFile(index);
-  });
+// app.get('*', function (req, res) {
+//     const index = path.join(__dirname, 'build', 'index.html');
+//     res.sendFile(index);
+//   });
 
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, '../build/dist/claiminfluence/src/index.html'))
