@@ -13,7 +13,7 @@ import { WebSocketService } from '../web-socket.service';
 export class GameComponent implements OnInit {
   text: string;
   identifier: string;
-  game: any;
+  game;
 
   constructor(private route: ActivatedRoute,
     private webSocketService: WebSocketService,
@@ -39,6 +39,16 @@ export class GameComponent implements OnInit {
 
   setNumberOfPlayers(numberOfPlayers) {
     this.game.numberOfPlayers = parseInt(numberOfPlayers.value);
+    console.log('this.game: ', this.game)
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  changeName(index, newName) {
+    console.log('inside change name');
+    console.log('index: ', index);
+    console.log('newName: ', newName);
+    console.log('this.game: ', this.game);
+    this.game.players[index].name = newName;
     this.webSocketService.emit('update-game', this.game);
   }
 

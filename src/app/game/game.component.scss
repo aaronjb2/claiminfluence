@@ -4,7 +4,7 @@
 
 .game-container {
     top: 38px;
-    height: 800px;
+    height: 830px;
     width: 800px;
     border: 2px solid black;
     margin: 0 auto;
@@ -12,9 +12,18 @@
     top:70px;
 }
 
-.player-avatar {
-    height: 180px;
-    width: 180px;
+.center {
+    height: 250px;
+    width: 250px;
     border: 2px solid black;
-    position: relative;
+    position: absolute;
+    left: 273px;
+    bottom: 272px;
+}
+
+.player-number-selector {
+    position: absolute;
+    top:50px;
+    left: 50px;
+    z-index: 1;
 }

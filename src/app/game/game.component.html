@@ -3,18 +3,20 @@
         <in-progress [identifier]= 'identifier'></in-progress>
     </div> -->
     <div class = "game-container">
-        <select #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers)">
-            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +2" [value]=2>2</option>
-            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +3" [value]=3>3</option>
-            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +4" [value]=4>4</option>
-            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +5" [value]=5>5</option>
-            <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +6" [value]=6>6</option>
-        </select>
-        <div class="player-avatar" id="position-1-avatar"></div>
-        <div class="player-avatar" id="position-2-avatar-6-player"></div>
-        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 2"></div>
-        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 3"></div>
-        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 4"></div>
-        <div class="player-avatar" id="position-2-avatar" *ngIf="game && game.numberOfPlayers && game.numberOfPlayers > 5"></div>
+        
+        <div class="center">
+            <select class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers)">
+                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +2" [value]=2>2</option>
+                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +3" [value]=3>3</option>
+                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +4" [value]=4>4</option>
+                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +5" [value]=5>5</option>
+                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +6" [value]=6>6</option>
+            </select>
+        </div>
+        <avatars-group-two [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 2"></avatars-group-two>
+        <avatars-group-three [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 3"></avatars-group-three>
+        <avatars-group-four [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 4"></avatars-group-four>
+        <avatars-group-five [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 5"></avatars-group-five>
+        <avatars-group-six [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 6"></avatars-group-six>
     </div>
 </div>

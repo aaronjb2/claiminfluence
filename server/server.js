@@ -33,7 +33,27 @@ app.get('/getGameData/:identifier', (req, res) => {
         game = {
             identifier,
             numberOfPlayers: 6,
-            started: false
+            started: false,
+            players: [
+                {
+                    name: "Player1Name"
+                },
+                {
+                    name: "Player2Name"
+                },
+                {
+                    name: "Player3Name"
+                },
+                {
+                    name: "Player4Name"
+                },
+                {
+                    name: "Player5Name"
+                },
+                {
+                    name: "Player6Name"
+                }
+            ]
         };
         games.push(game);
     } else {
