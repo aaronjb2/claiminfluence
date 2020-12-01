@@ -16,15 +16,6 @@ const io = socket(
     })
 );
 
-// app.get('*', function (req, res) {
-//     const index = path.join(__dirname, 'build', 'index.html');
-//     res.sendFile(index);
-//   });
-
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../build/dist/claiminfluence/src/index.html'))
-//  })
-
 app.get('/getGameData/:identifier', (req, res) => {
     const { identifier } = req.params;
     const index = games.findIndex(game => game.identifier === identifier);
@@ -32,7 +23,6 @@ app.get('/getGameData/:identifier', (req, res) => {
     if (index === -1) {
         game = {
             identifier,
-            numberOfPlayers: 6,
             started: false,
             players: [
                 {
@@ -71,7 +61,6 @@ io.on("connection", socket => {
     socket.on('update-game', data=> {
         const index = games.findIndex(game => game.identifier === data.identifier);
         games[index] = data;
-        console.log('games: ', games);
         io.to(data.identifier).emit('update-game', data);
     })
 })

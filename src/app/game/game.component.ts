@@ -6,9 +6,11 @@ import { WebSocketService } from '../web-socket.service';
 
 @Component({
   selector: 'app-game',
-  // templateUrl: './game.component.html',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: [
+    './game.component.scss',
+    './player-positions.scss'
+  ]
 })
 export class GameComponent implements OnInit {
   text: string;
@@ -38,18 +40,36 @@ export class GameComponent implements OnInit {
   }
 
   setNumberOfPlayers(numberOfPlayers) {
-    this.game.numberOfPlayers = parseInt(numberOfPlayers.value);
-    console.log('this.game: ', this.game)
+    const currentNumberOfPlayers = this.game.players.length;
+    if (numberOfPlayers > currentNumberOfPlayers) {
+      for (let i = 0; i < numberOfPlayers - currentNumberOfPlayers; i++) {
+        this.game.players.push({name: `Player${currentNumberOfPlayers + i + 1}Name`})
+      }
+    }
+    if (numberOfPlayers < currentNumberOfPlayers) {
+      this.game.players.splice(numberOfPlayers, currentNumberOfPlayers - numberOfPlayers);
+    }
     this.webSocketService.emit('update-game', this.game);
   }
 
   changeName(index, newName) {
-    console.log('inside change name');
-    console.log('index: ', index);
-    console.log('newName: ', newName);
-    console.log('this.game: ', this.game);
     this.game.players[index].name = newName;
     this.webSocketService.emit('update-game', this.game);
+  }
+
+  getPlayerClassName(index) {
+    const playerIndexVal = index === 6 ? 'six'
+      : index === 5 ? 'five'
+      : index === 4 ? 'four'
+      : index === 3 ? 'three'
+      : index === 2 ? 'two'
+      : 'one';
+    const numberOfPlayersVal = this.game && this.game.players && this.game.players.length === 2 ? 'two'
+      : this.game && this.game.players && this.game.players.length === 3 ? 'three'
+      : this.game && this.game.players && this.game.players.length === 4 ? 'four'
+      : this.game && this.game.players && this.game.players.length === 5 ? 'five'
+      : 'six';
+    return `${numberOfPlayersVal}-players-player-${playerIndexVal}`;
   }
 
 }

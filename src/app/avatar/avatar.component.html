@@ -1,6 +1,6 @@
 <div class = "avatar">
     <div class ="name" *ngIf="!changingName" (click)="toggleChangingName()">
-        {{ name }}
+        {{ game.players[index].name }}
     </div>
-    <input type="text" class="name-change" *ngIf="changingName" (clickOutside)="toggleChangingName()" #newName (keyup.enter)="updateName(index, newName.value)"/>
+    <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)"/>
 </div>

@@ -1,22 +1,25 @@
 <div class = "game">
-    <!-- <div class="game"><p>Game works {{ this.identifier }}</p>
-        <in-progress [identifier]= 'identifier'></in-progress>
-    </div> -->
     <div class = "game-container">
-        
         <div class="center">
-            <select class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers)">
-                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +2" [value]=2>2</option>
-                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +3" [value]=3>3</option>
-                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +4" [value]=4>4</option>
-                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +5" [value]=5>5</option>
-                <option [selected]="game && game.numberOfPlayers && game.numberOfPlayers === +6" [value]=6>6</option>
+            <select class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers.value)">
+                <option [selected]="game && game.players && game.players.length === +2" [value]=2>2</option>
+                <option [selected]="game && game.players && game.players.length === +3" [value]=3>3</option>
+                <option [selected]="game && game.players && game.players.length === +4" [value]=4>4</option>
+                <option [selected]="game && game.players && game.players.length === +5" [value]=5>5</option>
+                <option [selected]="game && game.players && game.players.length === +6" [value]=6>6</option>
             </select>
         </div>
-        <avatars-group-two [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 2"></avatars-group-two>
-        <avatars-group-three [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 3"></avatars-group-three>
-        <avatars-group-four [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 4"></avatars-group-four>
-        <avatars-group-five [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 5"></avatars-group-five>
-        <avatars-group-six [game]="game" [updateName]="changeName" *ngIf="game && game.numberOfPlayers === 6"></avatars-group-six>
+        <avatar [game]="game" [index]="0" *ngIf="game && game.players"
+            class="{{ getPlayerClassName(1) }}"></avatar>
+        <avatar [game]="game" [index]="1" *ngIf="game && game.players"
+            class="{{ getPlayerClassName(2) }}"></avatar>
+        <avatar [game]="game" [index]="2" *ngIf="game && game.players && game.players.length > 2"
+            class="{{ getPlayerClassName(3) }}"></avatar>
+        <avatar [game]="game" [index]="3" *ngIf="game && game.players && game.players.length > 3"
+            class="{{ getPlayerClassName(4) }}"></avatar>
+        <avatar [game]="game" [index]="4" *ngIf="game && game.players && game.players.length > 4"
+            class="{{ getPlayerClassName(5) }}"></avatar>
+        <avatar [game]="game" [index]="5" *ngIf="game && game.players && game.players.length > 5"
+            class="{{ getPlayerClassName(6) }}"></avatar>
     </div>
 </div>
