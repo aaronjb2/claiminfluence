@@ -1,6 +1,22 @@
-<div class = "avatar">
+<div class = "avatar" [ngStyle]="{'background-color': this.colorCode}">
+    <img class="left-shape" src="{{ shapePath }}"/>
     <div class ="name" *ngIf="!changingName" (click)="toggleChangingName()">
         {{ game.players[index].name }}
     </div>
     <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)"/>
+    <img class="right-shape" src="{{ shapePath }}"/>
+    <p class = "color-title">color</p>
+    <div class="color-wheel-left" (click)="changeToNextAvailableDownwardColor()">
+        <img class="left-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="color-wheel-right" (click)="changeToNextAvailableUpwardColor()">
+        <img class="right-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <p class = "shape-title">shape</p>
+    <div class="shape-wheel-left" (click)="changeToNextAvailableDownwardShape()">
+        <img class="left-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="shape-wheel-right" (click)="changeToNextAvailableUpwardShape()">
+        <img class="right-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
 </div>

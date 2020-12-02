@@ -26,22 +26,34 @@ app.get('/getGameData/:identifier', (req, res) => {
             started: false,
             players: [
                 {
-                    name: "Player1Name"
+                    name: "Player1Name",
+                    color: 0,
+                    shape: 0
                 },
                 {
-                    name: "Player2Name"
+                    name: "Player2Name",
+                    color: 1,
+                    shape: 1
                 },
                 {
-                    name: "Player3Name"
+                    name: "Player3Name",
+                    color: 2,
+                    shape: 2
                 },
                 {
-                    name: "Player4Name"
+                    name: "Player4Name",
+                    color: 3,
+                    shape: 3
                 },
                 {
-                    name: "Player5Name"
+                    name: "Player5Name",
+                    color: 4,
+                    shape: 4
                 },
                 {
-                    name: "Player6Name"
+                    name: "Player6Name",
+                    color: 5,
+                    shape: 5
                 }
             ]
         };
