@@ -1,6 +1,7 @@
 <div class = "game">
     <div class = "game-container">
         <div class="center">
+            <p class="game-not-started-text" *ngIf="game && !game.started">The following game is over or not yet started.  Press start to begin.</p>
             <select class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers.value)">
                 <option [selected]="game && game.players && game.players.length === +2" [value]=2>2</option>
                 <option [selected]="game && game.players && game.players.length === +3" [value]=3>3</option>

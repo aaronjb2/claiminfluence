@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { WebSocketService } from '../web-socket.service';
 const colorCodes = require('../../../resources/colorCodes.json');
 const shapePaths = require('../../../resources/shapePaths.json')
+const influences = require('../../../resources/influences.json');
 
 @Component({
   selector: 'avatar',
@@ -14,21 +15,32 @@ export class AvatarComponent implements OnInit, OnChanges {
   changingName: boolean = false;
   colorCode = 'white';
   shapePath = 'assets/images/square.jpg';
+  leftInfluence = "Error";
+  rightInfluence = "Error";
+  displayingInfluences = false;
 
   constructor(private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
     this.colorCode = colorCodes[this.game.players[this.index].color];
     this.shapePath = shapePaths[this.game.players[this.index].shape];
+    this.leftInfluence = influences[this.game.players[this.index].leftInfluence];
+    this.rightInfluence = influences[this.game.players[this.index].rightInfluence];
   }
 
   ngOnChanges(): void {
     this.colorCode = colorCodes[this.game.players[this.index].color];
     this.shapePath = shapePaths[this.game.players[this.index].shape];
+    this.leftInfluence = influences[this.game.players[this.index].leftInfluence];
+    this.rightInfluence = influences[this.game.players[this.index].rightInfluence];
   }
 
   toggleChangingName() {
     this.changingName = !this.changingName;
+  }
+
+  toggleDisplayingInfluences() {
+    this.displayingInfluences = !this.displayingInfluences;
   }
 
   changeName(updatedName) {

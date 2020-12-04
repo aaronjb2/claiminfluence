@@ -43,7 +43,17 @@ export class GameComponent implements OnInit {
     const currentNumberOfPlayers = this.game.players.length;
     if (numberOfPlayers > currentNumberOfPlayers) {
       for (let i = 0; i < numberOfPlayers - currentNumberOfPlayers; i++) {
-        this.game.players.push({name: `Player${currentNumberOfPlayers + i + 1}Name`})
+        this.game.players.push({
+            name: `Player${currentNumberOfPlayers + i + 1}Name`,
+            color: this.getNextAvailableColor(),
+            shape: this.getNextAvailableShape(),
+            leftInfluence: this.getNextAvailableInfluence(),
+            rightInfluence: this.getNextAvailableInfluence(),
+            leftInfluenceAlive: true,
+            rightInfluenceAlive: true,
+            coins: 2
+          })
+          this.game.players[this.game.players.length - 1].rightInfluence = this.getNextAvailableInfluence();
       }
     }
     if (numberOfPlayers < currentNumberOfPlayers) {
@@ -71,5 +81,44 @@ export class GameComponent implements OnInit {
       : 'six';
     return `${numberOfPlayersVal}-players-player-${playerIndexVal}`;
   }
+
+  getNextAvailableShape() {
+    let shape = -1;
+    let found = false;
+    while (!found) {
+        shape = shape + 1;
+        const shapeIndex = this.game.players.findIndex((player) => player.shape === shape);
+        if (shapeIndex === -1) {
+            found = true;
+        }
+    }
+    return shape;
+}
+
+getNextAvailableColor() {
+    let color = -1;
+    let found = false;
+    while (!found) {
+        color = color + 1;
+        const colorIndex = this.game.players.findIndex((player) => player.color === color);
+        if (colorIndex === -1) {
+            found = true;
+        }
+    }
+    return color;
+}
+
+getNextAvailableInfluence() {
+  let influence = -1;
+    let found = false;
+    while (!found) {
+        influence = influence + 1;
+        const influenceIndex = this.game.players.findIndex((player) => player.leftInfluence === influence || player.rightInfluence === influence);
+        if (influenceIndex === -1) {
+            found = true;
+        }
+    }
+    return influence;
+}
 
 }
