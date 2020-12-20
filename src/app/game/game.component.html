@@ -1,26 +1,28 @@
 <div class = "game">
     <div class = "game-container">
         <div class="center">
-            <p class="game-not-started-text" *ngIf="game && !game.started">The following game is over or not yet started.  Press start to begin.</p>
-            <select class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers.value)">
+            <p class="game-not-started-text" *ngIf="game && !game.started">The following game is over or not yet started.  Press start to begin.  Also, the influences will be shuffled upon pressing start so right now it's fine to look at anyone's influences (Once you start the game you should only look at your own)</p>
+            <select *ngIf="game && !game.started" class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers.value)">
                 <option [selected]="game && game.players && game.players.length === +2" [value]=2>2</option>
                 <option [selected]="game && game.players && game.players.length === +3" [value]=3>3</option>
                 <option [selected]="game && game.players && game.players.length === +4" [value]=4>4</option>
                 <option [selected]="game && game.players && game.players.length === +5" [value]=5>5</option>
                 <option [selected]="game && game.players && game.players.length === +6" [value]=6>6</option>
             </select>
+            <button *ngIf="game && !game.started" class="start-button" (click)="startGame()">start</button>
         </div>
-        <avatar [game]="game" [index]="0" *ngIf="game && game.players"
+        <avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
             class="{{ getPlayerClassName(1) }}"></avatar>
-        <avatar [game]="game" [index]="1" *ngIf="game && game.players"
+        <avatar #avatar2 [game]="game" [index]="1" *ngIf="game && game.players"
             class="{{ getPlayerClassName(2) }}"></avatar>
-        <avatar [game]="game" [index]="2" *ngIf="game && game.players && game.players.length > 2"
+        <avatar #avatar3 [game]="game" [index]="2" *ngIf="game && game.players && game.players.length > 2"
             class="{{ getPlayerClassName(3) }}"></avatar>
-        <avatar [game]="game" [index]="3" *ngIf="game && game.players && game.players.length > 3"
+        <avatar #avatar4 [game]="game" [index]="3" *ngIf="game && game.players && game.players.length > 3"
             class="{{ getPlayerClassName(4) }}"></avatar>
-        <avatar [game]="game" [index]="4" *ngIf="game && game.players && game.players.length > 4"
+        <avatar #avatar5 [game]="game" [index]="4" *ngIf="game && game.players && game.players.length > 4"
             class="{{ getPlayerClassName(5) }}"></avatar>
-        <avatar [game]="game" [index]="5" *ngIf="game && game.players && game.players.length > 5"
+        <avatar #avatar6 [game]="game" [index]="5" *ngIf="game && game.players && game.players.length > 5"
             class="{{ getPlayerClassName(6) }}"></avatar>
+        <button class="end-game-button" *ngIf="game && game.started" (click)="endGame()">End Game</button>
     </div>
 </div>

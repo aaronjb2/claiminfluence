@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AvatarComponent } from '../avatar/avatar.component';
 import { GameStateProviderService } from '../game-state-provider.service';
 import { WebSocketService } from '../web-socket.service';
 
@@ -16,6 +17,13 @@ export class GameComponent implements OnInit {
   text: string;
   identifier: string;
   game;
+
+  @ViewChild('avatar1') avatar1: AvatarComponent;
+  @ViewChild('avatar2') avatar2: AvatarComponent;
+  @ViewChild('avatar3') avatar3: AvatarComponent;
+  @ViewChild('avatar4') avatar4: AvatarComponent;
+  @ViewChild('avatar5') avatar5: AvatarComponent;
+  @ViewChild('avatar6') avatar6: AvatarComponent;
 
   constructor(private route: ActivatedRoute,
     private webSocketService: WebSocketService,
@@ -35,7 +43,11 @@ export class GameComponent implements OnInit {
 
   listen() {
     this.webSocketService.listen('update-game').subscribe(response => {
+      let started = this.game.started;
       this.game = response;
+      if (this.game.started && !started) {
+        this.takeAvoidDisplayingAction();
+      }
     })
   }
 
@@ -119,6 +131,52 @@ getNextAvailableInfluence() {
         }
     }
     return influence;
+}
+
+startGame() {
+  const identityArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  this.game.turn = Math.floor(Math.random() * (this.game.players.length));
+  for (let i = 0; i < this.game.players.length; i++) {
+    let randomIndex = Math.floor(Math.random() * (identityArray.length));
+    this.game.players[i].leftInfluence = identityArray[randomIndex];
+    identityArray.splice(randomIndex, 1);
+    randomIndex = Math.floor(Math.random() * (identityArray.length));
+    this.game.players[i].rightInfluence = identityArray[randomIndex];
+    this.game.players[i].leftInfluenceAlive = true;
+    this.game.players[i].rightInfluenceAlive = true;
+    this.game.players[i].coins = this.game.players.length === 2 && this.game.turn === i ? 1 : 2;
+  }
+  this.game.challengablePlayer = -1;
+  this.game.challengeableAction = -1;
+  this.game.blockablePlayer = -1;
+  this.game.blockableAction = -1;
+  this.game.challengeOnlyOneCoin = false;
+  this.game.blockOnlyOneCoin = false;
+  this.game.started = true;
+  this.takeAvoidDisplayingAction();
+  this.webSocketService.emit('update-game', this.game);
+}
+
+endGame() {
+  this.game.started = false;
+  this.webSocketService.emit('update-game', this.game);
+}
+
+takeAvoidDisplayingAction() {
+  this.avatar1.stopDisplayingInfluences();
+  this.avatar2.stopDisplayingInfluences();
+  if (this.game.players.length > 2) {
+    this.avatar3.stopDisplayingInfluences();
+  }
+  if (this.game.players.length > 3) {
+    this.avatar4.stopDisplayingInfluences();
+  }
+  if (this.game.players.length > 4) {
+    this.avatar5.stopDisplayingInfluences();
+  }
+  if (this.game.players.length > 5) {
+    this.avatar6.stopDisplayingInfluences();
+  }
 }
 
 }

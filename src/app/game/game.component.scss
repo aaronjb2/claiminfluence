@@ -30,7 +30,19 @@
 
 .player-number-selector {
     position: absolute;
-    top:50px;
-    left: 50px;
+    top:175px;
+    left: 110px;
     z-index: 1;
+}
+
+.start-button {
+    position: absolute;
+    top:210px;
+    left:105px;
+}
+
+.end-game-button {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
 }

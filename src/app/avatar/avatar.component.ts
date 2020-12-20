@@ -124,6 +124,10 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.webSocketService.emit('update-game', this.game);
   }
 
+  stopDisplayingInfluences() {
+    this.displayingInfluences = false;
+  }
+
   private shapeAlreadyExists(shapeNum) {
     for (let i = 0; i < this.game.players.length; i++) {
       if (this.game.players[i].shape === shapeNum) {

@@ -22,9 +22,9 @@
     </div>
     <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
     <div class = "left-influence-container">
-        <p class="influence-text" *ngIf="displayingInfluences">{{ leftInfluence }}</p>
+        <p class="influence-text" *ngIf="displayingInfluences === true">{{ leftInfluence }}</p>
     </div>
     <div class = "right-influence-container">
-        <p class="influence-text" *ngIf="displayingInfluences">{{ rightInfluence }}</p>
+        <p class="influence-text" *ngIf="displayingInfluences === true">{{ rightInfluence }}</p>
     </div>
 </div>
