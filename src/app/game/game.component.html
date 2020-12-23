@@ -1,6 +1,6 @@
 <div class = "game">
     <div class = "game-container">
-        <div class="center">
+        <div *ngIf="game && !game.started" class="center">
             <p class="game-not-started-text" *ngIf="game && !game.started">The following game is over or not yet started.  Press start to begin.  Also, the influences will be shuffled upon pressing start so right now it's fine to look at anyone's influences (Once you start the game you should only look at your own)</p>
             <select *ngIf="game && !game.started" class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers.value)">
                 <option [selected]="game && game.players && game.players.length === +2" [value]=2>2</option>
@@ -10,6 +10,41 @@
                 <option [selected]="game && game.players && game.players.length === +6" [value]=6>6</option>
             </select>
             <button *ngIf="game && !game.started" class="start-button" (click)="startGame()">start</button>
+        </div>
+        <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 9" class="turn-options"
+             [ngStyle]="{'background-color': this.colorCode}">
+          <div class ="name">
+            {{ game.players[game.turn].name }}
+          </div>
+          <img class="left-shape" src="{{ shapePath }}"/>
+          <img class="right-shape" src="{{ shapePath }}"/>
+          <button class="take-one-coin-option">
+            <p class="text-option-1">Take 1 Coin</p>
+            <p class="text-option-subcaption-1">Unchallengeable, Unblockable</p>
+          </button>
+          <button class="take-two-coins-option">
+            <p class="text-option-2">Take 2 Coins</p>
+            <p class="text-option-subcaption-2">Blockable by Duke</p>
+          </button>
+          <button class="take-three-coins-option">
+            <p class="text-option-3">Claim Duke: Take 3 Coins</p>
+          </button>
+          <button class="steal-option">
+            <p class="text-option-4">Claim Captain: Steal 2 Coins</p>
+            <p class="text-option-subcaption-4">Blockable by Captain or Ambassador</p>
+          </button>
+          <button class="shuffle-option">
+            <p class="text-option-5">Claim Ambassador: Shuffle</p>
+            <p class="text-option-subcaption-5">Gives 2 potential other influence options</p>
+          </button>
+          <button class="assassinate-option">
+            <p class="text-option-6">Claim Assassin: Kill An Influence</p>
+            <p class="text-option-subcaption-6">Costs 3 Coins, Blockable by Contessa</p>
+          </button>
+          <button class="coup-option">
+            <p class="text-option-7">Kill An Influence (Coup)</p>
+            <p class="text-option-subcaption-7">Costs 7 Coins, Unchallengeable, Unblockable</p>
+          </button>
         </div>
         <avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
             class="{{ getPlayerClassName(1) }}"></avatar>

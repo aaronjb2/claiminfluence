@@ -21,6 +21,15 @@
     bottom: 302px;
 }
 
+.turn-options {
+  height: 250px;
+  width: 250px;
+  border: 2px solid black;
+  position: absolute;
+  left: 273px;
+  bottom: 302px;
+}
+
 .game-not-started-text {
     font-weight: bold;
     position: absolute;
@@ -45,4 +54,221 @@
     position: absolute;
     bottom: 5px;
     left: 5px;
+}
+
+.name {
+  height:20px;
+  width: 100px;
+  border: 2px solid black;
+  position: absolute;
+  top:5px;
+  left: 75px;
+  text-align: center;
+  background-color: rgb(230, 230, 230);
+  font-weight: bold;
+}
+
+.left-shape {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 20px;
+  top: 5px;
+  transform: rotate(-45deg);
+}
+
+.right-shape {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  right: 20px;
+  top: 5px;
+  transform: rotate(45deg);
+}
+
+.take-one-coin-option {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  position: absolute;
+  bottom:180px;
+  left: 5px;
+}
+
+.take-two-coins-option {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  position: absolute;
+  bottom:150px;
+  left: 5px;
+}
+
+.take-three-coins-option {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  position: absolute;
+  bottom:120px;
+  left: 5px;
+}
+
+.steal-option {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  position: absolute;
+  bottom:90px;
+  left: 5px;
+}
+
+.shuffle-option {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  position: absolute;
+  bottom:60px;
+  left: 5px;
+}
+
+.assassinate-option {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  position: absolute;
+  bottom:30px;
+  left: 5px;
+}
+
+.coup-option {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  position: absolute;
+  bottom: 0px;
+  left: 5px;
+}
+
+.text-option-1 {
+  font-weight: bold;
+  position: absolute;
+  bottom: -3px;
+  left: 75px;
+  font-family: Georgia
+}
+
+.text-option-subcaption-1 {
+  font-family: Georgia;
+  font-size: 10px;
+  position: absolute;
+  bottom: -9px;
+  left: 50px;
+}
+
+.text-option-2 {
+  font-weight: bold;
+  position: absolute;
+  bottom: -3px;
+  left: 71px;
+  font-family: Georgia
+}
+
+.text-option-subcaption-2 {
+  font-family: Georgia;
+  font-size: 10px;
+  position: absolute;
+  bottom: -9px;
+  left: 73px;
+}
+
+.text-option-3 {
+  font-weight: bold;
+  position: absolute;
+  bottom: -3px;
+  left: -16px;
+  font-family: Georgia;
+  width: 260px;
+}
+
+.text-option-subcaption-3 {
+  font-family: Georgia;
+  font-size: 10px;
+  position: absolute;
+  bottom: -9px;
+  left: 50px;
+}
+
+.text-option-4 {
+  font-weight: bold;
+  position: absolute;
+  bottom: -3px;
+  left: -15px;
+  font-family: Georgia;
+  width: 260px;
+}
+
+.text-option-subcaption-4 {
+  font-family: Georgia;
+  font-size: 10px;
+  position: absolute;
+  bottom: -9px;
+  left: 30px;
+}
+
+.text-option-5 {
+  font-weight: bold;
+  position: absolute;
+  bottom: -3px;
+  left: -15px;
+  font-family: Georgia;
+  width: 260px;
+}
+
+.text-option-subcaption-5 {
+  font-family: Georgia;
+  font-size: 10px;
+  position: absolute;
+  bottom: -9px;
+  left: 25px;
+}
+
+.text-option-6 {
+  width: 260px;
+  font-weight: bold;
+  position: absolute;
+  bottom: -3px;
+  left: -13px;
+  font-family: Georgia;
+}
+
+.text-option-subcaption-6 {
+  font-family: Georgia;
+  font-size: 10px;
+  position: absolute;
+  bottom: -9px;
+  left: 36px;
+}
+
+.text-option-7 {
+  font-weight: bold;
+  position: absolute;
+  bottom: -3px;
+  left: 32px;
+  font-family: Georgia;
+}
+
+.text-option-subcaption-7 {
+  font-family: Georgia;
+  font-size: 10px;
+  position: absolute;
+  bottom: -9px;
+  left: -12px;
+  width: 260px;
 }

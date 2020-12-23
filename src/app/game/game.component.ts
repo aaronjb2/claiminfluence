@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { GameStateProviderService } from '../game-state-provider.service';
 import { WebSocketService } from '../web-socket.service';
+const colorCodes = require('../../../resources/colorCodes.json');
+const shapePaths = require('../../../resources/shapePaths.json');
 
 
 @Component({
@@ -17,6 +19,8 @@ export class GameComponent implements OnInit {
   text: string;
   identifier: string;
   game;
+  colorCode = 'white';
+  shapePath = 'assets/images/square.jpg';
 
   @ViewChild('avatar1') avatar1: AvatarComponent;
   @ViewChild('avatar2') avatar2: AvatarComponent;
@@ -28,7 +32,7 @@ export class GameComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private webSocketService: WebSocketService,
     private gameStateProviderService: GameStateProviderService) { }
-    
+
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -37,6 +41,10 @@ export class GameComponent implements OnInit {
     this.webSocketService.emit('join-identifier', this.identifier);
     this.gameStateProviderService.getState(this.identifier).subscribe((game) => {
       this.game = game;
+      if (this.game && this.game.started && this.game.turn && this.game.turn !== -1) {
+        this.colorCode = colorCodes[this.game.players[this.game.turn].color];
+        this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
+      }
     });
     this.listen();
   }
@@ -47,6 +55,10 @@ export class GameComponent implements OnInit {
       this.game = response;
       if (this.game.started && !started) {
         this.takeAvoidDisplayingAction();
+      }
+      if (this.game.started && this.game.turn && this.game.turn !== -1) {
+        this.colorCode = colorCodes[this.game.players[this.game.turn].color];
+        this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
       }
     })
   }
@@ -146,15 +158,19 @@ startGame() {
     this.game.players[i].rightInfluenceAlive = true;
     this.game.players[i].coins = this.game.players.length === 2 && this.game.turn === i ? 1 : 2;
   }
-  this.game.challengablePlayer = -1;
-  this.game.challengeableAction = -1;
-  this.game.blockablePlayer = -1;
-  this.game.blockableAction = -1;
-  this.game.challengeOnlyOneCoin = false;
-  this.game.blockOnlyOneCoin = false;
+  this.game.challenger = -1;
+  this.game.blocker = -1;
+  this.game.actionRecipient = -1;
+  this.game.actionPerformer = -1;
+  this.game.onlyOneCoin = false;
+  this.game.phase = 1;
+  this.game.extraInfluence1 = -1;
+  this.game.extraInfluence2 = -1;
   this.game.started = true;
   this.takeAvoidDisplayingAction();
   this.webSocketService.emit('update-game', this.game);
+  this.colorCode = colorCodes[this.game.players[this.game.turn].color];
+  this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
 }
 
 endGame() {

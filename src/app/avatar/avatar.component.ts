@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { WebSocketService } from '../web-socket.service';
 const colorCodes = require('../../../resources/colorCodes.json');
-const shapePaths = require('../../../resources/shapePaths.json')
+const shapePaths = require('../../../resources/shapePaths.json');
 const influences = require('../../../resources/influences.json');
 
 @Component({
