@@ -21,6 +21,7 @@ export class GameComponent implements OnInit {
   game;
   colorCode = 'white';
   shapePath = 'assets/images/square.jpg';
+  selection = 'nonea';
 
   @ViewChild('avatar1') avatar1: AvatarComponent;
   @ViewChild('avatar2') avatar2: AvatarComponent;
@@ -193,6 +194,14 @@ takeAvoidDisplayingAction() {
   if (this.game.players.length > 5) {
     this.avatar6.stopDisplayingInfluences();
   }
+}
+
+setSelection(val) {
+    this.selection = val;
+}
+
+getColorCode(index) {
+  return colorCodes[this.game.players[index].color];
 }
 
 }

@@ -19,7 +19,11 @@
     </div>
     <div class="shape-wheel-right" (click)="changeToNextAvailableUpwardShape()">
         <img class="right-arrow" src = "assets/images/triangle.jpg"/>
+        <h1 class="{{ game.players[index].coins > 9 ? 'coin-quantity-2-digit' : 'coin-quantity-1-digit' }}">{{game.players[index].coins}}</h1>
     </div>
+  <div class="money-container">
+    <img class="coin-symbol" src="assets/images/coin.jpg"/>
+  </div>
     <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
     <div class = "left-influence-container">
         <p class="influence-text" *ngIf="displayingInfluences === true">{{ leftInfluence }}</p>

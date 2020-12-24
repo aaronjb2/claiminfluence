@@ -11,7 +11,7 @@
             </select>
             <button *ngIf="game && !game.started" class="start-button" (click)="startGame()">start</button>
         </div>
-        <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 9" class="turn-options"
+        <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 9 && selection === 'none'" class="turn-options"
              [ngStyle]="{'background-color': this.colorCode}">
           <div class ="name">
             {{ game.players[game.turn].name }}
@@ -29,7 +29,7 @@
           <button class="take-three-coins-option">
             <p class="text-option-3">Claim Duke: Take 3 Coins</p>
           </button>
-          <button class="steal-option">
+          <button class="steal-option" (click)="setSelection('steal')">
             <p class="text-option-4">Claim Captain: Steal 2 Coins</p>
             <p class="text-option-subcaption-4">Blockable by Captain or Ambassador</p>
           </button>
@@ -37,15 +37,35 @@
             <p class="text-option-5">Claim Ambassador: Shuffle</p>
             <p class="text-option-subcaption-5">Gives 2 potential other influence options</p>
           </button>
-          <button class="assassinate-option">
+          <button class="assassinate-option" (click)="setSelection('kill')">
             <p class="text-option-6">Claim Assassin: Kill An Influence</p>
             <p class="text-option-subcaption-6">Costs 3 Coins, Blockable by Contessa</p>
           </button>
-          <button class="coup-option">
+          <button class="coup-option" (click)="setSelection('coup')">
             <p class="text-option-7">Kill An Influence (Coup)</p>
             <p class="text-option-subcaption-7">Costs 7 Coins, Unchallengeable, Unblockable</p>
           </button>
         </div>
+      <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 9 && selection !== 'none'" class="target-player-selection-box"
+           [ngStyle]="{'background-color': this.colorCode}">
+        <div class ="name">
+          {{ game.players[game.turn].name }}
+        </div>
+        <img class="left-shape" src="{{ shapePath }}"/>
+        <img class="right-shape" src="{{ shapePath }}"/>
+        <div class="select-player-prompt-container">
+          <p class="select-player-prompt">{{ selection === 'coup' ? 'Who do you want to coup?' : selection === 'kill' ? 'Who do you want to assassinate?' : 'Who do you want to steal from?' }}</p>
+        </div>
+        <div class="container-of-all-other-players" *ngFor="let player of game.players; let i = index">
+          <div class="space-between-player-selection-options-1" *ngIf="game.players.length === 2 && i !== game.turn"></div>
+          <div class="space-between-player-selection-options-2" *ngIf="game.players.length === 3 && i !== game.turn"></div>
+          <div *ngIf="i !== game.turn" class = "player-for-selection-container" [ngStyle]="{'background-color': getColorCode(i)}"></div>
+          <div class="space-between-player-selection-options-3" *ngIf="game.players.length === 4 && i !== game.turn"></div>
+          <div class="space-between-player-selection-options-4" *ngIf="game.players.length === 5 && i !== game.turn"></div>
+          <div class="space-between-player-selection-options-5" *ngIf="game.players.length === 6 && i !== game.turn"></div>
+        </div>
+        <button class="back-button" (click)="setSelection('none')">Back</button>
+      </div>
         <avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
             class="{{ getPlayerClassName(1) }}"></avatar>
         <avatar #avatar2 [game]="game" [index]="1" *ngIf="game && game.players"
