@@ -128,6 +128,43 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.displayingInfluences = false;
   }
 
+  evaluateIfChallengeableActionExists() {
+    if (this.game.phase === 2 || (this.game.phase > 3 && this.game.phase < 8) ||
+    this.game.phase === 9 || this.game.phase === 20 || this.game.phase === 23) {
+      return true;
+    }
+    return false;
+  }
+
+  challengeClaim() {
+    this.game.challenger = this.index;
+    if (this.game.phase === 2) {
+      this.game.phase = 14;
+    }
+    if (this.game.phase === 4) {
+      this.game.phase = 10;
+    }
+    if (this.game.phase === 9) {
+      this.game.phase = 12;
+    }
+    if (this.game.phase === 5) {
+      this.game.phase = 18;
+    }
+    if (this.game.phase === 6) {
+      this.game.phase = 16;
+    }
+    if (this.game.phase === 20) {
+      this.game.phase = 21;
+    }
+    if (this.game.phase === 23) {
+      this.game.phase = 24;
+    }
+    if (this.game.phase === 7) {
+      this.game.phase = 27;
+    }
+    this.webSocketService.emit('update-game', this.game);
+  }
+
   private shapeAlreadyExists(shapeNum) {
     for (let i = 0; i < this.game.players.length; i++) {
       if (this.game.players[i].shape === shapeNum) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, QueryList } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { GameStateProviderService } from '../game-state-provider.service';
@@ -15,13 +15,13 @@ const shapePaths = require('../../../resources/shapePaths.json');
     './player-positions.scss'
   ]
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnChanges {
   text: string;
   identifier: string;
   game;
   colorCode = 'white';
   shapePath = 'assets/images/square.jpg';
-  selection = 'nonea';
+  selection = 'none';
 
   @ViewChild('avatar1') avatar1: AvatarComponent;
   @ViewChild('avatar2') avatar2: AvatarComponent;
@@ -48,6 +48,10 @@ export class GameComponent implements OnInit {
       }
     });
     this.listen();
+  }
+
+  ngOnChanges() {
+
   }
 
   listen() {
@@ -202,6 +206,47 @@ setSelection(val) {
 
 getColorCode(index) {
   return colorCodes[this.game.players[index].color];
+}
+
+getShapePath(index) {
+    return shapePaths[this.game.players[index].shape];
+}
+
+performActionToPlayer(playerIndex) {
+    if (this.selection === 'steal') {
+      this.game.actionPerformer = this.game.turn;
+      this.game.actionRecipient = playerIndex;
+      this.game.challenger = -1;
+      this.game.blocker = -1;
+      if (this.game.players[playerIndex].coins === 1) {
+        this.game.onlyOneCoin = true;
+        this.game.players[playerIndex].coins = 0;
+        this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins + 1;
+      } else {
+        this.game.onlyOneCoin = false;
+        this.game.players[playerIndex].coins = this.game.players[playerIndex].coins - 2;
+        this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins + 2;
+      }
+      this.game.phase = 2;
+      this.game.turn = this.getNextAlivePlayer(this.game.turn);
+    }
+    this.selection = 'none';
+    this.webSocketService.emit('update-game', this.game);
+}
+
+getNextAlivePlayer(playerIndex) {
+    let playerFound = false;
+    let indexOfNextPlayer = playerIndex;
+    while (!playerFound) {
+      indexOfNextPlayer = indexOfNextPlayer + 1;
+      if (indexOfNextPlayer > this.game.players.length) {
+        indexOfNextPlayer = 0;
+      }
+      if (this.game.players[indexOfNextPlayer].leftInfluenceAlive || this.game.players[indexOfNextPlayer].rightInfluenceAlive) {
+        playerFound = true;
+      }
+    }
+    return indexOfNextPlayer;
 }
 
 }

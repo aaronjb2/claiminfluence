@@ -190,3 +190,29 @@
   left: -83px;
   z-index: 1;
 }
+
+.responsive-actions-container {
+  position: absolute;
+  height: 96px;
+  width: 248px;
+  top: 75px;
+  left: 5px;
+}
+
+.responsive-action-button {
+  height: 28px;
+  width: 240px;
+  background-color: white;
+  border: 2px solid black;
+  left: 10px;
+  font-weight: bold;
+  font-family: Georgia;
+  font-size: 12px;
+}
+
+.empty-space-below-player-option {
+  height: 3px;
+  width: 10px;
+}
+
+

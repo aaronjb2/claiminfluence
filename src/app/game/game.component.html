@@ -59,7 +59,11 @@
         <div class="container-of-all-other-players" *ngFor="let player of game.players; let i = index">
           <div class="space-between-player-selection-options-1" *ngIf="game.players.length === 2 && i !== game.turn"></div>
           <div class="space-between-player-selection-options-2" *ngIf="game.players.length === 3 && i !== game.turn"></div>
-          <div *ngIf="i !== game.turn" class = "player-for-selection-container" [ngStyle]="{'background-color': getColorCode(i)}"></div>
+          <div *ngIf="i !== game.turn" class = "player-for-selection-container" [ngStyle]="{'background-color': getColorCode(i)}" (click)="performActionToPlayer(i)">
+            <h2 class="player-name-for-selection">{{ player.name }}</h2>
+            <img class="left-player-shape" src="{{ getShapePath(i) }}"/>
+            <img class="right-player-shape" src="{{ getShapePath(i) }}"/>
+          </div>
           <div class="space-between-player-selection-options-3" *ngIf="game.players.length === 4 && i !== game.turn"></div>
           <div class="space-between-player-selection-options-4" *ngIf="game.players.length === 5 && i !== game.turn"></div>
           <div class="space-between-player-selection-options-5" *ngIf="game.players.length === 6 && i !== game.turn"></div>

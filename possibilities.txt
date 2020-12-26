@@ -1,0 +1,31 @@
+Possibilities
+
+1-Start of turn (No Challengeable Action, No Blockable Action)
+2-Start of turn (Challengeable and Blockable Captain)
+3-Start of turn (Not Challengeable but Blockable Captain)
+4-Start of turn (Challengeable Duke treasuring)
+5-Start of turn (Challengeable Ambassador Block)
+6-Start of turn (Challengeable Captain Block)
+7-Start of turn (Challengeable Contessa)
+8-Start of turn (Blockable Foreign Aid)
+9-Start of turn (Challengeable Duke Foreign Aid Blocking)
+10-Response to Duke Treasuring Challenge
+11-Duke Treasuring Challenge Failed, Must choose influence to lose
+12-Response to Duke Blocking Foreign Aid Challenge
+13-Response to Duke Blocking Foreign Aid Challenge Failed, Must choose influence to lose
+14-Response to Captain Steal Challenge
+15-Captain Steal Challenge Failed, Must choose influence to lose
+16-Response to Captain Block Challenge
+17-Captain Block Challenge Failed, Must choose influence to lose
+18-Response to Ambassador Block Challenge
+19-Ambassador Block Challenge Failed, Must choose influence to lose
+20-Ambassador Initialization allowing people to challenge
+21-Ambassador Response to Challengeable
+22-Ambassador After Failed Challengeable
+23-Response To Assassination (Challenging and Blocking are both options)
+24-Response to Assassination Challenge
+25-Choosing an Influence to lose because of a failed Assassination Challenge
+26-Response to Assassination Challenge (Challenging is no longer an option, but blocking is)
+27-Response to Contessa Challenge
+28-Contessa challenge failed, must choose influence to lose
+29-Being couped, Must choose influence to lose

@@ -342,3 +342,32 @@
   width: 1px;
   height: 2px;
 }
+
+.left-player-shape {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 7px;
+  top: 5px;
+  transform: rotate(-45deg);
+}
+
+.right-player-shape {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  right: 15px;
+  top: 5px;
+  transform: rotate(45deg);
+}
+
+.player-name-for-selection {
+  z-index: 2;
+  text-align: center;
+  position: relative;
+  bottom: 18px;
+}
+
+.challenge-claim-button {
+
+}

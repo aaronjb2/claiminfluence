@@ -24,6 +24,28 @@
   <div class="money-container">
     <img class="coin-symbol" src="assets/images/coin.jpg"/>
   </div>
+  <div class = "responsive-actions-container">
+    <button class="responsive-action-button" *ngIf="evaluateIfChallengeableActionExists()" (click)="challengeClaim()">
+      Challenge Latest Claim
+    </button>
+    <div class="empty-space-below-player-option" *ngIf="evaluateIfChallengeableActionExists()"></div>
+    <button class="responsive-action-button" *ngIf="this.game.phase === 8">
+      Claim Duke: Block 2-Coin Taking
+    </button>
+    <div class="empty-space-below-player-option" *ngIf="this.game.phase === 8"></div>
+    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index">
+      Claim Captain: Block Steal
+    </button>
+    <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index"></div>
+    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index">
+      Claim Ambassador: Block Steal
+    </button>
+    <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index"></div>
+    <button class="responsive-action-button" *ngIf="(this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === index">
+      Claim Contessa: Block Kill
+    </button>
+    <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === index"></div>
+  </div>
     <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
     <div class = "left-influence-container">
         <p class="influence-text" *ngIf="displayingInfluences === true">{{ leftInfluence }}</p>
