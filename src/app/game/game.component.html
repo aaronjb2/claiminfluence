@@ -70,6 +70,10 @@
         </div>
         <button class="back-button" (click)="setSelection('none')">Back</button>
       </div>
+      <div class="response-to-challenge-square" *ngIf="this.game.phase === 10 || this.game.phase === 12 || this.game.phase === 14
+        || this.game.phase === 16 || this.game.phase === 18 || this.game.phase === 21 || this.game.phase === 24 || this.game.phase === 27">
+        <p class="challenge-description-text">{{ this.game.players[this.game.challenger].name }} has challenged {{ this.game.players[this.game.actionPerformer].name }}'s claim to having a {{ getChallengedInfluence() }}, Now {{ this.game.players[this.game.actionPerformer].name }} must click one of their influences to reveal.  If the influence is a {{ getChallengedInfluence() }}, then {{ this.game.players[this.game.actionPerformer].name }} will receive a new random influence in its place, and {{ this.game.players[this.game.challenger].name }} will lose an influence.  If the revealed influence is not a {{ getChallengedInfluence() }}, then it will be a lost influence for {{ this.game.players[this.game.actionPerformer].name }}.</p>
+      </div>
         <avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
             class="{{ getPlayerClassName(1) }}"></avatar>
         <avatar #avatar2 [game]="game" [index]="1" *ngIf="game && game.players"

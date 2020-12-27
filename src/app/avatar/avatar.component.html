@@ -48,9 +48,15 @@
   </div>
     <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
     <div class = "left-influence-container">
-        <p class="influence-text" *ngIf="displayingInfluences === true">{{ leftInfluence }}</p>
+      <div class="top-left-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
+      <div class="top-right-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
+      <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(true)"></button>
+      <p class="influence-text" *ngIf="displayingInfluences === true || !game.players[index].leftInfluenceAlive">{{ leftInfluence }}</p>
     </div>
     <div class = "right-influence-container">
-        <p class="influence-text" *ngIf="displayingInfluences === true">{{ rightInfluence }}</p>
+      <div class="top-left-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
+      <div class="top-right-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
+      <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(false)"></button>
+      <p class="influence-text" *ngIf="displayingInfluences === true || !game.players[index].rightInfluenceAlive">{{ rightInfluence }}</p>
     </div>
 </div>

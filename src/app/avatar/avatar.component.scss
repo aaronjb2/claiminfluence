@@ -215,4 +215,29 @@
   width: 10px;
 }
 
+.select-influence-to-reveal-button {
+  position: absolute;
+  position: absolute;
+  height:20px;
+  width: 86px;
+}
 
+.top-left-part-of-x {
+  position: absolute;
+  top: 9px;
+  left: -2px;
+  width: 90px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(15deg);
+}
+
+.top-right-part-of-x {
+  position: absolute;
+  top: 9px;
+  left: -2px;
+  width: 90px;
+  height: 2px;
+  background-color: black;
+  transform: rotate(-15deg);
+}

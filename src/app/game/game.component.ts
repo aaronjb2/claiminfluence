@@ -249,4 +249,11 @@ getNextAlivePlayer(playerIndex) {
     return indexOfNextPlayer;
 }
 
+getChallengedInfluence() {
+    return this.game.phase === 10 || this.game.phase === 12 ? 'Duke' :
+      this.game.phase === 14 || this.game.phase === 16 ? 'Captain' :
+        this.game.phase === 18 || this.game.phase === 21 ? 'Ambassador' :
+          this.game.phase === 24 ? 'Assassin' : 'Contessa';
+}
+
 }
