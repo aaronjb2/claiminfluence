@@ -141,6 +141,60 @@
     top: 205px;
 }
 
+.left-influence-departing {
+  position: absolute;
+  height:20px;
+  left: 36px;
+  width: 86px;
+  border: 2px solid black;
+  top: 205px;
+}
+
+.left-influence-arriving {
+  position: absolute;
+  height:20px;
+  left: 36px;
+  width: 86px;
+  border: 2px solid black;
+  top: 205px;
+}
+
+.right-influence-departing {
+  position: absolute;
+  height:20px;
+  left: 127px;
+  width: 86px;
+  border: 2px solid black;
+  top: 205px;
+}
+
+.right-influence-arriving {
+  position: absolute;
+  height:20px;
+  left: 127px;
+  width: 86px;
+  border: 2px solid black;
+  top: 205px;
+}
+
+.left-influence-departure-container {
+  position: absolute;
+  height:20px;
+  left: 36px;
+  width: 86px;
+  border: 2px solid black;
+  top: 205px;
+}
+
+.left-influence-departure-container-departing {
+  position: absolute;
+  height:20px;
+  left: 136px;
+  width: 86px;
+  border: 2px solid black;
+  top: 205px;
+}
+
 .right-influence-container {
     position: absolute;
     height:20px;
@@ -157,6 +211,7 @@
     left: 2px;
     width: 80px;
     text-align: center;
+    z-index: 11;
 }
 
 .money-container {
@@ -220,6 +275,15 @@
   position: absolute;
   height:20px;
   width: 86px;
+  z-index: 10;
+}
+
+.select-influence-to-lose-for-incorrectly-challenging-button {
+  position: absolute;
+  position: absolute;
+  height:20px;
+  width: 86px;
+  z-index: 10;
 }
 
 .top-left-part-of-x {

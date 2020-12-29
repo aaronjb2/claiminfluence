@@ -9,6 +9,7 @@ import { IdentifierComponent } from './identifier/identifier.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AvatarComponent } from './avatar/avatar.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AvatarComponent } from './avatar/avatar.component';
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
+    BrowserAnimationsModule
     // ClickOutsideModule
   ],
   providers: [],

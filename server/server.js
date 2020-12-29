@@ -85,7 +85,7 @@ app.get('/getGameData/:identifier', (req, res) => {
                 {
                     name: "Player6Name",
                     color: 5,
-                    shape: 5, 
+                    shape: 5,
                     leftInfluence: 10,
                     rightInfluence: 11,
                     leftInfluenceAlive: true,
@@ -111,5 +111,7 @@ io.on("connection", socket => {
         const index = games.findIndex(game => game.identifier === data.identifier);
         games[index] = data;
         io.to(data.identifier).emit('update-game', data);
+        games[index].influenceActionNumber = -1;
+        games[index].departingInfluence = '';
     })
 })

@@ -1,26 +1,26 @@
 <div class = "avatar" [ngStyle]="{'background-color': this.colorCode}">
-    <img class="left-shape" src="{{ shapePath }}"/>
-    <div class ="name" *ngIf="!changingName">
-        {{ game.players[index].name }}
-    </div>
-    <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)"/>
-    <button class="set-name" (click)="toggleChangingName()"></button>
-    <img class="right-shape" src="{{ shapePath }}"/>
-    <p class = "color-title">color</p>
-    <div class="color-wheel-left" (click)="changeToNextAvailableDownwardColor()">
-        <img class="left-arrow" src = "assets/images/triangle.jpg"/>
-    </div>
-    <div class="color-wheel-right" (click)="changeToNextAvailableUpwardColor()">
-        <img class="right-arrow" src = "assets/images/triangle.jpg"/>
-    </div>
-    <p class = "shape-title">shape</p>
-    <div class="shape-wheel-left" (click)="changeToNextAvailableDownwardShape()">
-        <img class="left-arrow" src = "assets/images/triangle.jpg"/>
-    </div>
-    <div class="shape-wheel-right" (click)="changeToNextAvailableUpwardShape()">
-        <img class="right-arrow" src = "assets/images/triangle.jpg"/>
-        <h1 class="{{ game.players[index].coins > 9 ? 'coin-quantity-2-digit' : 'coin-quantity-1-digit' }}">{{game.players[index].coins}}</h1>
-    </div>
+  <img class="left-shape" src="{{ shapePath }}"/>
+  <div class ="name" *ngIf="!changingName">
+    {{ game.players[index].name }}
+  </div>
+  <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)"/>
+  <button class="set-name" (click)="toggleChangingName()"></button>
+  <img class="right-shape" src="{{ shapePath }}"/>
+  <p class = "color-title">color</p>
+  <div class="color-wheel-left" (click)="changeToNextAvailableDownwardColor()">
+    <img class="left-arrow" src = "assets/images/triangle.jpg"/>
+  </div>
+  <div class="color-wheel-right" (click)="changeToNextAvailableUpwardColor()">
+    <img class="right-arrow" src = "assets/images/triangle.jpg"/>
+  </div>
+  <p class = "shape-title">shape</p>
+  <div class="shape-wheel-left" (click)="changeToNextAvailableDownwardShape()">
+    <img class="left-arrow" src = "assets/images/triangle.jpg"/>
+  </div>
+  <div class="shape-wheel-right" (click)="changeToNextAvailableUpwardShape()">
+    <img class="right-arrow" src = "assets/images/triangle.jpg"/>
+    <h1 class="{{ game.players[index].coins > 9 ? 'coin-quantity-2-digit' : 'coin-quantity-1-digit' }}">{{game.players[index].coins}}</h1>
+  </div>
   <div class="money-container">
     <img class="coin-symbol" src="assets/images/coin.jpg"/>
   </div>
@@ -46,17 +46,35 @@
     </button>
     <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === index"></div>
   </div>
-    <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
-    <div class = "left-influence-container">
-      <div class="top-left-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
-      <div class="top-right-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
-      <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(true)"></button>
-      <p class="influence-text" *ngIf="displayingInfluences === true || !game.players[index].leftInfluenceAlive">{{ leftInfluence }}</p>
-    </div>
-    <div class = "right-influence-container">
-      <div class="top-left-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
-      <div class="top-right-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
-      <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(false)"></button>
-      <p class="influence-text" *ngIf="displayingInfluences === true || !game.players[index].rightInfluenceAlive">{{ rightInfluence }}</p>
-    </div>
+  <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
+  <div class = "left-influence-container" *ngIf="game.influenceActionNumber !== getLeftDepartInfluenceNumber() && game.influenceActionNumber !== getLeftArriveInfluenceNumber()">
+    <div class="top-left-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
+    <div class="top-right-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
+    <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(true)"></button>
+    <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].leftInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(true)"></button>
+    <p class="influence-text" *ngIf="displayingInfluences === true || !game.players[index].leftInfluenceAlive">{{ leftInfluence }}</p>
+  </div>
+  <div class="left-influence-departure-container" *ngIf="showDiv" [@flyInOut]>
+    FLYINOUT
+  </div>
+  <div *ngIf="getLeftDepartInfluenceNumber() !== this.game.influenceActionNumber" class="left-influence-departing" [@departLeftInfluence]>
+    <p class="influence-text" *ngIf="getLeftDepartInfluenceNumber() === this.game.influenceActionNumber">{{ game.departingInfluence }}</p>
+  </div>
+  <div  *ngIf="getLeftArriveInfluenceNumber() === this.game.influenceActionNumber" class="left-influence-arriving" [@arriveLeftInfluence]>
+    <p class="influence-text" *ngIf="displayingInfluences === true">{{ leftInfluence }}</p>
+  </div>
+  <button (click)="toggleDiv()">big button</button>
+  <div class = "right-influence-container" *ngIf="game.influenceActionNumber !== getRightDepartInfluenceNumber() && game.influenceActionNumber !== getRightArriveInfluenceNumber()">
+    <div class="top-left-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
+    <div class="top-right-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
+    <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(false)"></button>
+    <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].rightInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(false)"></button>
+    <p class="influence-text" *ngIf="displayingInfluences === true || !game.players[index].rightInfluenceAlive">{{ rightInfluence }}</p>
+  </div>
+  <div *ngIf="getRightDepartInfluenceNumber() !== this.game.influenceActionNumber" class="right-influence-departing" [@departRightInfluence]>
+    <p class="influence-text" *ngIf="getRightDepartInfluenceNumber() === this.game.influenceActionNumber">{{ game.departingInfluence }}</p>
+  </div>
+  <div  *ngIf="getRightArriveInfluenceNumber() === this.game.influenceActionNumber" class="right-influence-arriving" [@arriveRightInfluence]>
+    <p class="influence-text" *ngIf="displayingInfluences === true">{{ rightInfluence }}</p>
+  </div>
 </div>
