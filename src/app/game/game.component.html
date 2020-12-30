@@ -12,28 +12,28 @@
       <button *ngIf="game && !game.started" class="start-button" (click)="startGame()">start</button>
     </div>
     <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 9 && selection === 'none'" class="turn-options"
-         [ngStyle]="{'background-color': this.colorCode}">
+         [ngStyle]="{'background-color': getColorCode(game.turn)}">
       <div class ="name">
         {{ game.players[game.turn].name }}
       </div>
       <img class="left-shape" src="{{ shapePath }}"/>
       <img class="right-shape" src="{{ shapePath }}"/>
-      <button class="take-one-coin-option">
+      <button class="take-one-coin-option" (click)="takeOneCoin()">
         <p class="text-option-1">Take 1 Coin</p>
         <p class="text-option-subcaption-1">Unchallengeable, Unblockable</p>
       </button>
-      <button class="take-two-coins-option">
+      <button class="take-two-coins-option" (click)="takeTwoCoins()">
         <p class="text-option-2">Take 2 Coins</p>
         <p class="text-option-subcaption-2">Blockable by Duke</p>
       </button>
-      <button class="take-three-coins-option">
+      <button class="take-three-coins-option" (click)="takeThreeCoins()">
         <p class="text-option-3">Claim Duke: Take 3 Coins</p>
       </button>
       <button class="steal-option" (click)="setSelection('steal')">
         <p class="text-option-4">Claim Captain: Steal 2 Coins</p>
         <p class="text-option-subcaption-4">Blockable by Captain or Ambassador</p>
       </button>
-      <button class="shuffle-option">
+      <button class="shuffle-option" (click)="goToAmbassadorInitialState()">
         <p class="text-option-5">Claim Ambassador: Shuffle</p>
         <p class="text-option-subcaption-5">Gives 2 potential other influence options</p>
       </button>

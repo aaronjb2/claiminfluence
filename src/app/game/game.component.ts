@@ -66,10 +66,12 @@ export class GameComponent implements OnInit, OnChanges {
         this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
       }
       if (this.game.started && this.game.influenceActionNumber !== -1) {
+        console.log('this.game.influenceActionNumber: ', this.game.influenceActionNumber);
         setTimeout(() => {
           this.game.influenceActionNumber = this.game.influenceActionNumber + 1;
-          this.game.departingInfluence = '';
+          console.log('this.game.influenceActionNumber: ', this.game.influenceActionNumber);
           setTimeout(() => {
+            this.game.departingInfluence = '';
             this.game.influenceActionNumber = -1;
           });
         }, 1000);
@@ -258,6 +260,35 @@ export class GameComponent implements OnInit, OnChanges {
     return indexOfNextPlayer;
   }
 
+  goToAmbassadorInitialState() {
+    this.game.actionPerformer = this.game.turn;
+    this.game.actionRecipient = -1;
+    this.game.onlyOneCoin = false;
+    this.game.extraInfluence1 = this.getRandomInfluenceFromDeck();
+    this.game.extraInfluence2 = this.getRandomInfluenceFromDeck(this.game.extraInfluence1);
+    this.game.phase = 20;
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  getRandomInfluenceFromDeck(otherInfluenceToAccountFor = -1) {
+    const influencesInDeck = [];
+    for (let i = 0; i < 15; i++) {
+      if (!this.someoneAlreadyHasThatInfluence(i) && otherInfluenceToAccountFor !== i) {
+        influencesInDeck.push(i);
+      }
+    }
+    return influencesInDeck[Math.floor(Math.random() * influencesInDeck.length)];
+  }
+
+  someoneAlreadyHasThatInfluence(influenceNumber) {
+    for (let i = 0; i < this.game.players.length; i++) {
+      if (this.game.players[i].leftInfluence === i || this.game.players[i].rightInfluenceAlive === i) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   getChallengedInfluence() {
     return this.game.phase === 10 || this.game.phase === 12 ? 'Duke' :
       this.game.phase === 14 || this.game.phase === 16 ? 'Captain' :
@@ -265,4 +296,37 @@ export class GameComponent implements OnInit, OnChanges {
           this.game.phase === 24 ? 'Assassin' : 'Contessa';
   }
 
+  takeOneCoin() {
+    this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins + 1;
+    this.game.phase = 1;
+    this.game.actionPerformer = -1;
+    this.game.actionRecipient = -1;
+    this.game.onlyOneCoin = false;
+    this.game.extraInfluence1 = -1;
+    this.game.extraInfluence2 = -1;
+    this.game.turn = this.getNextAlivePlayer(this.game.turn);
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  takeTwoCoins() {
+    this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins + 2;
+    this.game.phase = 8;
+    this.game.actionPerformer = this.game.turn;
+    this.game.actionRecipient = -1;
+    this.game.extraInfluence1 = -1;
+    this.game.extraInfluence2 = -1;
+    this.game.turn = this.getNextAlivePlayer(this.game.turn);
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  takeThreeCoins() {
+    this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins + 3;
+    this.game.phase = 4;
+    this.game.actionPerformer = this.game.turn;
+    this.game.actionRecipient = -1;
+    this.game.extraInfluence1 = -1;
+    this.game.extraInfluence2 = -1;
+    this.game.turn = this.getNextAlivePlayer(this.game.turn);
+    this.webSocketService.emit('update-game', this.game);
+  }
 }

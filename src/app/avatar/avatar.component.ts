@@ -51,6 +51,8 @@ export class AvatarComponent implements OnInit, OnChanges {
   shapePath = 'assets/images/square.jpg';
   leftInfluence = 'Error';
   rightInfluence = 'Error';
+  leftAmbassadorSelection = 0;
+  rightAmbassadorSelection = 1;
   displayingInfluences = false;
   showDiv = false;
   toggleDiv() {
@@ -165,6 +167,9 @@ export class AvatarComponent implements OnInit, OnChanges {
   stopDisplayingInfluences() {
     this.displayingInfluences = false;
   }
+  getInfluenceOfIndex(index) {
+    return index < 0 ? 'Contessa' : influences[index];
+  }
 
   evaluateIfChallengeableActionExists() {
     if (this.game.phase === 2 || (this.game.phase > 3 && this.game.phase < 8) ||
@@ -247,7 +252,7 @@ export class AvatarComponent implements OnInit, OnChanges {
   getNewRandomInfluence(playerInfluenceNumber) {
     const arr = [];
     for (let i = 0; i < 15; i++) {
-      if (!this.someoneAlreadyHasInfluence(i) || playerInfluenceNumber === i) {
+      if ((!this.someoneAlreadyHasInfluence(i) || playerInfluenceNumber === i) && this.game.extraInfluence1 !== i && this.game.extraInfluence2 !== i) {
         arr.push(i);
       }
     }
@@ -307,6 +312,7 @@ export class AvatarComponent implements OnInit, OnChanges {
         this.game.onlyOneCoin = false;
       }
     } else {
+      console.log('in here')
       if (leftInfluence) {
         this.game.players[this.index].leftInfluenceAlive = false;
       } else {
@@ -328,9 +334,10 @@ export class AvatarComponent implements OnInit, OnChanges {
           this.game.phase = 1;
         }
         if (this.game.phase === 12) {
-          this.game.players[this.game.actionPerformer].coins = this.game.players[this.game.actionPerformer].coins + 2;
-          this.game.actionPerformer = -1;
-          this.game.phase = 1;
+          this.game.players[this.game.actionRecipient].coins = this.game.players[this.game.actionRecipient].coins + 2;
+          this.game.actionPerformer = this.game.actionRecipient;
+          this.game.actionRecipient = -1;
+          this.game.phase = 8;
         }
         if (this.game.phase === 14) {
           this.game.players[this.index].coins = this.game.onlyOneCoin ? this.game.players[this.index].coins - 1 : this.game.players[this.index].coins - 2;
@@ -373,6 +380,7 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     this.game.onlyOneCoin = false;
+    console.log('this.game: ', this.game);
     this.webSocketService.emit('update-game', this.game);
   }
 
@@ -425,5 +433,68 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     return false;
+  }
+
+  switchShuffleSelection(leftInfluence, leftDirection) {
+    if (leftInfluence && leftDirection) {
+      this.leftAmbassadorSelection = this.findNextDownwardAmbassadorSelection(this.leftAmbassadorSelection);
+    }
+    if (leftInfluence && !leftDirection) {
+      this.leftAmbassadorSelection = this.findNextUpwardAmbassadorSelection(this.leftAmbassadorSelection);
+    }
+    if (!leftInfluence && leftDirection) {
+      this.rightAmbassadorSelection = this.findNextDownwardAmbassadorSelection(this.rightAmbassadorSelection);
+    }
+    if (!leftInfluence && !leftDirection) {
+      this.rightAmbassadorSelection = this.findNextUpwardAmbassadorSelection(this.rightAmbassadorSelection);
+    }
+  }
+
+
+  findNextDownwardAmbassadorSelection(index) {
+    let num = index;
+    let found = false;
+    while (!found) {
+      num = num === 0 ? 3 : num - 1;
+      if (this.leftAmbassadorSelection !== num && this.rightAmbassadorSelection !== num) {
+        found = true;
+      }
+    }
+    return num;
+  }
+
+  findNextUpwardAmbassadorSelection(index) {
+    let num = index;
+    let found = false;
+    while (!found) {
+      num = num === 3 ? 0 : num + 1;
+      if (this.leftAmbassadorSelection !== num && this.rightAmbassadorSelection !== num) {
+        found = true;
+      }
+    }
+    return num;
+  }
+
+  finalizeAmbassadorSelection() {
+    this.game.players[this.index].leftInfluence = this.leftAmbassadorSelection === 0 ? this.game.players[this.index].leftInfluence
+      : this.leftAmbassadorSelection === 1 ? this.game.players[this.index].rightInfluence
+        : this.leftAmbassadorSelection === 2 ? this.game.extraInfluence1 : this.game.extraInfluence2;
+    this.game.players[this.index].rightInfluence = this.rightAmbassadorSelection === 0 ? this.game.players[this.index].leftInfluence
+      : this.rightAmbassadorSelection === 1 ? this.game.players[this.index].rightInfluence
+        : this.rightAmbassadorSelection === 2 ? this.game.extraInfluence1 : this.game.extraInfluence2;
+    this.game.extraInfluence1 = -1;
+    this.game.extraInfluence2 = -1;
+    this.game.turn = this.getNextAlivePlayer(this.index);
+    this.game.actionPerformer = -1;
+    this.game.phase = 1;
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  blockForeignAid() {
+    this.game.players[this.game.actionPerformer].coins = this.game.players[this.game.actionPerformer].coins - 2;
+    this.game.actionRecipient = this.game.actionPerformer;
+    this.game.actionPerformer = this.index;
+    this.game.phase = 9;
+    this.webSocketService.emit('update-game', this.game);
   }
 }

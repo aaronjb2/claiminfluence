@@ -214,6 +214,46 @@
     z-index: 11;
 }
 
+.ambassador-option-1-text {
+  position: absolute;
+  font-weight: bold;
+  top: -14px;
+  left: 2px;
+  width: 80px;
+  text-align: center;
+  z-index: 19;
+}
+
+.ambassador-option-2-text {
+  position: absolute;
+  font-weight: bold;
+  top: -14px;
+  left: 2px;
+  width: 80px;
+  text-align: center;
+  z-index: 11;
+}
+
+.ambassador-option-3-text {
+  position: absolute;
+  font-weight: bold;
+  top: -14px;
+  left: 2px;
+  width: 80px;
+  text-align: center;
+  z-index: 11;
+}
+
+.ambassador-option-4-text {
+  position: absolute;
+  font-weight: bold;
+  top: -14px;
+  left: 2px;
+  width: 80px;
+  text-align: center;
+  z-index: 11;
+}
+
 .money-container {
   height: 30px;
   width: 50px;
@@ -234,15 +274,15 @@
 
 .coin-quantity-2-digit {
   position: absolute;
-  bottom: -20px;
-  left: -90px;
+  top: 12px;
+  left: 125px;
   z-index: 1;
 }
 
 .coin-quantity-1-digit {
   position: absolute;
-  bottom: -20px;
-  left: -83px;
+  top: 12px;
+  left: 130px;
   z-index: 1;
 }
 
@@ -304,4 +344,52 @@
   height: 2px;
   background-color: black;
   transform: rotate(-15deg);
+}
+
+.left-change-left-influence-arrow {
+  position: absolute;
+  border: 1px solid black;
+  background-color: gray;
+  height: 15px;
+  width: 15px;
+  top: 231px;
+  left: 60px;
+}
+
+.right-change-left-influence-arrow {
+  position: absolute;
+  border: 1px solid black;
+  background-color: gray;
+  height: 15px;
+  width: 15px;
+  top: 231px;
+  left: 85px;
+}
+
+.left-change-right-influence-arrow {
+  position: absolute;
+  border: 1px solid black;
+  background-color: gray;
+  height: 15px;
+  width: 15px;
+  top: 231px;
+  right: 85px;
+}
+
+.right-change-right-influence-arrow {
+  position: absolute;
+  border: 1px solid black;
+  background-color: gray;
+  height: 15px;
+  width: 15px;
+  top: 231px;
+  right: 60px;
+}
+
+.ambassador-done-button {
+  position: absolute;
+  bottom: 0px;
+  left: 103px;
+  width: 44px;
+  text-align: center;
 }
