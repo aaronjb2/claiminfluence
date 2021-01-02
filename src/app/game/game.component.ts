@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, ViewChild, QueryList } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { GameStateProviderService } from '../game-state-provider.service';
 import { WebSocketService } from '../web-socket.service';
@@ -31,6 +31,7 @@ export class GameComponent implements OnInit, OnChanges {
   @ViewChild('avatar6') avatar6: AvatarComponent;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private webSocketService: WebSocketService,
               private gameStateProviderService: GameStateProviderService) { }
 
@@ -38,11 +39,15 @@ export class GameComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.identifier = params.get('identifier');
+      if (!this.isUpperCase(this.identifier)) {
+        const capitalizedIdentifier = this.identifier.toUpperCase();
+        this.redirectToAllCaps(capitalizedIdentifier);
+      }
     });
     this.webSocketService.emit('join-identifier', this.identifier);
     this.gameStateProviderService.getState(this.identifier).subscribe((game) => {
       this.game = game;
-      if (this.game.players[this.game.turn].coins > 9) {
+      if (this.game && this.game.players && this.game.turn && this.game.turn > -1 && this.game.turn < this.game.players.length && this.game.players[this.game.turn].coins > 9) {
         this.selection = 'coup';
       }
       if (this.game && this.game.started && this.game.turn && this.game.turn !== -1) {
@@ -51,6 +56,23 @@ export class GameComponent implements OnInit, OnChanges {
       }
     });
     this.listen();
+  }
+
+  redirectToAllCaps(identifier) {
+    this.router.navigate([identifier]);
+  }
+
+  navigateBackToStartScreen(){
+    this.router.navigate(['']);
+  }
+
+  deleteGame() {
+    this.webSocketService.emit('return-to-start', {identifier: this.identifier});
+    this.navigateBackToStartScreen();
+  }
+
+  isUpperCase(str) {
+    return str === str.toUpperCase();
   }
 
   ngOnChanges() {
@@ -80,6 +102,9 @@ export class GameComponent implements OnInit, OnChanges {
       if (this.game.players[this.game.turn].coins > 9) {
         this.selection = 'coup';
       }
+    });
+    this.webSocketService.listen('return-to-start').subscribe(() => {
+      this.navigateBackToStartScreen();
     });
   }
 
@@ -318,23 +343,30 @@ export class GameComponent implements OnInit, OnChanges {
     this.webSocketService.emit('update-game', this.game);
   }
 
-  getRandomInfluenceFromDeck(otherInfluenceToAccountFor = -1) {
-    const influencesInDeck = [];
-    for (let i = 0; i < 15; i++) {
-      if (!this.someoneAlreadyHasThatInfluence(i) && otherInfluenceToAccountFor !== i) {
-        influencesInDeck.push(i);
-      }
+  getEveryInfluenceThatSomeoneDoesNotAlreadyHave() {
+    const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    for (let i = 0; i < this.game.players.length; i++) {
+      const leftIndex = arr.findIndex((element => {
+        return element === this.game.players[i].leftInfluence;
+      }));
+      arr.splice(leftIndex, 1);
+      const rightIndex = arr.findIndex((element) => {
+        return element === this.game.players[i].rightInfluence;
+      });
+      arr.splice(rightIndex, 1);
     }
-    return influencesInDeck[Math.floor(Math.random() * influencesInDeck.length)];
+    return arr;
   }
 
-  someoneAlreadyHasThatInfluence(influenceNumber) {
-    for (let i = 0; i < this.game.players.length; i++) {
-      if (this.game.players[i].leftInfluence === i || this.game.players[i].rightInfluenceAlive === i) {
-        return true;
-      }
+  getRandomInfluenceFromDeck(otherInfluenceToAccountFor = -1) {
+    const influencesInDeck = this.getEveryInfluenceThatSomeoneDoesNotAlreadyHave();
+    if (otherInfluenceToAccountFor !== -1) {
+      const indexOfOtherInfluence = influencesInDeck.findIndex((element) => {
+        return element === otherInfluenceToAccountFor;
+      });
+      influencesInDeck.splice(indexOfOtherInfluence, 1);
     }
-    return false;
+    return influencesInDeck[Math.floor(Math.random() * influencesInDeck.length)];
   }
 
   getChallengedInfluence() {

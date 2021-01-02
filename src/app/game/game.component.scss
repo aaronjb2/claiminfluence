@@ -66,7 +66,19 @@
 .end-game-button {
     position: absolute;
     bottom: 5px;
-    left: 5px;
+    left: 230px;
+}
+
+.delete-game-button {
+  position: absolute;
+  bottom: 5px;
+  left: 500px;
+}
+
+.back-to-start-screen-button {
+  position: absolute;
+  bottom: 5px;
+  left: 380px;
 }
 
 .name {

@@ -18,11 +18,12 @@ const io = socket(
 
 app.get('/getGameData/:identifier', (req, res) => {
     const { identifier } = req.params;
-    const index = games.findIndex(game => game.identifier === identifier);
+    const capitalizedIdentifer = identifier.toUpperCase();
+    const index = games.findIndex(game => game.identifier === capitalizedIdentifer);
     let game;
     if (index === -1) {
         game = {
-            identifier,
+            identifier: capitalizedIdentifer,
             started: false,
             turn: -1,
             challengablePlayer: -1,
@@ -103,8 +104,9 @@ app.get('/getGameData/:identifier', (req, res) => {
 
 io.on("connection", socket => {
     socket.on("join-identifier",identifier=>{
-        socket.join(identifier);
-        io.to(identifier);
+      const capitalizedIdentifier = identifier.toUpperCase();
+        socket.join(capitalizedIdentifier);
+        io.to(capitalizedIdentifier);
     })
 
     socket.on('update-game', data=> {
@@ -113,5 +115,11 @@ io.on("connection", socket => {
         io.to(data.identifier).emit('update-game', data);
         games[index].influenceActionNumber = -1;
         games[index].departingInfluence = '';
+    })
+
+    socket.on('return-to-start', data=> {
+      const index = games.findIndex(game => game.identifier === data.identifier);
+      games.splice(index, 1);
+      io.to(data.identifier).emit('return-to-start');
     })
 })

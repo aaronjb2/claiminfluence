@@ -241,7 +241,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     if (playerInfluence === this.getChallengedInfluence()) {
       const newRandomInfluence = this.getNewRandomInfluence(playerInfluenceNumber);
       this.game.departingInfluence = playerInfluence;
-      this.game.influenceActionNumber = leftInfluence ? this.getLeftDepartInfluenceNumber() : this.getLeftDepartInfluenceNumber();
+      this.game.influenceActionNumber = leftInfluence ? this.getLeftDepartInfluenceNumber() : this.getRightDepartInfluenceNumber();
       if (leftInfluence) {
         this.game.players[this.index].leftInfluence = newRandomInfluence;
       } else {
@@ -305,7 +305,6 @@ export class AvatarComponent implements OnInit, OnChanges {
         this.game.actionPerformer = -1;
         this.game.actionRecipient = -1;
       } else {
-        console.log('in this phase loop')
         if (this.game.phase === 10) {
           this.game.players[this.index].coins = this.game.players[this.index].coins - 3;
           this.game.actionPerformer = -1;
@@ -358,7 +357,6 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     this.game.onlyOneCoin = false;
-    console.log('this.game: ', this.game);
     this.webSocketService.emit('update-game', this.game);
   }
 

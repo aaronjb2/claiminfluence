@@ -12,7 +12,7 @@
       </select>
       <button *ngIf="game && !game.started" class="start-button" (click)="startGame()">start</button>
     </div>
-    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 10 && selection === 'none'" class="turn-options"
+    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 10 && selection === 'none' && this.game.influenceActionNumber === -1" class="turn-options"
          [ngStyle]="{'background-color': getColorCode(game.turn)}">
       <div class ="name">
         {{ game.players[game.turn].name }}
@@ -47,7 +47,7 @@
         <p class="text-option-subcaption-7">Costs 7 Coins, Unchallengeable, Unblockable</p>
       </button>
     </div>
-    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 10 && selection !== 'none'" class="target-player-selection-box"
+    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 10 && selection !== 'none' && this.game.influenceActionNumber === -1" class="target-player-selection-box"
          [ngStyle]="{'background-color': getColorCode(game.turn)}">
       <div class ="name">
         {{ game.players[game.turn].name }}
@@ -79,7 +79,7 @@
 <!--        || game.phase === 17 || game.phase === 19 || game.phase === 22 || game.phase === 25 || game.phase === 28)">-->
 <!--      <p class="challenge-description-text">{{ this.game.players[this.game.challenger].name }} has incorrectly challenged a claim and must now click on an influence to lose.</p>-->
 <!--    </div>-->
-    <div class="information-square" *ngIf="game && game.started && game.phase > 9">
+    <div class="information-square" *ngIf="(game && game.started) && (game.phase > 9 || game.influenceActionNumber !== -1)">
       <p class="information-box-text">{{ getInformationSquareInformation() }}</p>
     </div>
     <avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
@@ -95,5 +95,7 @@
     <avatar #avatar6 [game]="game" [index]="5" *ngIf="game && game.players && game.players.length > 5"
             class="{{ getPlayerClassName(6) }}"></avatar>
     <button class="end-game-button" *ngIf="game && game.started" (click)="endGame()">End Game</button>
+    <button class="back-to-start-screen-button" (click)="navigateBackToStartScreen()">Back</button>
+    <button class="delete-game-button" (click)="deleteGame()">Delete Game</button>
   </div>
 </div>

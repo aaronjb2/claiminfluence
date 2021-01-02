@@ -3,7 +3,7 @@
   <div class ="name" *ngIf="!changingName">
     {{ game.players[index].name }}
   </div>
-  <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)"/>
+  <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)" maxlength="11"/>
   <button class="set-name" (click)="toggleChangingName()" *ngIf="game && !game.started"></button>
   <img class="right-shape" src="{{ shapePath }}"/>
   <p class = "color-title" *ngIf="game && !game.started">color</p>
@@ -37,7 +37,7 @@
       Claim Captain: Block Steal
     </button>
     <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index && (game.players[index].leftInfluenceAlive || game.players[index].rightInfluenceAlive)"></div>
-    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index" (click)="blockStealWithAmbassador()">
+    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index && (game.players[this.index].leftInfluenceAlive || game.players[this.index].rightInfluenceAlive)" (click)="blockStealWithAmbassador()">
       Claim Ambassador: Block Steal
     </button>
     <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index"></div>
@@ -61,7 +61,7 @@
     <p class="ambassador-option-4-text" *ngIf="leftAmbassadorSelection === 3 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.extraInfluence2) }}</p>
     <p class="departing-influence-text" *ngIf="game.influenceActionNumber === getLeftDepartInfluenceNumber() || game.influenceActionNumber === getLeftArriveInfluenceNumber()">{{ this.game.departingInfluence }}</p>
   </div>
-  <div class = "right-influence-container" *ngIf="game.influenceActionNumber !== getRightDepartInfluenceNumber() && game.influenceActionNumber !== getRightArriveInfluenceNumber()">
+  <div class = "right-influence-container">
     <div class="top-left-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
     <div class="top-right-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
     <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(false)"></button>
