@@ -1,5 +1,6 @@
 <div class = "game">
   <div class = "game-container">
+    <p class="challengeable-claim-description">{{ getChallengeableClaimDescription() }}</p>
     <div *ngIf="game && !game.started" class="center">
       <p class="game-not-started-text" *ngIf="game && !game.started">The following game is over or not yet started.  Press start to begin.  Also, the influences will be shuffled upon pressing start so right now it's fine to look at anyone's influences (Once you start the game you should only look at your own)</p>
       <select *ngIf="game && !game.started" class="player-number-selector" #numberOfPlayers (change)="setNumberOfPlayers(numberOfPlayers.value)">
@@ -11,13 +12,13 @@
       </select>
       <button *ngIf="game && !game.started" class="start-button" (click)="startGame()">start</button>
     </div>
-    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 9 && selection === 'none'" class="turn-options"
+    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 10 && selection === 'none'" class="turn-options"
          [ngStyle]="{'background-color': getColorCode(game.turn)}">
       <div class ="name">
         {{ game.players[game.turn].name }}
       </div>
-      <img class="left-shape" src="{{ shapePath }}"/>
-      <img class="right-shape" src="{{ shapePath }}"/>
+      <img class="left-shape" src="{{ getShapePath(this.game.turn) }}"/>
+      <img class="right-shape" src="{{ getShapePath(this.game.turn) }}"/>
       <button class="take-one-coin-option" (click)="takeOneCoin()">
         <p class="text-option-1">Take 1 Coin</p>
         <p class="text-option-subcaption-1">Unchallengeable, Unblockable</p>
@@ -46,8 +47,8 @@
         <p class="text-option-subcaption-7">Costs 7 Coins, Unchallengeable, Unblockable</p>
       </button>
     </div>
-    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 9 && selection !== 'none'" class="target-player-selection-box"
-         [ngStyle]="{'background-color': this.colorCode}">
+    <div *ngIf="game && game.started && game.phase && game.phase > 0 && game.phase < 10 && selection !== 'none'" class="target-player-selection-box"
+         [ngStyle]="{'background-color': getColorCode(game.turn)}">
       <div class ="name">
         {{ game.players[game.turn].name }}
       </div>
@@ -68,15 +69,18 @@
         <div class="space-between-player-selection-options-4" *ngIf="game.players.length === 5 && i !== game.turn"></div>
         <div class="space-between-player-selection-options-5" *ngIf="game.players.length === 6 && i !== game.turn"></div>
       </div>
-      <button class="back-button" (click)="setSelection('none')">Back</button>
+      <button class="back-button" (click)="setSelection('none')" *ngIf="game.players[game.turn].coins < 10">Back</button>
     </div>
-    <div class="response-to-challenge-square" *ngIf="game && game.started && (game.phase === 10 || game.phase === 12 || game.phase === 14
-        || game.phase === 16 || game.phase === 18 || game.phase === 21 || game.phase === 24 || game.phase === 27)">
-      <p class="challenge-description-text">{{ this.game.players[this.game.challenger].name }} has challenged {{ this.game.players[this.game.actionPerformer].name }}'s claim to having a {{ getChallengedInfluence() }}, Now {{ this.game.players[this.game.actionPerformer].name }} must click one of their influences to reveal.  If the influence is a {{ getChallengedInfluence() }}, then {{ this.game.players[this.game.actionPerformer].name }} will receive a new random influence in its place, and {{ this.game.players[this.game.challenger].name }} will lose an influence.  If the revealed influence is not a {{ getChallengedInfluence() }}, then it will be a lost influence for {{ this.game.players[this.game.actionPerformer].name }}.</p>
-    </div>
-    <div class="must-lose-influence-for-challenging-square" *ngIf="game && game.started && (game.phase === 11 || game.phase === 13 || game.phase === 15
-        || game.phase === 17 || game.phase === 19 || game.phase === 22 || game.phase === 25 || game.phase === 28)">
-      <p class="challenge-description-text">{{ this.game.players[this.game.challenger].name }} has incorrectly challenged a claim and must now click on an influence to lose.</p>
+<!--    <div class="response-to-challenge-square" *ngIf="game && game.started && (game.phase === 10 || game.phase === 12 || game.phase === 14-->
+<!--        || game.phase === 16 || game.phase === 18 || game.phase === 21 || game.phase === 24 || game.phase === 27)">-->
+<!--      <p class="challenge-description-text">{{ this.game.players[this.game.challenger].name }} has challenged {{ this.game.players[this.game.actionPerformer].name }}'s claim to having a {{ getChallengedInfluence() }}, Now {{ this.game.players[this.game.actionPerformer].name }} must click one of their influences to reveal.  If the influence is a {{ getChallengedInfluence() }}, then {{ this.game.players[this.game.actionPerformer].name }} will receive a new random influence in its place, and {{ this.game.players[this.game.challenger].name }} will lose an influence.  If the revealed influence is not a {{ getChallengedInfluence() }}, then it will be a lost influence for {{ this.game.players[this.game.actionPerformer].name }}.</p>-->
+<!--    </div>-->
+<!--    <div class="must-lose-influence-for-challenging-square" *ngIf="game && game.started && (game.phase === 11 || game.phase === 13 || game.phase === 15-->
+<!--        || game.phase === 17 || game.phase === 19 || game.phase === 22 || game.phase === 25 || game.phase === 28)">-->
+<!--      <p class="challenge-description-text">{{ this.game.players[this.game.challenger].name }} has incorrectly challenged a claim and must now click on an influence to lose.</p>-->
+<!--    </div>-->
+    <div class="information-square" *ngIf="game && game.started && game.phase > 9">
+      <p class="information-box-text">{{ getInformationSquareInformation() }}</p>
     </div>
     <avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
             class="{{ getPlayerClassName(1) }}"></avatar>

@@ -4,20 +4,20 @@
     {{ game.players[index].name }}
   </div>
   <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)"/>
-  <button class="set-name" (click)="toggleChangingName()"></button>
+  <button class="set-name" (click)="toggleChangingName()" *ngIf="game && !game.started"></button>
   <img class="right-shape" src="{{ shapePath }}"/>
-  <p class = "color-title">color</p>
-  <div class="color-wheel-left" (click)="changeToNextAvailableDownwardColor()">
+  <p class = "color-title" *ngIf="game && !game.started">color</p>
+  <div class="color-wheel-left" (click)="changeToNextAvailableDownwardColor()" *ngIf="game && !game.started">
     <img class="left-arrow" src = "assets/images/triangle.jpg"/>
   </div>
-  <div class="color-wheel-right" (click)="changeToNextAvailableUpwardColor()">
+  <div class="color-wheel-right" (click)="changeToNextAvailableUpwardColor()" *ngIf="game && !game.started">
     <img class="right-arrow" src = "assets/images/triangle.jpg"/>
   </div>
-  <p class = "shape-title">shape</p>
-  <div class="shape-wheel-left" (click)="changeToNextAvailableDownwardShape()">
+  <p class = "shape-title" *ngIf="game && !game.started">shape</p>
+  <div class="shape-wheel-left" (click)="changeToNextAvailableDownwardShape()" *ngIf="game && !game.started">
     <img class="left-arrow" src = "assets/images/triangle.jpg"/>
   </div>
-  <div class="shape-wheel-right" (click)="changeToNextAvailableUpwardShape()">
+  <div class="shape-wheel-right" (click)="changeToNextAvailableUpwardShape()" *ngIf="game && !game.started">
     <img class="right-arrow" src = "assets/images/triangle.jpg"/>
   </div>
   <h1 class="{{ game.players[index].coins > 9 ? 'coin-quantity-2-digit' : 'coin-quantity-1-digit' }}">{{game.players[index].coins}}</h1>
@@ -25,65 +25,54 @@
     <img class="coin-symbol" src="assets/images/coin.jpg"/>
   </div>
   <div class = "responsive-actions-container">
-    <button class="responsive-action-button" *ngIf="evaluateIfChallengeableActionExists() && index !== this.game.actionPerformer" (click)="challengeClaim()">
+    <button class="responsive-action-button" *ngIf="evaluateIfChallengeableActionExists() && index !== this.game.actionPerformer && (game.players[index].leftInfluenceAlive || game.players[index].rightInfluenceAlive)" (click)="challengeClaim()">
       Challenge Latest Claim
     </button>
-    <div class="empty-space-below-player-option" *ngIf="evaluateIfChallengeableActionExists()"></div>
-    <button class="responsive-action-button" *ngIf="this.game.phase === 8 && this.index !== this.game.actionPerformer" (click)="blockForeignAid()">
+    <div class="empty-space-below-player-option" *ngIf="evaluateIfChallengeableActionExists() && (game.players[index].leftInfluenceAlive || game.players[index].rightInfluenceAlive)"></div>
+    <button class="responsive-action-button" *ngIf="this.game.phase === 8 && this.index !== this.game.actionPerformer && (game.players[index].leftInfluenceAlive || game.players[index].rightInfluenceAlive)" (click)="blockForeignAid()">
       Claim Duke: Block 2-Coin Taking
     </button>
     <div class="empty-space-below-player-option" *ngIf="this.game.phase === 8"></div>
-    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index">
+    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index && (game.players[index].leftInfluenceAlive || game.players[index].rightInfluenceAlive)" (click)="blockStealWithCaptain()">
       Claim Captain: Block Steal
     </button>
-    <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index"></div>
-    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index">
+    <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index && (game.players[index].leftInfluenceAlive || game.players[index].rightInfluenceAlive)"></div>
+    <button class="responsive-action-button" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index" (click)="blockStealWithAmbassador()">
       Claim Ambassador: Block Steal
     </button>
     <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 2 || this.game.phase === 3) && this.game.actionRecipient === index"></div>
-    <button class="responsive-action-button" *ngIf="(this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === index">
+    <button class="responsive-action-button" *ngIf="(this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === index" (click)="blockAssassination()">
       Claim Contessa: Block Kill
     </button>
     <div class="empty-space-below-player-option" *ngIf="(this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === index"></div>
   </div>
+  <img class="dead-symbol" src="assets/images/skull.jpg" *ngIf="!game.players[index].leftInfluenceAlive && !game.players[index].rightInfluenceAlive"/>
   <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
-  <div class = "left-influence-container" *ngIf="game.influenceActionNumber !== getLeftDepartInfluenceNumber() && game.influenceActionNumber !== getLeftArriveInfluenceNumber()">
+  <div class = "left-influence-container">
     <div class="top-left-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
     <div class="top-right-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
     <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(true)"></button>
     <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].leftInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(true)"></button>
+    <button class="select-to-lose-influence-for-coup-or-assassination" *ngIf="(game.phase === 29 || game.phase === 23 || game.phase === 26) && game.actionRecipient === index && game.players[index].leftInfluenceAlive" (click)="forfeitInfluence(true)"></button>
     <p class="influence-text" *ngIf="(displayingInfluences === true || !game.players[index].leftInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index )">{{ leftInfluence }}</p>
     <p class="ambassador-option-1-text" *ngIf="leftAmbassadorSelection === 0 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].leftInfluence) }}</p>
     <p class="ambassador-option-2-text" *ngIf="leftAmbassadorSelection === 1 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].rightInfluence) }}</p>
     <p class="ambassador-option-3-text" *ngIf="leftAmbassadorSelection === 2 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.extraInfluence1) }}</p>
     <p class="ambassador-option-4-text" *ngIf="leftAmbassadorSelection === 3 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.extraInfluence2) }}</p>
+    <p class="departing-influence-text" *ngIf="game.influenceActionNumber === getLeftDepartInfluenceNumber() || game.influenceActionNumber === getLeftArriveInfluenceNumber()">{{ this.game.departingInfluence }}</p>
   </div>
-  <div class="left-influence-departure-container" *ngIf="showDiv" [@flyInOut]>
-    FLYINOUT
-  </div>
-  <div *ngIf="getLeftDepartInfluenceNumber() !== this.game.influenceActionNumber" class="left-influence-departing" [@departLeftInfluence]>
-    <p class="influence-text" *ngIf="getLeftDepartInfluenceNumber() === this.game.influenceActionNumber">{{ game.departingInfluence }}</p>
-  </div>in
-  <div  *ngIf="getLeftArriveInfluenceNumber() === this.game.influenceActionNumber" class="left-influence-arriving" [@arriveLeftInfluence]>
-    <p class="influence-text" *ngIf="displayingInfluences === true">{{ leftInfluence }}</p>
-  </div>
-  <button (click)="toggleDiv()">big button</button>
   <div class = "right-influence-container" *ngIf="game.influenceActionNumber !== getRightDepartInfluenceNumber() && game.influenceActionNumber !== getRightArriveInfluenceNumber()">
     <div class="top-left-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
     <div class="top-right-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
     <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(false)"></button>
     <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].rightInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(false)"></button>
+    <button class="select-to-lose-influence-for-coup-or-assassination" *ngIf="(game.phase === 29 || game.phase === 23 || game.phase === 26) && game.actionRecipient === index && game.players[index].rightInfluenceAlive" (click)="forfeitInfluence(false)"></button>
     <p class="influence-text" *ngIf="(displayingInfluences === true || !game.players[index].rightInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index)">{{ rightInfluence }}</p>
     <p class="ambassador-option-1-text" *ngIf="rightAmbassadorSelection === 0 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].leftInfluence) }}</p>
     <p class="ambassador-option-2-text" *ngIf="rightAmbassadorSelection === 1 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].rightInfluence) }}</p>
     <p class="ambassador-option-3-text" *ngIf="rightAmbassadorSelection === 2 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.extraInfluence1) }}</p>
     <p class="ambassador-option-4-text" *ngIf="rightAmbassadorSelection === 3 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.extraInfluence2) }}</p>
-  </div>
-  <div *ngIf="getRightDepartInfluenceNumber() !== this.game.influenceActionNumber" class="right-influence-departing" [@departRightInfluence]>
-    <p class="influence-text" *ngIf="getRightDepartInfluenceNumber() === this.game.influenceActionNumber">{{ game.departingInfluence }}</p>
-  </div>
-  <div  *ngIf="getRightArriveInfluenceNumber() === this.game.influenceActionNumber" class="right-influence-arriving" [@arriveRightInfluence]>
-    <p class="influence-text" *ngIf="displayingInfluences === true">{{ rightInfluence }}</p>
+    <p class="departing-influence-text" *ngIf="game.influenceActionNumber === getRightDepartInfluenceNumber() || game.influenceActionNumber === getRightArriveInfluenceNumber()">{{ this.game.departingInfluence }}</p>
   </div>
   <div class="left-change-left-influence-arrow" *ngIf="(this.game.phase === 20 || this.game.phase === 30) && this.game.turn === this.index" (click)="switchShuffleSelection(true, true)">
     <img class="left-arrow" src = "assets/images/triangle.jpg"/>

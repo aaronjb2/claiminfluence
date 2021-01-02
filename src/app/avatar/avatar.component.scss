@@ -139,6 +139,7 @@
     width: 86px;
     border: 2px solid black;
     top: 205px;
+    background-color: white;
 }
 
 .left-influence-departing {
@@ -175,24 +176,7 @@
   width: 86px;
   border: 2px solid black;
   top: 205px;
-}
-
-.left-influence-departure-container {
-  position: absolute;
-  height:20px;
-  left: 36px;
-  width: 86px;
-  border: 2px solid black;
-  top: 205px;
-}
-
-.left-influence-departure-container-departing {
-  position: absolute;
-  height:20px;
-  left: 136px;
-  width: 86px;
-  border: 2px solid black;
-  top: 205px;
+  background-color: white;
 }
 
 .right-influence-container {
@@ -202,6 +186,7 @@
     width: 86px;
     border: 2px solid black;
     top: 205px;
+    background-color: white;
 }
 
 .influence-text {
@@ -254,6 +239,16 @@
   z-index: 11;
 }
 
+.departing-influence-text {
+  position: absolute;
+  font-weight: bold;
+  top: -14px;
+  left: 2px;
+  width: 80px;
+  text-align: center;
+  z-index: 80;
+}
+
 .money-container {
   height: 30px;
   width: 50px;
@@ -275,7 +270,7 @@
 .coin-quantity-2-digit {
   position: absolute;
   top: 12px;
-  left: 125px;
+  left: 121px;
   z-index: 1;
 }
 
@@ -312,6 +307,13 @@
 
 .select-influence-to-reveal-button {
   position: absolute;
+  height:20px;
+  width: 86px;
+  z-index: 10;
+}
+
+.select-to-lose-influence-for-coup-or-assassination {
+  position: absolute;
   position: absolute;
   height:20px;
   width: 86px;
@@ -334,6 +336,7 @@
   height: 2px;
   background-color: black;
   transform: rotate(15deg);
+  z-index: 70;
 }
 
 .top-right-part-of-x {
@@ -344,6 +347,7 @@
   height: 2px;
   background-color: black;
   transform: rotate(-15deg);
+  z-index: 70;
 }
 
 .left-change-left-influence-arrow {
@@ -392,4 +396,12 @@
   left: 103px;
   width: 44px;
   text-align: center;
+}
+
+.dead-symbol {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 68px;
+  left: 75px;
 }

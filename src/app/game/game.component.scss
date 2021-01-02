@@ -1,15 +1,19 @@
 .game {
     padding-top: 38px;
+    margin: 0 auto;
+    display: flex;
+  justify-content: center;
 }
 
 .game-container {
     top: 38px;
     height: 860px;
     width: 800px;
-    border: 2px solid black;
+    border: 2px solid white;
     margin: 0 auto;
     position: absolute;
     top:70px;
+    margin: 0 auto;
 }
 
 .center {
@@ -372,6 +376,17 @@
 
 }
 
+.information-square {
+  height: 250px;
+  width: 250px;
+  border: 2px solid white;
+  position: absolute;
+  left: 273px;
+  bottom: 302px;
+  display: flex;
+  vertical-align: middle;
+}
+
 .response-to-challenge-square {
   height: 250px;
   width: 250px;
@@ -392,4 +407,18 @@
 
 .challenge-description-text {
   font-weight: bold;
+  text-align: center;
+}
+
+.information-box-text {
+  font-weight: bold;
+  margin: auto;
+  vertical-align: middle;
+}
+
+.challengeable-claim-description {
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: -8px;
 }

@@ -8,40 +8,7 @@ const influences = require('../../../resources/influences.json');
 @Component({
   selector: 'avatar',
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss'],
-  animations: [
-    trigger('flyInOut', [
-      transition('void => *', [
-        style({transform: 'translateY(-100px)'}),
-        animate('1s')
-      ]),
-      transition('* => void', [
-        animate('1s', style({transform: 'translateY(100px)'}))
-      ])
-    ]),
-    trigger('departLeftInfluence', [
-      transition('* => void', [
-        animate('1s', style({transform: 'translateX(-100px)'}))
-      ])
-    ]),
-    trigger('arriveLeftInfluence', [
-      transition('void => *', [
-        style({transform: 'translateY(100px)'}),
-        animate('1s')
-      ])
-    ]),
-    trigger('departRightInfluence', [
-      transition('* => void', [
-        animate('1s', style({transform: 'translateX(100px)'}))
-      ])
-    ]),
-    trigger('arriveRightInfluence', [
-      transition('void => *', [
-        style({transform: 'translateY(100px)'}),
-        animate('1s')
-      ])
-    ])
-  ]
+  styleUrls: ['./avatar.component.scss']
 })
 export class AvatarComponent implements OnInit, OnChanges {
   @Input() index: number;
@@ -239,7 +206,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     let indexOfNextPlayer = playerIndex;
     while (!playerFound) {
       indexOfNextPlayer = indexOfNextPlayer + 1;
-      if (indexOfNextPlayer > this.game.players.length) {
+      if (indexOfNextPlayer > this.game.players.length - 1) {
         indexOfNextPlayer = 0;
       }
       if (this.game.players[indexOfNextPlayer].leftInfluenceAlive || this.game.players[indexOfNextPlayer].rightInfluenceAlive) {
@@ -280,12 +247,10 @@ export class AvatarComponent implements OnInit, OnChanges {
       } else {
         this.game.players[this.index].rightInfluence = newRandomInfluence;
       }
-      if (!this.game.players[this.game.challenger].leftInfluenceAlive || !this.game.players[this.game.challenger].rightInfluenceAlive || this.game.phase === 24) {
-        console.log('did not want to be in here')
+      if (!this.game.players[this.game.challenger].leftInfluenceAlive || !this.game.players[this.game.challenger].rightInfluenceAlive) {
         this.game.players[this.game.challenger].leftInfluenceAlive = false;
         this.game.players[this.game.challenger].rightInfluenceAlive = false;
         if (this.evaluateIfGameIsOver()) {
-          console.log('in evaluate if game is over evaluated to true')
           this.game.started = false;
           this.game.challenger = -1;
           this.game.actionPerformer = -1;
@@ -306,13 +271,25 @@ export class AvatarComponent implements OnInit, OnChanges {
             this.game.actionPerformer = -1;
             this.game.challenger = -1;
           }
+        } else {
+          if (this.game.phase === 14 || this.game.phase === 12 || this.game.phase === 10 || this.game.phase === 16 || this.game.phase === 18 || this.game.phase === 28) {
+            this.game.phase = 1;
+            this.game.actionPerformer = -1;
+            this.game.actionRecipient = -1;
+            this.game.onlyOneCoin = false;
+          }
+          if (this.game.phase === 21) {
+            this.game.phase === 30;
+          }
+          if (this.game.phase === 24) {
+            this.game.phase = 26;
+          }
         }
       } else {
         this.game.phase = this.game.phase + 1;
         this.game.onlyOneCoin = false;
       }
     } else {
-      console.log('in here')
       if (leftInfluence) {
         this.game.players[this.index].leftInfluenceAlive = false;
       } else {
@@ -328,6 +305,7 @@ export class AvatarComponent implements OnInit, OnChanges {
         this.game.actionPerformer = -1;
         this.game.actionRecipient = -1;
       } else {
+        console.log('in this phase loop')
         if (this.game.phase === 10) {
           this.game.players[this.index].coins = this.game.players[this.index].coins - 3;
           this.game.actionPerformer = -1;
@@ -345,8 +323,8 @@ export class AvatarComponent implements OnInit, OnChanges {
           this.game.phase = 1;
         }
         if (this.game.phase === 16 || this.game.phase === 18) {
-          this.game.players[this.index].coins = this.game.onlyOneCoin ? this.game.players[this.index].coins - 1 : this.game.players[this.index].coins - 2;
-          this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins + 1 : this.game.players[this.game.actionPerformer].coins + 2;
+          this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins - 1 : this.game.players[this.game.actionPerformer].coins - 2;
+          this.game.players[this.game.actionRecipient].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionRecipient].coins + 1 : this.game.players[this.game.actionRecipient].coins + 2;
           this.game.actionPerformer = -1;
           this.game.actionRecipient = -1;
           this.game.phase = 1;
@@ -495,6 +473,50 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.actionRecipient = this.game.actionPerformer;
     this.game.actionPerformer = this.index;
     this.game.phase = 9;
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  blockStealWithAmbassador() {
+    this.game.actionRecipient = this.game.actionPerformer;
+    this.game.actionPerformer = this.index;
+    this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins + 1 : this.game.players[this.game.actionPerformer].coins + 2;
+    this.game.players[this.game.actionRecipient].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionRecipient].coins - 1 : this.game.players[this.game.actionRecipient].coins - 2;
+    this.game.phase = 5;
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  blockStealWithCaptain() {
+    this.game.actionRecipient = this.game.actionPerformer;
+    this.game.actionPerformer = this.index;
+    this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins + 1 : this.game.players[this.game.actionPerformer].coins + 2;
+    this.game.players[this.game.actionRecipient].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionRecipient].coins - 1 : this.game.players[this.game.actionRecipient].coins - 2;
+    this.game.phase = 6;
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  blockAssassination() {
+    this.game.actionRecipient = this.game.actionPerformer;
+    this.game.actionPerformer = this.index;
+    this.game.turn = this.getNextAlivePlayer(this.game.turn);
+    this.game.phase = 7;
+    this.webSocketService.emit('update-game', this.game);
+  }
+
+  forfeitInfluence(leftInfluence) {
+    if (leftInfluence) {
+      this.game.players[this.index].leftInfluenceAlive = false;
+    } else {
+      this.game.players[this.index].rightInfluenceAlive = false;
+    }
+    if (!this.game.players[this.index].leftInfluenceAlive || this.game.players[this.index].rightInfluenceAlive) {
+      if (this.evaluateIfGameIsOver()) {
+        this.game.started = false;
+      }
+    }
+    this.game.phase = 1;
+    this.game.actionRecipient = -1;
+    this.game.actionPerformer = -1;
+    this.game.turn = this.getNextAlivePlayer(this.game.turn);
     this.webSocketService.emit('update-game', this.game);
   }
 }

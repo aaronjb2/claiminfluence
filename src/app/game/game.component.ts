@@ -20,7 +20,7 @@ export class GameComponent implements OnInit, OnChanges {
   identifier: string;
   game;
   colorCode = 'white';
-  shapePath = 'assets/images/square.jpg';
+  shapePath;
   selection = 'none';
 
   @ViewChild('avatar1') avatar1: AvatarComponent;
@@ -42,6 +42,9 @@ export class GameComponent implements OnInit, OnChanges {
     this.webSocketService.emit('join-identifier', this.identifier);
     this.gameStateProviderService.getState(this.identifier).subscribe((game) => {
       this.game = game;
+      if (this.game.players[this.game.turn].coins > 9) {
+        this.selection = 'coup';
+      }
       if (this.game && this.game.started && this.game.turn && this.game.turn !== -1) {
         this.colorCode = colorCodes[this.game.players[this.game.turn].color];
         this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
@@ -66,15 +69,16 @@ export class GameComponent implements OnInit, OnChanges {
         this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
       }
       if (this.game.started && this.game.influenceActionNumber !== -1) {
-        console.log('this.game.influenceActionNumber: ', this.game.influenceActionNumber);
         setTimeout(() => {
           this.game.influenceActionNumber = this.game.influenceActionNumber + 1;
-          console.log('this.game.influenceActionNumber: ', this.game.influenceActionNumber);
           setTimeout(() => {
             this.game.departingInfluence = '';
             this.game.influenceActionNumber = -1;
-          });
-        }, 1000);
+          }, 2000);
+        }, 2000);
+      }
+      if (this.game.players[this.game.turn].coins > 9) {
+        this.selection = 'coup';
       }
     });
   }
@@ -213,7 +217,10 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   setSelection(val) {
-    this.selection = val;
+    if (!(val === 'kill' && this.game.players[this.game.turn].coins < 3) && !(val === 'coup' && this.game.players[this.game.turn].coins < 7)) {
+      this.selection = val;
+      this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
+    }
   }
 
   getColorCode(index) {
@@ -241,8 +248,49 @@ export class GameComponent implements OnInit, OnChanges {
       this.game.phase = 2;
       this.game.turn = this.getNextAlivePlayer(this.game.turn);
     }
+    if (this.selection === 'kill') {
+      this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins - 3;
+      this.game.actionPerformer = this.game.turn;
+      this.game.actionRecipient = playerIndex;
+      this.game.onlyOneCoin = false;
+      this.game.phase = 23;
+    }
+    if (this.selection === 'coup') {
+      this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins - 7;
+      if (this.game.players[playerIndex].leftInfluenceAlive && this.game.players[playerIndex].rightInfluenceAlive) {
+        this.game.actionPerformer = this.game.turn;
+        this.game.actionRecipient = playerIndex;
+        this.game.onlyOneCoin = false;
+        this.game.phase = 29;
+      } else {
+        this.game.players[playerIndex].leftInfluenceAlive = false;
+        this.game.players[playerIndex].rightInfluenceAlive = false;
+        this.game.actionPerformer = -1;
+        this.game.actionRecipient = -1;
+        this.game.onlyOneCoin = false;
+        this.game.phase = 1;
+        if (this.evaluateIfGameIsOver()) {
+          this.game.started = false;
+        } else {
+          this.game.turn = this.getNextAlivePlayer(this.game.turn);
+        }
+      }
+    }
     this.selection = 'none';
     this.webSocketService.emit('update-game', this.game);
+  }
+
+  evaluateIfGameIsOver() {
+    let alivePlayers = 0;
+    for (let i = 0; i < this.game.players.length; i++) {
+      if (this.game.players[i].leftInfluenceAlive || this.game.players[i].rightInfluenceAlive) {
+        alivePlayers = alivePlayers + 1;
+      }
+    }
+    if (alivePlayers < 2) {
+      return true;
+    }
+    return false;
   }
 
   getNextAlivePlayer(playerIndex) {
@@ -328,5 +376,111 @@ export class GameComponent implements OnInit, OnChanges {
     this.game.extraInfluence2 = -1;
     this.game.turn = this.getNextAlivePlayer(this.game.turn);
     this.webSocketService.emit('update-game', this.game);
+  }
+
+  getChallengeableClaimDescription() {
+    if (!this.game || !this.game.started || !this.game.phase) {
+      return '';
+    }
+    if (this.game.phase === 2 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} used Captain power to steal ${this.game.onlyOneCoin ? '1 coin' : '2 coins'} from ${this.game.players[this.game.actionRecipient].name}`;
+    }
+    if (this.game.phase === 4 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} used Duke power to take 3 coins from the treasury`;
+    }
+    if (this.game.phase === 5 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} used Ambassador power to block ${this.game.players[this.game.actionRecipient].name}'s stealing of ${this.game.onlyOneCoin ? '1 coin' : '2 coins'}`;
+    }
+    if (this.game.phase === 6 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} used Captain power to block ${this.game.players[this.game.actionRecipient].name}'s stealing of ${this.game.onlyOneCoin ? '1 coin' : '2 coins'}`;
+    }
+    if (this.game.phase === 7 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} used Contessa power to block ${this.game.players[this.game.actionRecipient].name}'s assassination of their influence`;
+    }
+    if (this.game.phase === 8 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length) {
+      return `Challengeable Claim: None, however players can claim duke and block ${this.game.players[this.game.actionPerformer].name}'s foreign aid (Taking of 2 coins)`;
+    }
+    if (this.game.phase === 9 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} used Duke power to block ${this.game.players[this.game.actionRecipient].name}'s Foreign Aid (Taking of 2 coins)`;
+    }
+    if (this.game.phase === 20 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} is using Ambassador power to potentially swap 1 or both influences`;
+    }
+    if (this.game.phase === 23 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `Challengeable Claim: ${this.game.players[this.game.actionPerformer].name} is using Assassin power to pay 3 coins and kill an influence of ${this.game.players[this.game.actionRecipient].name}`;
+    }
+    return '';
+  }
+
+  getChallengeResponseMessage() {
+    return `${this.game.players[this.game.challenger].name} has challenged ${this.game.players[this.game.actionPerformer].name}'s claim to having a ${this.getChallengedInfluence()}, Now ${this.game.players[this.game.actionPerformer].name} must click one of their influences to reveal.  If the influence is a ${this.getChallengedInfluence()}, then ${this.game.players[this.game.actionPerformer].name} will receive a new random influence in its place, and ${this.game.players[this.game.challenger].name} will lose an influence.  If the revealed influence is not a ${this.getChallengedInfluence()}, then it will be a lost influence for ${this.game.players[this.game.actionPerformer].name}.`;
+  }
+
+  getInformationSquareInformation() {
+    if (this.game.influenceActionNumber !== -1) {
+      if (this.game.influenceActionNumber === 0 || this.game.influenceActionNumber === 1) {
+        return `${this.game.players[0].name} is getting a new random influence in place of their left influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 2 || this.game.influenceActionNumber === 3) {
+        return `${this.game.players[0].name} is getting a new random influence in place of their right influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 4 || this.game.influenceActionNumber === 5) {
+        return `${this.game.players[1].name} is getting a new random influence in place of their left influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 6 || this.game.influenceActionNumber === 7) {
+        return `${this.game.players[1].name} is getting a new random influence in place of their right influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 8 || this.game.influenceActionNumber === 9) {
+        return `${this.game.players[2].name} is getting a new random influence in place of their left influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 10 || this.game.influenceActionNumber === 11) {
+        return `${this.game.players[2].name} is getting a new random influence in place of their right influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 12 || this.game.influenceActionNumber === 13) {
+        return `${this.game.players[3].name} is getting a new random influence in place of their left influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 14 || this.game.influenceActionNumber === 15) {
+        return `${this.game.players[3].name} is getting a new random influence in place of their right influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 16 || this.game.influenceActionNumber === 17) {
+        return `${this.game.players[4].name} is getting a new random influence in place of their left influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 18 || this.game.influenceActionNumber === 19) {
+        return `${this.game.players[4].name} is getting a new random influence in place of their right influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 20 || this.game.influenceActionNumber === 21) {
+        return `${this.game.players[5].name} is getting a new random influence in place of their left influence, which was a ${this.game.departingInfluence}`;
+      }
+      if (this.game.influenceActionNumber === 22 || this.game.influenceActionNumber === 23) {
+        return `${this.game.players[5].name} is getting a new random influence in place of their right influence, which was a ${this.game.departingInfluence}`;
+      }
+    }
+    if ((this.game.phase === 10 || this.game.phase === 12 || this.game.phase === 14 || this.game.phase === 16 || this.game.phase === 18 || this.game.phase === 21 || this.game.phase === 24 || this.game.phase === 27) && this.game.challenger >= 0 && this.game.challenger < this.game.players.length && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length) {
+      return this.getChallengeResponseMessage();
+    }
+    if ((this.game.phase === 11 || this.game.phase === 13 || this.game.phase === 15 || this.game.phase === 17 || this.game.phase === 19 || this.game.phase === 22 || this.game.phase === 25 || this.game.phase === 28) && this.game.challenger >= 0 && this.game.challenger < this.game.players.length) {
+      return `${this.game.players[this.game.challenger].name} has incorrectly challenged a claim and must now click on an influence to lose.`;
+    }
+    if (this.game.phase === 20 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length) {
+      return `${this.game.players[this.game.actionPerformer].name} is claiming ambassador to shuffle their cards with the court deck.  They should allow other players to challenge their claim, then when they're ready with the two influences they choose, click done.`;
+    }
+    if (this.game.phase === 23 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `${this.game.players[this.game.actionPerformer].name} is claiming Assassin power to make ${this.game.players[this.game.actionRecipient].name} lose an influence.  Anyone can challenge ${this.game.players[this.game.actionPerformer].name}'s Assassin claim.  Additionally ${this.game.players[this.game.actionRecipient].name} can claim they have a contessa to block the assassination.  ${this.game.players[this.game.actionRecipient].leftInfluenceAlive && this.game.players[this.game.actionRecipient].rightInfluenceAlive ? 'Note that a failed Contessa claim will result in losing both influences.  ' : ''}Otherwise they can just click the influence to lose it.`;
+    }
+    if (this.game.phase === 26 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      if (this.game.players[this.game.actionRecipient].leftInfluenceAlive && this.game.players[this.game.actionRecipient].rightInfluenceAlive) {
+        return `Challenging ${this.game.players[this.game.actionPerformer].name}'s claim to Assassin power failed, but ${this.game.players[this.game.actionRecipient].name} still has the option to claim a Contessa (Resulting in losing both influences if the claim fails).  Alternatively, ${this.game.players[this.game.actionRecipient].name} can simply choose an influence to lose by clicking on it`
+      }
+      if (!this.game.players[this.game.actionRecipient].leftInfluenceAlive || !this.game.players[this.game.actionRecipient].rightInfluenceAlive) {
+        return `At this point, all ${this.game.players[this.game.actionRecipient].name} can do in response to ${this.game.players[this.game.actionPerformer].name}'s assassination attempt is claim their remaining influence is a Contessa to block the assassination.  Or they can just click the influence to lose the game.`
+      }
+    }
+    if (this.game.phase === 29 && this.game.actionPerformer >= 0 && this.game.actionPerformer < this.game.players.length && this.game.actionRecipient >= 0 && this.game.actionRecipient < this.game.players.length) {
+      return `${this.game.players[this.game.actionPerformer].name} is couping ${this.game.players[this.game.actionRecipient].name}.  ${this.game.players[this.game.actionRecipient].name} must click an influence to lose it`;
+    }
+    if (this.game.phase === 30) {
+      return `The attempt to challenge the Ambassador claim failed.  Now the players must wait for ${this.game.players[this.game.actionPerformer].name} to finish selecting their influences.  They should push done when completed.`;
+    }
+    return ''
   }
 }
