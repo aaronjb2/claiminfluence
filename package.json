@@ -23,6 +23,7 @@
     "@angular/router": "~10.1.4",
     "angular-animations": "^0.11.0",
     "animate.css": "^4.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ng-click-outside": "^7.0.1",

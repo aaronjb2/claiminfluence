@@ -4,7 +4,10 @@ const socket = require('socket.io');
 const path = require('path');
 const app = express();
 app.use(express.json());
+const cors = require('cors');
 // app.use( express.static( `${__dirname}/../build` ) );
+
+app.use(cors());
 
 const { SERVER_PORT } = process.env;
 
