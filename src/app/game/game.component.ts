@@ -257,7 +257,7 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   performActionToPlayer(playerIndex) {
-    if (this.selection === 'steal') {
+    if (this.selection === 'steal' && this.game.players[playerIndex].coins > 0 && (this.game.players[playerIndex].leftInfluenceAlive || this.game.players[playerIndex].rightInfluenceAlive)) {
       this.game.actionPerformer = this.game.turn;
       this.game.actionRecipient = playerIndex;
       this.game.challenger = -1;
@@ -272,15 +272,19 @@ export class GameComponent implements OnInit, OnChanges {
       }
       this.game.phase = 2;
       this.game.turn = this.getNextAlivePlayer(this.game.turn);
+      this.selection = 'none';
+      this.webSocketService.emit('update-game', this.game);
     }
-    if (this.selection === 'kill') {
+    if (this.selection === 'kill' && (this.game.players[playerIndex].leftInfluenceAlive || this.game.players[playerIndex].rightInfluenceAlive)) {
       this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins - 3;
       this.game.actionPerformer = this.game.turn;
       this.game.actionRecipient = playerIndex;
       this.game.onlyOneCoin = false;
       this.game.phase = 23;
+      this.selection = 'none';
+      this.webSocketService.emit('update-game', this.game);
     }
-    if (this.selection === 'coup') {
+    if (this.selection === 'coup' && (this.game.players[playerIndex].leftInfluenceAlive || this.game.players[playerIndex].rightInfluenceAlive)) {
       this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins - 7;
       if (this.game.players[playerIndex].leftInfluenceAlive && this.game.players[playerIndex].rightInfluenceAlive) {
         this.game.actionPerformer = this.game.turn;
@@ -300,9 +304,9 @@ export class GameComponent implements OnInit, OnChanges {
           this.game.turn = this.getNextAlivePlayer(this.game.turn);
         }
       }
+      this.selection = 'none';
+      this.webSocketService.emit('update-game', this.game);
     }
-    this.selection = 'none';
-    this.webSocketService.emit('update-game', this.game);
   }
 
   evaluateIfGameIsOver() {
