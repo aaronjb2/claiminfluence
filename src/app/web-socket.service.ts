@@ -9,8 +9,8 @@ export class WebSocketService {
 
   socket: any;
   // readonly uri: string = 'ws://localhost:4848'; // for running locally
-  readonly uri: string = ''; // for hosted
-  // readonly uri: string = 'aaronjbraithwaite.net:4848';
+  // readonly uri: string = ''; // for hosted
+  readonly uri: string = 'aaronjbraithwaite.net:4848';
 
   constructor() {
     this.socket = io(this.uri);
@@ -20,7 +20,7 @@ export class WebSocketService {
     return new Observable((subscriber) => {
       this.socket.on(eventName, (data) => {
         subscriber.next(data);
-      })
+      });
     });
   }
 
