@@ -5,6 +5,9 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 const cors = require('cors');
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
 app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(cors());
@@ -19,10 +22,21 @@ const { SERVER_PORT } = process.env;
 
 const games = [];
 
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/aaronjbraithwaite.net/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/aaronjbraithwaite.net/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/aaronjbraithwaite.net/chain.pem', 'utf8');
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
+
 const io = socket(
+  https.createServer(credentials, app).listen(443, () => {
     app.listen(SERVER_PORT, () => {
-        console.log(`On the ${SERVER_PORT}th day of Christmas my true love gave to me..... nothing because I'm single`);
-    })
+      console.log(`On the ${SERVER_PORT}th day of Christmas my true love gave to me..... nothing because I'm single`);
+    });
+  })
 );
 
 app.get('/getGameData/:identifier', (req, res) => {
