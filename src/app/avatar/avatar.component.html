@@ -3,8 +3,8 @@
   <div class ="name" *ngIf="!changingName">
     {{ game.players[index].name }}
   </div>
-  <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)" maxlength="11"/>
-  <button class="set-name" (click)="toggleChangingName()" *ngIf="game && !game.started"></button>
+  <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)" maxlength="11" (change)="setTypedName(newName.value)" />
+  <button class="set-name" (click)="toggleChangingName(typedName)" *ngIf="game && !game.started"></button>
   <img class="right-shape" src="{{ shapePath }}"/>
   <p class = "color-title" *ngIf="game && !game.started">color</p>
   <div class="color-wheel-left" (click)="changeToNextAvailableDownwardColor()" *ngIf="game && !game.started">
@@ -48,13 +48,14 @@
   </div>
   <img class="dead-symbol" src="assets/images/skull.jpg" *ngIf="!game.players[index].leftInfluenceAlive && !game.players[index].rightInfluenceAlive"/>
   <button class="display-influence-button" (click)="toggleDisplayingInfluences()">{{ displayingInfluences ? 'Hide Influences' : 'Display Influences'}}</button>
+  <div *ngIf="game && game.started" class = "caution-to-only-look-at-you-own-influences-container">Only Look At Your Own</div>
   <div class = "left-influence-container">
     <div class="top-left-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
     <div class="top-right-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
     <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(true)"></button>
     <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].leftInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(true)"></button>
     <button class="select-to-lose-influence-for-coup-or-assassination" *ngIf="(game.phase === 29 || game.phase === 23 || game.phase === 26) && game.actionRecipient === index && game.players[index].leftInfluenceAlive" (click)="forfeitInfluence(true)"></button>
-    <p class="influence-text" *ngIf="(displayingInfluences === true || !game.players[index].leftInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index )">{{ leftInfluence }}</p>
+    <p class="influence-text" click="performOverButtonClickAction(true)" *ngIf="(displayingInfluences === true || !game.players[index].leftInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index )">{{ leftInfluence }}</p>
     <p class="ambassador-option-1-text" *ngIf="leftAmbassadorSelection === 0 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].leftInfluence) }}</p>
     <p class="ambassador-option-2-text" *ngIf="leftAmbassadorSelection === 1 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].rightInfluence) }}</p>
     <p class="ambassador-option-3-text" *ngIf="leftAmbassadorSelection === 2 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.extraInfluence1) }}</p>
@@ -67,7 +68,7 @@
     <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(false)"></button>
     <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].rightInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(false)"></button>
     <button class="select-to-lose-influence-for-coup-or-assassination" *ngIf="(game.phase === 29 || game.phase === 23 || game.phase === 26) && game.actionRecipient === index && game.players[index].rightInfluenceAlive" (click)="forfeitInfluence(false)"></button>
-    <p class="influence-text" *ngIf="(displayingInfluences === true || !game.players[index].rightInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index)">{{ rightInfluence }}</p>
+    <p class="influence-text" click="performOverButtonClickAction(true)" *ngIf="(displayingInfluences === true || !game.players[index].rightInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index)">{{ rightInfluence }}</p>
     <p class="ambassador-option-1-text" *ngIf="rightAmbassadorSelection === 0 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].leftInfluence) }}</p>
     <p class="ambassador-option-2-text" *ngIf="rightAmbassadorSelection === 1 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.players[index].rightInfluence) }}</p>
     <p class="ambassador-option-3-text" *ngIf="rightAmbassadorSelection === 2 && (this.game.phase === 20 || this.game.phase === 30) && displayingInfluences === true && game.turn === index">{{ getInfluenceOfIndex(this.game.extraInfluence1) }}</p>

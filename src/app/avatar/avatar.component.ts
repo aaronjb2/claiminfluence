@@ -13,6 +13,7 @@ const influences = require('../../../resources/influences.json');
 export class AvatarComponent implements OnInit, OnChanges {
   @Input() index: number;
   @Input() game;
+  typedName = '';
   changingName: boolean = false;
   colorCode = 'white';
   shapePath = 'assets/images/square.jpg';
@@ -42,8 +43,42 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.rightInfluence = influences[this.game.players[this.index].rightInfluence];
   }
 
-  toggleChangingName() {
+  toggleChangingName(newName) {
+    if (this.changingName) {
+      this.game.players[this.index].name = newName;
+      this.webSocketService.emit('update-game', this.game);
+    }
     this.changingName = !this.changingName;
+  }
+
+  setTypedName(newName) {
+    this.typedName = newName;
+  }
+
+  performOverButtonClickAction(leftInfluence) {
+    console.log('in performOverButtonClickAction')
+    if (this.isChallenged()) {
+      if (leftInfluence) {
+        this.revealInfluenceInResponseToChallenge(true);
+      } else {
+        this.revealInfluenceInResponseToChallenge(false);
+      }
+    } else {
+      if (leftInfluence) {
+        if (this.mustLoseInfluenceForIncorrectlyChallenging() && this.game.players[this.index].leftInfluenceAlive) {
+          this.selectInfluenceToLoseForIncorrectlyChallenging(true);
+        } else if ((this.game.phase === 29 || this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === this.index && this.game.players[this.index].leftInfluenceAlive) {
+          this.forfeitInfluence(true);
+        }
+      }
+      if (!leftInfluence) {
+        if (this.mustLoseInfluenceForIncorrectlyChallenging() && this.game.players[this.index].rightInfluenceAlive) {
+          this.selectInfluenceToLoseForIncorrectlyChallenging(true);
+        } else if ((this.game.phase === 29 || this.game.phase === 23 || this.game.phase === 26) && this.game.actionRecipient === this.index && this.game.players[this.index].rightInfluenceAlive) {
+          this.forfeitInfluence(false);
+        }
+      }
+    }
   }
 
   toggleDisplayingInfluences() {
