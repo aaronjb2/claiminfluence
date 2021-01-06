@@ -56,7 +56,6 @@ export class AvatarComponent implements OnInit, OnChanges {
   }
 
   performOverButtonClickAction(leftInfluence) {
-    console.log('in performOverButtonClickAction')
     if (this.isChallenged()) {
       if (leftInfluence) {
         this.revealInfluenceInResponseToChallenge(true);
@@ -317,7 +316,16 @@ export class AvatarComponent implements OnInit, OnChanges {
             this.game.phase === 30;
           }
           if (this.game.phase === 24) {
-            this.game.phase = 26;
+            if (this.game.players[this.game.challenger].leftInfluenceAlive || this.game.players[this.game.challenger].rightInfluenceAlive) {
+              this.game.phase = 26;
+            } else {
+              this.game.phase = 1;
+              this.game.actionPerformer = -1;
+              this.game.actionRecipient = -1;
+              this.game.onlyOneCoin = -1;
+              this.game.challenger = -1;
+              this.game.turn = this.getNextAlivePlayer(this.index);
+            }
           }
         }
       } else {
@@ -493,6 +501,8 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.players[this.index].rightInfluence = this.rightAmbassadorSelection === 0 ? this.game.players[this.index].leftInfluence
       : this.rightAmbassadorSelection === 1 ? this.game.players[this.index].rightInfluence
         : this.rightAmbassadorSelection === 2 ? this.game.extraInfluence1 : this.game.extraInfluence2;
+    this.leftAmbassadorSelection = 0;
+    this.rightAmbassadorSelection = 1;
     this.game.extraInfluence1 = -1;
     this.game.extraInfluence2 = -1;
     this.game.turn = this.getNextAlivePlayer(this.index);
