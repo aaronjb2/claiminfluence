@@ -9,21 +9,34 @@
 }
 
 h4 {
+  position: absolute;
   margin: 0 auto;
   text-align: center;
+  top: 100px;
+  left: 500px;
+}
+
+h5 {
+  position: absolute;
+  margin: 0 auto;
+  text-align: center;
+  top: 150px;
+  left: 630px;
 }
 
 input {
   margin: 0 auto;
   position: absolute;
-  top: 20px;
+  top: -650px;
   left: 210px;
+  width: 156px;
 }
 
 button {
   position: absolute;
-  top: 20px;
-  left: 386px;
+  top: -650px;
+  left: 374px;
+  width: 48px;
 }
 
 
