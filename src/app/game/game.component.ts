@@ -199,6 +199,7 @@ export class GameComponent implements OnInit, OnChanges {
       identityArray.splice(randomIndex, 1);
       randomIndex = Math.floor(Math.random() * (identityArray.length));
       this.game.players[i].rightInfluence = identityArray[randomIndex];
+      identityArray.splice(randomIndex, 1);
       this.game.players[i].leftInfluenceAlive = true;
       this.game.players[i].rightInfluenceAlive = true;
       this.game.players[i].coins = this.game.players.length === 2 && this.game.turn === i ? 1 : 2;
