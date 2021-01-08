@@ -269,6 +269,189 @@ export class AvatarComponent implements OnInit, OnChanges {
     return false;
   }
 
+  revealInfluenceForChallenge(leftInfluence) {
+    const playerInfluenceNumber = leftInfluence ? this.game.players[this.index].leftInfluence : this.game.players[this.index].rightInfluence;
+    const playerInfluence = influences[playerInfluenceNumber];
+    if (playerInfluence === this.getChallengedInfluence()) {
+      const newRandomInfluence = this.getNewRandomInfluence(playerInfluenceNumber);
+      this.game.departingInfluence = playerInfluence;
+      this.game.influenceActionNumber = leftInfluence ? this.getLeftDepartInfluenceNumber() : this.getRightDepartInfluenceNumber();
+      if (leftInfluence) {
+        this.game.players[this.index].leftInfluence = newRandomInfluence;
+      } else {
+        this.game.players[this.index].rightInfluence = newRandomInfluence;
+      }
+      if (this.game.players[this.game.challenger].rightInfluenceAlive && this.game.players[this.game.challenger].leftInfluenceAlive) {
+        if (this.game.phase === 10) {
+          this.game.phase = 11;
+        } else if (this.game.phase === 12) {
+          this.game.phase = 13;
+        } else if (this.game.phase === 14) {
+          this.game.phase = 15;
+        } else if (this.game.phase === 16) {
+          this.game.phase = 17;
+        } else if (this.game.phase === 18) {
+          this.game.phase = 19;
+        } else if (this.game.phase === 21) {
+          this.game.phase = 22;
+        } else if (this.game.phase === 24) {
+          this.game.phase = 25;
+        } else if (this.game.phase === 27) {
+          this.game.phase = 28;
+        }
+      } else {
+        this.game.players[this.game.challenger].leftInfluenceAlive = false;
+        this.game.players[this.game.challenger].rightInfluenceAlive = false;
+        if (this.evaluateIfGameIsOver()) {
+          this.game.onlyOneCoin = false;
+          this.game.actionRecipient = -1;
+          this.game.actionPerformer = -1;
+          this.game.challenger = -1;
+          this.game.started = false;
+        } else {
+          if (this.game.phase === 10) {
+            this.game.phase = 1;
+            this.game.actionPerformer = -1;
+            this.game.actionRecipient = -1;
+            if (this.game.challenger === this.game.turn) {
+              this.game.turn = this.getNextAlivePlayer(this.game.turn);
+            }
+          } else if (this.game.phase === 12) {
+            this.game.phase = 1;
+            this.game.actionPerformer = -1;
+            this.game.actionRecipient = -1;
+            if (this.game.challenger === this.game.turn) {
+              this.game.turn = this.getNextAlivePlayer(this.game.turn);
+            }
+          } else if (this.game.phase === 14) {
+            if (this.game.challenger === this.game.actionRecipient) {
+              this.game.phase = 1;
+              this.game.actionPerformer = -1;
+              this.game.actionRecipient = -1;
+              if (this.game.turn === this.game.challenger) {
+                this.game.turn = this.getNextAlivePlayer(this.game.turn);
+              }
+            } else {
+              this.game.phase = 3;
+              if (this.game.turn === this.game.challenger) {
+                this.game.turn = this.getNextAlivePlayer(this.game.turn);
+              }
+            }
+          } else if (this.game.phase === 16) {
+            this.game.phase = 1;
+            this.game.actionPerformer = -1;
+            this.game.actionRecipient = -1;
+            if (this.game.turn === this.game.challenger) {
+              this.game.turn = this.getNextAlivePlayer(this.game.turn);
+            }
+          } else if (this.game.phase === 18) {
+            this.game.phase = 1;
+            this.game.actionPerformer = -1;
+            this.game.actionRecipient = -1;
+            if (this.game.turn === this.game.challenger) {
+              this.game.turn = this.getNextAlivePlayer(this.game.turn);
+            }
+          } else if (this.game.phase === 21) {
+            this.game.phase = 30;
+          } else if (this.game.phase === 24) {
+            if (this.game.challenger === this.game.actionRecipient) {
+              this.game.phase = 1;
+              this.game.actionPerformer = -1;
+              this.game.actionRecipient = -1;
+              this.game.turn = this.getNextAlivePlayer(this.game.turn);
+            } else {
+              this.game.phase = 26;
+            }
+          } else if (this.game.phase === 27) {
+            this.game.phase = 1;
+            this.game.actionPerformer = -1;
+            this.game.actionRecipient = -1;
+            if (this.game.turn === this.game.challenger) {
+              this.game.turn = this.getNextAlivePlayer(this.game.turn);
+            }
+          }
+          this.game.challenger = -1;
+        }
+      }
+    } else {
+      if (this.game.phase === 27) {
+        this.game.players[this.index].leftInfluenceAlive = false;
+        this.game.players[this.index].rightInfluenceAlive = false;
+      }
+      if (leftInfluence) {
+        this.game.players[this.index].leftInfluenceAlive = false;
+      } else {
+        this.game.players[this.index].rightInfluenceAlive = false;
+      }
+      if (this.game.players[this.index].leftInfluenceAlive || this.game.players[this.index].rightInfluenceAlive) {
+        if (this.game.phase === 10) {
+          this.game.players[this.game.actionPerformer].coins = this.game.players[this.game.actionPerformer].coins - 3;
+        }
+        if (this.game.phase === 12) {
+          this.game.players[this.game.actionRecipient].coins = this.game.players[this.game.actionRecipient].coins + 2;
+          this.game.actionPerformer = this.game.actionRecipient;
+          this.game.actionRecipient = -1;
+          this.game.phase = 8;
+        }
+        if (this.game.phase === 14 || this.game.phase === 16 || this.game.phase === 18) {
+          this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins - 1 : this.game.players[this.game.actionPerformer].coins - 2;
+          this.game.players[this.game.actionRecipient].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionRecipient].coins + 1 : this.game.players[this.game.actionRecipient].coins + 2;
+          this.game.onlyOneCoin = false;
+        }
+        if (this.game.phase === 24) {
+          this.game.players[this.game.actionPerformer].coins = this.game.players[this.game.actionPerformer].coins + 3;
+        }
+        if (this.game.actionPerformer === this.game.turn) {
+          this.game.turn = this.getNextAlivePlayer(this.game.turn);
+        }
+        if (this.game.phase !== 8) {
+          this.game.actionPerformer = -1;
+          this.game.actionRecipient = -1;
+          this.game.onlyOneCoin = -1;
+          this.game.phase = 1;
+        }
+        this.game.challenger = -1;
+      } else {
+        if (this.evaluateIfGameIsOver()) {
+          this.game.onlyOneCoin = false;
+          this.game.actionRecipient = -1;
+          this.game.actionPerformer = -1;
+          this.game.challenger = -1;
+          this.game.started = false;
+        } else {
+          if (this.game.phase === 10) {
+            this.game.players[this.game.actionPerformer].coins = this.game.players[this.game.actionPerformer].coins - 3;
+          }
+          if (this.game.phase === 12) {
+            this.game.players[this.game.actionRecipient].coins = this.game.players[this.game.actionRecipient].coins + 2;
+            this.game.actionPerformer = this.game.actionRecipient;
+            this.game.actionRecipient = -1;
+            this.game.phase = 8;
+          }
+          if (this.game.phase === 14 || this.game.phase === 16 || this.game.phase === 18) {
+            this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins - 1 : this.game.players[this.game.actionPerformer].coins - 2;
+            this.game.players[this.game.actionRecipient].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionRecipient].coins + 1 : this.game.players[this.game.actionRecipient].coins + 2;
+            this.game.onlyOneCoin = false;
+          }
+          if (this.game.phase === 24) {
+            this.game.players[this.game.actionPerformer].coins = this.game.players[this.game.actionPerformer].coins + 3;
+          }
+          if (this.game.actionPerformer === this.game.turn) {
+            this.game.turn = this.getNextAlivePlayer(this.game.turn);
+          }
+          if (this.game.phase !== 8) {
+            this.game.actionPerformer = -1;
+            this.game.actionRecipient = -1;
+            this.game.onlyOneCoin = -1;
+            this.game.phase = 1;
+          }
+          this.game.challenger = -1;
+        }
+      }
+    }
+    this.webSocketService.emit('update-game', this.game);
+  }
+
   revealInfluenceInResponseToChallenge(leftInfluence) {
     const playerInfluenceNumber = leftInfluence ? this.game.players[this.index].leftInfluence : this.game.players[this.index].rightInfluence;
     const playerInfluence = influences[playerInfluenceNumber];

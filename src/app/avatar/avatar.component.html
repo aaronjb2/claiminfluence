@@ -52,7 +52,7 @@
   <div class = "left-influence-container">
     <div class="top-left-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
     <div class="top-right-part-of-x" *ngIf="!game.players[index].leftInfluenceAlive"></div>
-    <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(true)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].leftInfluence) : ''}}</button>
+    <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceForChallenge(true)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].leftInfluence) : ''}}</button>
     <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].leftInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(true)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].leftInfluence) : ''}}</button>
     <button class="select-to-lose-influence-for-coup-or-assassination" *ngIf="(game.phase === 29 || game.phase === 23 || game.phase === 26) && game.actionRecipient === index && game.players[index].leftInfluenceAlive" (click)="forfeitInfluence(true)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].leftInfluence) : ''}}</button>
     <p class="influence-text" *ngIf="(displayingInfluences === true || !game.players[index].leftInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index ) && (!this.game.influenceActionNumber || this.game.influenceActionNumber === -1)">{{ leftInfluence }}</p>
@@ -65,7 +65,7 @@
   <div class = "right-influence-container">
     <div class="top-left-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
     <div class="top-right-part-of-x" *ngIf="!game.players[index].rightInfluenceAlive"></div>
-    <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceInResponseToChallenge(false)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].rightInfluence) : ''}}</button>
+    <button class="select-influence-to-reveal-button" *ngIf="isChallenged()" (click)="revealInfluenceForChallenge(false)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].rightInfluence) : ''}}</button>
     <button class="select-influence-to-lose-for-incorrectly-challenging-button" *ngIf="mustLoseInfluenceForIncorrectlyChallenging() && game.players[index].rightInfluenceAlive" (click)="selectInfluenceToLoseForIncorrectlyChallenging(false)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].rightInfluence) : ''}}</button>
     <button class="select-to-lose-influence-for-coup-or-assassination" *ngIf="(game.phase === 29 || game.phase === 23 || game.phase === 26) && game.actionRecipient === index && game.players[index].rightInfluenceAlive" (click)="forfeitInfluence(false)">{{ displayingInfluences ? getInfluenceOfIndex(game.players[this.index].rightInfluence) : ''}}</button>
     <p class="influence-text" *ngIf="(displayingInfluences === true || !game.players[index].rightInfluenceAlive) && ((this.game.phase !== 20 && this.game.phase !== 30) || this.game.turn !== this.index) && (!this.game.influenceActionNumber || this.game.influenceActionNumber === -1)">{{ rightInfluence }}</p>
