@@ -18,6 +18,14 @@
     margin: 0 auto;
 }
 
+.url-description-text {
+  position: relative;
+  font-weight: bold;
+  top: -35px;
+  font-size: 17px;
+  text-align: center;
+}
+
 .title {
   position: absolute;
   left: 322px;
@@ -428,6 +436,8 @@
 .challenge-description-text {
   font-weight: bold;
   text-align: center;
+  position: relative;
+  bottom: 200px;
 }
 
 .information-box-text {
@@ -440,5 +450,5 @@
   font-weight: bold;
   text-align: center;
   position: relative;
-  top: -8px;
+  top: -50px;
 }
