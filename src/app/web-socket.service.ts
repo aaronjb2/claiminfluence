@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 export class WebSocketService {
 
   socket: any;
-  // readonly uri: string = 'ws://localhost:4848'; // for running locally
-  readonly uri: string = 'https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app'; // for hosted
-  // readonly uri: string = 'http://localhost:4848';
+  readonly uri: string = '/api';
 
   constructor() {
     this.socket = io(this.uri);
