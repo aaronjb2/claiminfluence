@@ -46,6 +46,7 @@ export class GameComponent implements OnInit, OnChanges {
     });
     this.webSocketService.emit('join-identifier', this.identifier);
     this.gameStateProviderService.getState(this.identifier).subscribe((game) => {
+      console.log('game: ', game);
       this.game = game;
       if (this.game && this.game.players && this.game.turn && this.game.turn > -1 && this.game.turn < this.game.players.length && this.game.players[this.game.turn].coins > 9) {
         this.selection = 'coup';
