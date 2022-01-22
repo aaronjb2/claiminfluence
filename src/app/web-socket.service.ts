@@ -11,7 +11,12 @@ export class WebSocketService {
   readonly uri: string = 'https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app';
 
   constructor() {
-    this.socket = io(this.uri, {transports: ['websocket']});
+    this.socket = io(this.uri, {
+      withCredentials: true,
+      extraHeaders: {
+        'my-custom-header': 'abcd'
+      }
+    });
   }
 
   listen(eventName: string) {
