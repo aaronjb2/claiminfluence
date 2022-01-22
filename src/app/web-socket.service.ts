@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class WebSocketService {
 
   socket: any;
-  readonly uri: string = 'https://tuffbluff.com/api';
+  readonly uri: string = 'https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app';
 
   constructor() {
     this.socket = io(this.uri, {transports: ['websocket']});
