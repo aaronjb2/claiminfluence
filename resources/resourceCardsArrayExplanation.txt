@@ -1,0 +1,3 @@
+The array signifies as follows [white, blue, green, red, black]
+
+For example [1, 2, 0, 1, 2] would mean a card costs 1 white, 2 blues, 0 greens, 1 red, and 2 blacks

@@ -1,0 +1,122 @@
+[
+  {
+    "color": "green",
+    "cost": [6, 0, 3, 0, 3],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 1
+  },
+  {
+    "color": "white",
+    "cost": [3, 6, 0, 3, 0],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 1
+  },
+  {
+    "color": "green",
+    "cost": [5, 3, 3, 0, 3],
+    "pointValue": 3,
+    "specialArmyMemberIcons": 2
+  },
+  {
+    "color": "blue",
+    "cost": [0, 0, 0, 7, 0],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "blue",
+    "cost": [0, 0, 3, 7, 0],
+    "pointValue": 5,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "blue",
+    "cost": [3, 3, 0, 5, 3],
+    "pointValue": 3,
+    "specialArmyMemberIcons": 2
+  },
+  {
+    "color": "black",
+    "cost": [3, 0, 7, 0, 0],
+    "pointValue": 5,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "white",
+    "cost": [0, 7, 0, 0, 0],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "black",
+    "cost": [0, 3, 5, 3, 3],
+    "pointValue": 3,
+    "specialArmyMemberIcons": 2
+  },
+  {
+    "color": "green",
+    "cost": [7, 0, 0, 0, 0],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "green",
+    "cost": [7, 0, 0, 3, 0],
+    "pointValue": 5,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "black",
+    "cost": [0, 3, 6, 0, 3],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 1
+  },
+  {
+    "color": "red",
+    "cost": [0, 3, 0, 0, 7],
+    "pointValue": 5,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "red",
+    "cost": [0, 0, 0, 0, 7],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 1
+  },
+  {
+    "color": "white",
+    "cost": [3, 5, 3, 3, 0],
+    "pointValue": 3,
+    "specialArmyMemberIcons": 2
+  },
+  {
+    "color": "red",
+    "cost": [0, 0, 3, 3, 6],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "blue",
+    "cost": [3, 0, 3, 6, 0],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 1
+  },
+  {
+    "color": "white",
+    "cost": [0, 7, 0, 0, 3],
+    "pointValue": 5,
+    "specialArmyMemberIcons": 0
+  },
+  {
+    "color": "red",
+    "cost": [3, 3, 0, 3, 5],
+    "pointValue": 3,
+    "specialArmyMemberIcons": 2
+  },
+  {
+    "color": "black",
+    "cost": [0, 0, 7, 0, 0],
+    "pointValue": 4,
+    "specialArmyMemberIcons": 0
+  }
+]
