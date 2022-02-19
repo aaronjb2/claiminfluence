@@ -13,8 +13,8 @@ export class IdentifierComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  redirect(identifier) {
-    this.router.navigate([identifier.value]);
+  redirectToInfluence(identifier) {
+    this.router.navigate(['influence/' + identifier.value]);
   }
 
 }

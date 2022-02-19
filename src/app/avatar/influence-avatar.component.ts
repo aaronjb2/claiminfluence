@@ -6,11 +6,11 @@ const shapePaths = require('../../../resources/shapePaths.json');
 const influences = require('../../../resources/influences.json');
 
 @Component({
-  selector: 'avatar',
-  templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss']
+  selector: 'app-influence-avatar',
+  templateUrl: './influence-avatar.component.html',
+  styleUrls: ['./influence-avatar.component.scss']
 })
-export class AvatarComponent implements OnInit, OnChanges {
+export class InfluenceAvatarComponent implements OnInit, OnChanges {
   @Input() index: number;
   @Input() game;
   typedName = '';

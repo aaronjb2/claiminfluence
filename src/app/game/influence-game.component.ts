@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, ViewChild, QueryList } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { AvatarComponent } from '../avatar/avatar.component';
+import { InfluenceAvatarComponent } from '../avatar/influence-avatar.component';
 import { GameStateProviderService } from '../game-state-provider.service';
 import { WebSocketService } from '../web-socket.service';
 const colorCodes = require('../../../resources/colorCodes.json');
@@ -8,14 +8,14 @@ const shapePaths = require('../../../resources/shapePaths.json');
 
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
+  selector: 'app-influence-game',
+  templateUrl: './influence-game.component.html',
   styleUrls: [
-    './game.component.scss',
+    './influence-game.component.scss',
     './player-positions.scss'
   ]
 })
-export class GameComponent implements OnInit, OnChanges {
+export class InfluenceGameComponent implements OnInit, OnChanges {
   text: string;
   identifier: string;
   game;
@@ -23,12 +23,12 @@ export class GameComponent implements OnInit, OnChanges {
   shapePath;
   selection = 'none';
 
-  @ViewChild('avatar1') avatar1: AvatarComponent;
-  @ViewChild('avatar2') avatar2: AvatarComponent;
-  @ViewChild('avatar3') avatar3: AvatarComponent;
-  @ViewChild('avatar4') avatar4: AvatarComponent;
-  @ViewChild('avatar5') avatar5: AvatarComponent;
-  @ViewChild('avatar6') avatar6: AvatarComponent;
+  @ViewChild('avatar1') avatar1: InfluenceAvatarComponent;
+  @ViewChild('avatar2') avatar2: InfluenceAvatarComponent;
+  @ViewChild('avatar3') avatar3: InfluenceAvatarComponent;
+  @ViewChild('avatar4') avatar4: InfluenceAvatarComponent;
+  @ViewChild('avatar5') avatar5: InfluenceAvatarComponent;
+  @ViewChild('avatar6') avatar6: InfluenceAvatarComponent;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -59,7 +59,7 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   redirectToAllCaps(identifier) {
-    this.router.navigate([identifier]);
+    this.router.navigate( ['influence/' + identifier]);
   }
 
   navigateBackToStartScreen(){

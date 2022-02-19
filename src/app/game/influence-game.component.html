@@ -1,7 +1,7 @@
 <div class = "game">
   <div class = "game-container">
     <h1 class = "title">TUFFBLUFF</h1>
-    <p class="url-description-text">Give this URL to all friends that wish to join or watch: https://tuffbluff.com/{{ identifier }}</p>
+    <p class="url-description-text">Give this URL to all friends that wish to join or watch: https://tuffbluff.com/influence/{{ identifier }}</p>
     <p class="challengeable-claim-description">{{ getChallengeableClaimDescription() }}</p>
     <div *ngIf="game && !game.started" class="center">
       <p class="game-not-started-text" *ngIf="game && !game.started">The following game is over or not yet started.  Press start to begin.  Also, the influences will be shuffled upon pressing start so right now it's fine to look at anyone's influences (Once you start the game you should only look at your own)</p>
@@ -84,18 +84,18 @@
     <div class="information-square" *ngIf="(game && game.started) && (game.phase > 9 || game.influenceActionNumber !== -1)">
       <p class="information-box-text">{{ getInformationSquareInformation() }}</p>
     </div>
-    <avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
-            class="{{ getPlayerClassName(1) }}"></avatar>
-    <avatar #avatar2 [game]="game" [index]="1" *ngIf="game && game.players"
-            class="{{ getPlayerClassName(2) }}"></avatar>
-    <avatar #avatar3 [game]="game" [index]="2" *ngIf="game && game.players && game.players.length > 2"
-            class="{{ getPlayerClassName(3) }}"></avatar>
-    <avatar #avatar4 [game]="game" [index]="3" *ngIf="game && game.players && game.players.length > 3"
-            class="{{ getPlayerClassName(4) }}"></avatar>
-    <avatar #avatar5 [game]="game" [index]="4" *ngIf="game && game.players && game.players.length > 4"
-            class="{{ getPlayerClassName(5) }}"></avatar>
-    <avatar #avatar6 [game]="game" [index]="5" *ngIf="game && game.players && game.players.length > 5"
-            class="{{ getPlayerClassName(6) }}"></avatar>
+    <app-influence-avatar #avatar1 [game]="game" [index]="0" *ngIf="game && game.players"
+                          class="{{ getPlayerClassName(1) }}"></app-influence-avatar>
+    <app-influence-avatar #avatar2 [game]="game" [index]="1" *ngIf="game && game.players"
+                          class="{{ getPlayerClassName(2) }}"></app-influence-avatar>
+    <app-influence-avatar #avatar3 [game]="game" [index]="2" *ngIf="game && game.players && game.players.length > 2"
+                          class="{{ getPlayerClassName(3) }}"></app-influence-avatar>
+    <app-influence-avatar #avatar4 [game]="game" [index]="3" *ngIf="game && game.players && game.players.length > 3"
+                          class="{{ getPlayerClassName(4) }}"></app-influence-avatar>
+    <app-influence-avatar #avatar5 [game]="game" [index]="4" *ngIf="game && game.players && game.players.length > 4"
+                          class="{{ getPlayerClassName(5) }}"></app-influence-avatar>
+    <app-influence-avatar #avatar6 [game]="game" [index]="5" *ngIf="game && game.players && game.players.length > 5"
+                          class="{{ getPlayerClassName(6) }}"></app-influence-avatar>
     <button class="end-game-button" *ngIf="game && game.started" (click)="endGame()">End Game</button>
     <button class="back-to-start-screen-button" (click)="navigateBackToStartScreen()">Back</button>
     <button class="delete-game-button" (click)="deleteGame()">Delete Game</button>

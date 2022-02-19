@@ -19,6 +19,12 @@
   top: -40px;
 }
 
+.game-title {
+  position: absolute;
+  left: 260px;
+  top: 100px;
+}
+
 h4 {
   position: absolute;
   margin: 0 auto;
@@ -37,14 +43,14 @@ h5 {
 
 input {
   position: absolute;
-  top: 130px;
+  top: 135px;
   left: 260px;
   width: 156px;
 }
 
 button {
   position: absolute;
-  top: 130px;
+  top: 135px;
   left: 424px;
   width: 48px;
 }
