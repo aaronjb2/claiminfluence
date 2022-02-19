@@ -114,23 +114,23 @@ app.get('/getGameData/:identifier', (req, res) => {
 })
 
 io.on("connection", socket => {
-  socket.on("join-identifier",identifier=>{
+  socket.on("join-influence-identifier",identifier=>{
     const capitalizedIdentifier = identifier.toUpperCase();
     socket.join(capitalizedIdentifier);
     io.to(capitalizedIdentifier);
   })
 
-  socket.on('update-game', data=> {
+  socket.on('update-influence-game', data=> {
     const index = games.findIndex(game => game.identifier === data.identifier);
     games[index] = data;
-    io.to(data.identifier).emit('update-game', data);
+    io.to(data.identifier).emit('update-influence-game', data);
     games[index].influenceActionNumber = -1;
     games[index].departingInfluence = '';
   })
 
-  socket.on('return-to-start', data=> {
+  socket.on('return-to-influence-start', data=> {
     const index = games.findIndex(game => game.identifier === data.identifier);
     games.splice(index, 1);
-    io.to(data.identifier).emit('return-to-start');
+    io.to(data.identifier).emit('return-to-influence-start');
   })
 })

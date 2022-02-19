@@ -44,9 +44,8 @@ export class GameComponent implements OnInit, OnChanges {
         this.redirectToAllCaps(capitalizedIdentifier);
       }
     });
-    this.webSocketService.emit('join-identifier', this.identifier);
+    this.webSocketService.emit('join-influence-identifier', this.identifier);
     this.gameStateProviderService.getState(this.identifier).subscribe((game) => {
-      console.log('game: ', game);
       this.game = game;
       if (this.game && this.game.players && this.game.turn && this.game.turn > -1 && this.game.turn < this.game.players.length && this.game.players[this.game.turn].coins > 9) {
         this.selection = 'coup';
@@ -68,7 +67,7 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   deleteGame() {
-    this.webSocketService.emit('return-to-start', {identifier: this.identifier});
+    this.webSocketService.emit('return-to-influence-start', {identifier: this.identifier});
     this.navigateBackToStartScreen();
   }
 
@@ -81,7 +80,7 @@ export class GameComponent implements OnInit, OnChanges {
   }
 
   listen() {
-    this.webSocketService.listen('update-game').subscribe(response => {
+    this.webSocketService.listen('update-influence-game').subscribe(response => {
       let started = this.game.started;
       this.game = response;
       if (this.game.started && !started) {
@@ -100,11 +99,11 @@ export class GameComponent implements OnInit, OnChanges {
           }, 2000);
         }, 2000);
       }
-      if (this.game.players[this.game.turn].coins > 9) {
+      if (this.game.turn && this.game.turn !== -1 && this.game.players[this.game.turn].coins > 9) {
         this.selection = 'coup';
       }
     });
-    this.webSocketService.listen('return-to-start').subscribe(() => {
+    this.webSocketService.listen('return-to-influence-start').subscribe(() => {
       this.navigateBackToStartScreen();
     });
   }
@@ -129,12 +128,12 @@ export class GameComponent implements OnInit, OnChanges {
     if (numberOfPlayers < currentNumberOfPlayers) {
       this.game.players.splice(numberOfPlayers, currentNumberOfPlayers - numberOfPlayers);
     }
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   changeName(index, newName) {
     this.game.players[index].name = newName;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   getPlayerClassName(index) {
@@ -216,14 +215,14 @@ export class GameComponent implements OnInit, OnChanges {
     this.game.influenceActionNumber = -1;
     this.game.started = true;
     this.takeAvoidDisplayingAction();
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
     this.colorCode = colorCodes[this.game.players[this.game.turn].color];
     this.shapePath = shapePaths[this.game.players[this.game.turn].shape];
   }
 
   endGame() {
     this.game.started = false;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   takeAvoidDisplayingAction() {
@@ -275,7 +274,7 @@ export class GameComponent implements OnInit, OnChanges {
       this.game.phase = 2;
       this.game.turn = this.getNextAlivePlayer(this.game.turn);
       this.selection = 'none';
-      this.webSocketService.emit('update-game', this.game);
+      this.webSocketService.emit('update-influence-game', this.game);
     }
     if (this.selection === 'kill' && (this.game.players[playerIndex].leftInfluenceAlive || this.game.players[playerIndex].rightInfluenceAlive)) {
       this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins - 3;
@@ -284,7 +283,7 @@ export class GameComponent implements OnInit, OnChanges {
       this.game.onlyOneCoin = false;
       this.game.phase = 23;
       this.selection = 'none';
-      this.webSocketService.emit('update-game', this.game);
+      this.webSocketService.emit('update-influence-game', this.game);
     }
     if (this.selection === 'coup' && (this.game.players[playerIndex].leftInfluenceAlive || this.game.players[playerIndex].rightInfluenceAlive)) {
       this.game.players[this.game.turn].coins = this.game.players[this.game.turn].coins - 7;
@@ -307,7 +306,7 @@ export class GameComponent implements OnInit, OnChanges {
         }
       }
       this.selection = 'none';
-      this.webSocketService.emit('update-game', this.game);
+      this.webSocketService.emit('update-influence-game', this.game);
     }
   }
 
@@ -346,7 +345,7 @@ export class GameComponent implements OnInit, OnChanges {
     this.game.extraInfluence1 = this.getRandomInfluenceFromDeck();
     this.game.extraInfluence2 = this.getRandomInfluenceFromDeck(this.game.extraInfluence1);
     this.game.phase = 20;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   getEveryInfluenceThatSomeoneDoesNotAlreadyHave() {
@@ -391,7 +390,7 @@ export class GameComponent implements OnInit, OnChanges {
     this.game.extraInfluence1 = -1;
     this.game.extraInfluence2 = -1;
     this.game.turn = this.getNextAlivePlayer(this.game.turn);
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   takeTwoCoins() {
@@ -402,7 +401,7 @@ export class GameComponent implements OnInit, OnChanges {
     this.game.extraInfluence1 = -1;
     this.game.extraInfluence2 = -1;
     this.game.turn = this.getNextAlivePlayer(this.game.turn);
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   takeThreeCoins() {
@@ -413,7 +412,7 @@ export class GameComponent implements OnInit, OnChanges {
     this.game.extraInfluence1 = -1;
     this.game.extraInfluence2 = -1;
     this.game.turn = this.getNextAlivePlayer(this.game.turn);
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   getChallengeableClaimDescription() {

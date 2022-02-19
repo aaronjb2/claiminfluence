@@ -46,7 +46,7 @@ export class AvatarComponent implements OnInit, OnChanges {
   toggleChangingName(newName) {
     if (this.changingName) {
       this.game.players[this.index].name = newName;
-      this.webSocketService.emit('update-game', this.game);
+      this.webSocketService.emit('update-influence-game', this.game);
     }
     this.changingName = !this.changingName;
   }
@@ -88,7 +88,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.changingName = false;
     if (updatedName !== this.game.players[this.index].name) {
       this.game.players[this.index].name = updatedName;
-      this.webSocketService.emit('update-game', this.game);
+      this.webSocketService.emit('update-influence-game', this.game);
     }
   }
 
@@ -105,7 +105,7 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     this.game.players[this.index].color = nextAvailableNum;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   changeToNextAvailableDownwardColor() {
@@ -121,7 +121,7 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     this.game.players[this.index].color = nextAvailableNum;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   private colorAlreadyExists(colorNum) {
@@ -146,7 +146,7 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     this.game.players[this.index].shape = nextAvailableNum;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   changeToNextAvailableDownwardShape() {
@@ -162,7 +162,7 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     this.game.players[this.index].shape = nextAvailableNum;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   stopDisplayingInfluences() {
@@ -206,7 +206,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     if (this.game.phase === 7) {
       this.game.phase = 27;
     }
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   isChallenged() {
@@ -449,7 +449,7 @@ export class AvatarComponent implements OnInit, OnChanges {
         }
       }
     }
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   revealInfluenceInResponseToChallenge(leftInfluence) {
@@ -583,7 +583,7 @@ export class AvatarComponent implements OnInit, OnChanges {
       }
     }
     this.game.onlyOneCoin = false;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   getLeftDepartInfluenceNumber() {
@@ -620,7 +620,7 @@ export class AvatarComponent implements OnInit, OnChanges {
       this.game.actionRecipient = -1;
     }
     this.game.challenger = -1;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   mustLoseInfluenceForIncorrectlyChallenging() {
@@ -691,7 +691,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.turn = this.getNextAlivePlayer(this.index);
     this.game.actionPerformer = -1;
     this.game.phase = 1;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   blockForeignAid() {
@@ -699,7 +699,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.actionRecipient = this.game.actionPerformer;
     this.game.actionPerformer = this.index;
     this.game.phase = 9;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   blockStealWithAmbassador() {
@@ -708,7 +708,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins + 1 : this.game.players[this.game.actionPerformer].coins + 2;
     this.game.players[this.game.actionRecipient].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionRecipient].coins - 1 : this.game.players[this.game.actionRecipient].coins - 2;
     this.game.phase = 5;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   blockStealWithCaptain() {
@@ -717,7 +717,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.players[this.game.actionPerformer].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionPerformer].coins + 1 : this.game.players[this.game.actionPerformer].coins + 2;
     this.game.players[this.game.actionRecipient].coins = this.game.onlyOneCoin ? this.game.players[this.game.actionRecipient].coins - 1 : this.game.players[this.game.actionRecipient].coins - 2;
     this.game.phase = 6;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   blockAssassination() {
@@ -725,7 +725,7 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.actionPerformer = this.index;
     this.game.turn = this.getNextAlivePlayer(this.game.turn);
     this.game.phase = 7;
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 
   forfeitInfluence(leftInfluence) {
@@ -743,6 +743,6 @@ export class AvatarComponent implements OnInit, OnChanges {
     this.game.actionRecipient = -1;
     this.game.actionPerformer = -1;
     this.game.turn = this.getNextAlivePlayer(this.game.turn);
-    this.webSocketService.emit('update-game', this.game);
+    this.webSocketService.emit('update-influence-game', this.game);
   }
 }

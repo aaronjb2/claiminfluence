@@ -10,6 +10,7 @@ export class GameStateProviderService {
   constructor(private httpClient: HttpClient) { }
 
   getState(identifier: string): Observable<object> {
-    return this.httpClient.get(`https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app/getGameData/${identifier}`);
+    // return this.httpClient.get(`https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app/getInfluenceGameData/${identifier}`);
+    return this.httpClient.get(`http://localhost:8080/getInfluenceGameData/${identifier}`);
   }
 }
