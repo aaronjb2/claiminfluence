@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { InfluenceGameComponent }  from './game/influence-game.component';
+import { InfluenceGameComponent }  from './influence-game/influence-game.component';
 import { IdentifierComponent } from './identifier/identifier.component';
 
 const routes: Routes = [

@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, ViewChild, QueryList } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { InfluenceAvatarComponent } from '../avatar/influence-avatar.component';
+import { InfluenceAvatarComponent } from '../influence-avatar/influence-avatar.component';
 import { GameStateProviderService } from '../game-state-provider.service';
 import { WebSocketService } from '../web-socket.service';
 const colorCodes = require('../../../resources/colorCodes.json');
