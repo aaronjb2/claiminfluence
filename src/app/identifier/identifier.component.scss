@@ -19,10 +19,16 @@
   top: -40px;
 }
 
-.game-title {
+.influence-game-title {
   position: absolute;
   left: 260px;
   top: 100px;
+}
+
+.squarekles-game-title {
+  position: absolute;
+  left: 260px;
+  top: 150px;
 }
 
 h4 {
@@ -41,20 +47,33 @@ h5 {
   left: 165px;
 }
 
-input {
+.influence-game-input {
   position: absolute;
   top: 135px;
   left: 260px;
   width: 156px;
 }
 
-button {
+.squarekles-game-input {
+  position: absolute;
+  top: 185px;
+  left: 260px;
+  width: 156px;
+}
+
+.influence-game-button {
   position: absolute;
   top: 135px;
   left: 424px;
   width: 48px;
 }
 
+.squarekles-game-button {
+  position: absolute;
+  top: 185px;
+  left: 424px;
+  width: 48px;
+}
 
 .input-and-button-carrier {
   height: 500px;

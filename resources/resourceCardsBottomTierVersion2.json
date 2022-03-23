@@ -3,240 +3,240 @@
     "color": "black",
     "cost": [1, 1, 1, 0, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "black",
     "cost": [0, 2, 1, 1, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "black",
     "cost": [0, 2, 1, 2, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "black",
     "cost": [1, 3, 0, 1, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "black",
     "cost": [0, 2, 0, 0, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "black",
     "cost": [2, 2, 0, 0, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "black",
     "cost": [0, 3, 0, 0, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "black",
     "cost": [0, 4, 0, 0, 0],
     "pointValue": 1,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "blue",
     "cost": [1, 1, 1, 0, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "blue",
     "cost": [0, 1, 1, 2, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "blue",
     "cost": [2, 1, 2, 0, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "blue",
     "cost": [3, 0, 1, 0, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "blue",
     "cost": [2, 0, 0, 1, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "blue",
     "cost": [2, 0, 0, 0, 2],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "blue",
     "cost": [3, 0, 0, 0, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "blue",
     "cost": [4, 0, 0, 0, 0],
     "pointValue": 1,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "white",
     "cost": [1, 1, 0, 1, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "white",
     "cost": [0, 1, 1, 2, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "white",
     "cost": [0, 0, 1, 2, 2],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "white",
     "cost": [1, 1, 0, 3, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "white",
     "cost": [1, 0, 0, 2, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "white",
     "cost": [0, 0, 2, 2, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "white",
     "cost": [0, 0, 0, 3, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "white",
     "cost": [0, 0, 0, 4, 0],
     "pointValue": 1,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "red",
     "cost": [1, 1, 1, 1, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "red",
     "cost": [1, 1, 2, 1, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "red",
     "cost": [2, 0, 2, 1, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "red",
     "cost": [0, 1, 3, 0, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "red",
     "cost": [0, 0, 2, 1, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "red",
     "cost": [0, 0, 2, 0, 2],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "red",
     "cost": [0, 0, 3, 0, 0],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "red",
     "cost": [0, 0, 4, 0, 0],
     "pointValue": 1,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "green",
     "cost": [1, 1, 1, 0, 1],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "green",
     "cost": [0, 1, 1, 1, 2],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "green",
     "cost": [1, 2, 0, 0, 2],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "green",
     "cost": [0, 1, 0, 1, 3],
     "pointValue": 0,
-    "specialArmyMemberIcons": 1
+    "hashtags": 1
   },
   {
     "color": "green",
     "cost": [1, 0, 0, 0, 2],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "green",
     "cost": [1, 0, 0, 0, 2],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "green",
     "cost": [0, 0, 0, 0, 3],
     "pointValue": 0,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   },
   {
     "color": "green",
     "cost": [0, 0, 0, 0, 4],
     "pointValue": 1,
-    "specialArmyMemberIcons": 0
+    "hashtags": 0
   }
 ]

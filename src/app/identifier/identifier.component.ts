@@ -17,4 +17,8 @@ export class IdentifierComponent implements OnInit {
     this.router.navigate(['influence/' + identifier.value]);
   }
 
+  redirectToSquarekles(identifier) {
+    this.router.navigate(['squarekles/' + identifier.value]);
+  }
+
 }

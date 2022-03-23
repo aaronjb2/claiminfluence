@@ -8,11 +8,10 @@ import { Observable } from 'rxjs';
 export class WebSocketService {
 
   socket: any;
-  readonly uri: string = 'https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app';
-  // readonly uri: string = 'ws://localhost:8080';
+  local = true;
 
   constructor() {
-    this.socket = io(this.uri, {
+    this.socket = io(this.local ? 'ws://localhost:8080' : 'https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app', {
       withCredentials: true,
       extraHeaders: {
         'my-custom-header': 'abcd'

@@ -45,7 +45,7 @@ export class InfluenceGameComponent implements OnInit, OnChanges {
       }
     });
     this.webSocketService.emit('join-influence-identifier', this.identifier);
-    this.gameStateProviderService.getState(this.identifier).subscribe((game) => {
+    this.gameStateProviderService.getInfluenceState(this.identifier).subscribe((game) => {
       this.game = game;
       if (this.game && this.game.players && this.game.turn && this.game.turn > -1 && this.game.turn < this.game.players.length && this.game.players[this.game.turn].coins > 9) {
         this.selection = 'coup';
