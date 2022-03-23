@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WebSocketService} from '../web-socket.service';
 import {GameStateProviderService} from '../game-state-provider.service';
-import {Card} from "./interfaces/card";
+import {Card} from './interfaces/card';
 const resourceCardsBottomTierVersion1 = require('../../../resources/resourceCardsBottomTierVersion1.json');
 const resourceCardsBottomTierVersion2 = require('../../../resources/resourceCardsBottomTierVersion2.json');
 const resourceCardsMiddleTierVersion1 = require('../../../resources/resourceCardsMiddleTierVersion1.json');
@@ -91,45 +91,12 @@ export class SquareklesGameComponent implements OnInit {
     return deck[visibleSquares[slotIndex]];
   }
 
-  getIndexOfNthNonzeroItemInArray(victoryTile, n) {
-    let indexOfFirstNonZeroItem = 0;
-    while (victoryTile[indexOfFirstNonZeroItem] === 0 || indexOfFirstNonZeroItem > 3) {
-      indexOfFirstNonZeroItem++;
-    }
-    let indexOfSecondZonZeroItem = indexOfFirstNonZeroItem + 1;
-    while (victoryTile[indexOfSecondZonZeroItem] === 0 || indexOfSecondZonZeroItem > 4) {
-      indexOfSecondZonZeroItem++;
-    }
-    if (n === 0) {
-      return indexOfFirstNonZeroItem;
-    }
-    if (n === 1) {
-      return indexOfSecondZonZeroItem;
-    }
-    if (this.getSquareTotalColorsWithNonZeroCost(victoryTile) > 2) {
-      let indexOfThirdNonZeroItem = indexOfSecondZonZeroItem + 1;
-      while (victoryTile[indexOfThirdNonZeroItem] === 0 || indexOfThirdNonZeroItem > 4) {
-        indexOfThirdNonZeroItem++;
-      }
-      if (n === 2) {
-        return indexOfThirdNonZeroItem;
-      }
-      if (this.getSquareTotalColorsWithNonZeroCost(victoryTile) > 3) {
-        let indexOfFourthNonZeroItem = indexOfThirdNonZeroItem + 1;
-        while (victoryTile[indexOfFourthNonZeroItem] === 0 || indexOfFourthNonZeroItem > 4) {
-          indexOfFourthNonZeroItem++;
-        }
-        return indexOfFourthNonZeroItem;
-      }
-    }
-    return 4;
-  }
-
   getCostThatShouldAppearAtSquare(unwonBonusIndex, costIndex)
   {
     const victoryTile = this.getVictoryTile(unwonBonusIndex, costIndex);
-    const adjustedCostIndex = this.getSquareTotalColorsWithNonZeroCost(victoryTile) > 3 ? costIndex : costIndex - 1;
-    const indexOfNthNonzeroItem = this.getIndexOfNthNonzeroItemInArray(victoryTile, adjustedCostIndex);
+    const squareTotalColorsWithNonZeroCost = this.getSquareTotalColorsWithNonZeroCost(victoryTile);
+    const adjustedCostIndex = squareTotalColorsWithNonZeroCost > 3 ? costIndex + 1 : squareTotalColorsWithNonZeroCost > 2 ? costIndex : costIndex - 1;
+    const indexOfNthNonzeroItem = this.getIndexOfTheIndexThNonZeroItem(victoryTile, adjustedCostIndex);
     return victoryTile[indexOfNthNonzeroItem];
   }
 
@@ -143,8 +110,9 @@ export class SquareklesGameComponent implements OnInit {
 
   getCurrencyBackgroundColor(unwonBonusIndex, costIndex) {
     const victoryTile = this.getVictoryTile(unwonBonusIndex, costIndex);
-    const adjustedCostIndex = this.getSquareTotalColorsWithNonZeroCost(victoryTile) > 3 ? costIndex : costIndex - 1;
-    const indexOfNthNonZeroItem = this.getIndexOfNthNonzeroItemInArray(victoryTile, adjustedCostIndex);
+    const squareTotalColorsWithNonZeroCost = this.getSquareTotalColorsWithNonZeroCost(victoryTile);
+    const adjustedCostIndex = squareTotalColorsWithNonZeroCost > 3 ? costIndex + 1 : squareTotalColorsWithNonZeroCost > 2 ? costIndex : costIndex - 1;
+    const indexOfNthNonZeroItem = this.getIndexOfTheIndexThNonZeroItem(victoryTile, adjustedCostIndex);
     return this.getCurrencyColor(indexOfNthNonZeroItem);
   }
 
