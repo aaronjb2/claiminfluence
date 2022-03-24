@@ -1,0 +1,80 @@
+.card {
+  height: 220px;
+  width: 190px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border: 2px solid black;
+}
+
+.resource-cost-carrier {
+  position: absolute;
+  bottom: 35px;
+  left: 2px;
+  height: 130px;
+  width: 90px;
+}
+
+.circle-and-cost-carrier-1 {
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  height: 30px;
+  width: 90px;
+}
+
+.circle-and-cost-carrier-2 {
+  position: absolute;
+  top: 34px;
+  left: 0px;
+  height: 30px;
+  width: 90px;
+}
+
+.circle-and-cost-carrier-3 {
+  position: absolute;
+  top: 66px;
+  left: 0px;
+  height: 30px;
+  width: 90px;
+}
+
+.circle-and-cost-carrier-4 {
+  position: absolute;
+  top: 98px;
+  left: 0px;
+  height: 30px;
+  width: 90px;
+}
+
+.colored-circle-for-cost {
+  position: relative;
+  top: 2px;
+  left: 2px;
+  height: 22px;
+  width: 22px;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.bonus-circle-number-cost {
+  position: absolute;
+  top: -24px;
+  left: 32px;
+}
+
+.buy-button {
+  height: 25px;
+  width: 70px;
+  position: absolute;
+  bottom: 4px;
+  left: 20px;
+}
+
+.reserve-button {
+  height: 25px;
+  width: 70px;
+  position: absolute;
+  bottom: 4px;
+  right: 20px;
+}

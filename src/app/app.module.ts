@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { InfluenceAvatarComponent } from './influence-avatar/influence-avatar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SquareklesGameComponent } from './squarekles-game/squarekles-game.component';
+import { SquarklesCardComponent } from './squarkles-card/squarkles-card.component';
+import { SquarklesBonusComponent } from './squarkles-bonus/squarkles-bonus.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { SquareklesGameComponent } from './squarekles-game/squarekles-game.compo
     IdentifierComponent,
     InfluenceGameComponent,
     InfluenceAvatarComponent,
-    SquareklesGameComponent
+    SquareklesGameComponent,
+    SquarklesCardComponent,
+    SquarklesBonusComponent
   ],
   imports: [
     BrowserModule,

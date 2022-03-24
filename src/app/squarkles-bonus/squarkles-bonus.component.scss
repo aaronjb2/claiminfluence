@@ -1,0 +1,58 @@
+.bonus {
+  height: 146px;
+  width: 190px;
+  border: 2px solid black;
+  position: absolute;
+  top:0px;
+  left:0px;
+}
+
+.square-cost-carrier {
+  position: absolute;
+  bottom: 4px;
+  left: 2px;
+  height: 110px;
+  width: 90px;
+}
+
+.square-cost-carrier-1 {
+  height: 30px;
+  width: 80px;
+  border: 2px;
+  position: absolute;
+  bottom: 74px;
+  left: 2px;
+}
+
+.square-cost-carrier-2 {
+  height: 30px;
+  width: 80px;
+  border: 2px;
+  position: absolute;
+  bottom: 38px;
+  left: 2px;
+}
+
+.square-cost-carrier-3 {
+  height: 30px;
+  width: 80px;
+  border: 2px;
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+}
+
+.colored-square-for-cost {
+  position: relative;
+  top: 1px;
+  left: 2px;
+  height: 25px;
+  width: 22px;
+  border: 2px solid black;
+}
+
+.bonus-square-number-cost {
+  position: relative;
+  bottom: 54px;
+  left: 33px;
+}

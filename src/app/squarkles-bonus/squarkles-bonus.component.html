@@ -1,0 +1,22 @@
+<div class="bonus">
+  <div class="square-cost-carrier">
+    <div class="square-cost-carrier-1" *ngIf="getTotalItemsWithNonZeroCost(victoryTile) > 2">
+      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile, 0)}">
+
+      </div>
+      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile, 0) }}</h1>
+    </div>
+    <div class="square-cost-carrier-2">
+      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile, 1)}">
+
+      </div>
+      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile, 1) }}</h1>
+    </div>
+    <div class="square-cost-carrier-3">
+      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile, 2)}">
+
+      </div>
+      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile, 2) }}</h1>
+    </div>
+  </div>
+</div>

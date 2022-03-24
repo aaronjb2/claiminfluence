@@ -62,21 +62,6 @@ export class SquareklesGameComponent implements OnInit {
     this.victoryTiles = this.game.gameVersion && this.game.gameVersion === 1 ? victoryTilesVersion2 : victoryTilesVersion1;
   }
 
-  getSquareTotalColorsWithNonZeroCost(arr) {
-    let squareTotalColorsWithNonZeroCost = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] > 0) {
-        squareTotalColorsWithNonZeroCost++;
-      }
-    }
-    return squareTotalColorsWithNonZeroCost;
-  }
-
-  getVictoryTile(unwonBonusIndex, costIndex)
-  {
-    return this.victoryTiles[this.game.unwonBonuses[unwonBonusIndex]];
-  }
-
   getCard(tier, slotIndex): Card {
     if (!this.game) {
       return {
@@ -91,74 +76,11 @@ export class SquareklesGameComponent implements OnInit {
     return deck[visibleSquares[slotIndex]];
   }
 
-  getCostThatShouldAppearAtSquare(unwonBonusIndex, costIndex)
-  {
-    const victoryTile = this.getVictoryTile(unwonBonusIndex, costIndex);
-    const squareTotalColorsWithNonZeroCost = this.getSquareTotalColorsWithNonZeroCost(victoryTile);
-    const adjustedCostIndex = squareTotalColorsWithNonZeroCost > 3 ? costIndex + 1 : squareTotalColorsWithNonZeroCost > 2 ? costIndex : costIndex - 1;
-    const indexOfNthNonzeroItem = this.getIndexOfTheIndexThNonZeroItem(victoryTile, adjustedCostIndex);
-    return victoryTile[indexOfNthNonzeroItem];
-  }
-
   isUpperCase(str) {
     return str === str.toUpperCase();
   }
 
   redirectToAllCaps(identifier) {
     this.router.navigate( ['squarekles/' + identifier]);
-  }
-
-  getCurrencyBackgroundColor(unwonBonusIndex, costIndex) {
-    const victoryTile = this.getVictoryTile(unwonBonusIndex, costIndex);
-    const squareTotalColorsWithNonZeroCost = this.getSquareTotalColorsWithNonZeroCost(victoryTile);
-    const adjustedCostIndex = squareTotalColorsWithNonZeroCost > 3 ? costIndex + 1 : squareTotalColorsWithNonZeroCost > 2 ? costIndex : costIndex - 1;
-    const indexOfNthNonZeroItem = this.getIndexOfTheIndexThNonZeroItem(victoryTile, adjustedCostIndex);
-    return this.getCurrencyColor(indexOfNthNonZeroItem);
-  }
-
-  getCircleCostBackgroundColor(tier, slotIndex, costIndex) {
-    const cardCost = this.getCard(tier, slotIndex).cost;
-    const totalCirclesWithNonZeroCost = this.getSquareTotalColorsWithNonZeroCost(cardCost);
-    const adjustedCostIndex = totalCirclesWithNonZeroCost > 3 ? costIndex : totalCirclesWithNonZeroCost > 2 ? costIndex - 1
-      : totalCirclesWithNonZeroCost > 1 ? costIndex - 2 : costIndex - 3;
-    const indexOfNthNonZeroItem = this.getIndexOfTheIndexThNonZeroItem(cardCost, adjustedCostIndex);
-    return this.getCurrencyColor(indexOfNthNonZeroItem);
-  }
-
-  getCircleCost(tier, slotIndex, costIndex) {
-    const cardCost = this.getCard(tier, slotIndex).cost;
-    const totalCirclesWithNonZeroCost = this.getSquareTotalColorsWithNonZeroCost(cardCost);
-    const adjustedCostIndex = totalCirclesWithNonZeroCost > 3 ? costIndex : totalCirclesWithNonZeroCost > 2 ? costIndex - 1
-      : totalCirclesWithNonZeroCost > 1 ? costIndex - 2 : costIndex - 3;
-    const indexOfNthNonZeroItem = this.getIndexOfTheIndexThNonZeroItem(cardCost, adjustedCostIndex);
-    return cardCost[indexOfNthNonZeroItem];
-  }
-
-  getIndexOfTheIndexThNonZeroItem(cardCost, index) {
-    const thingsThatAreNotZero = this.getAllIndexesOfThingsThatAreNotZero(cardCost);
-    if (index > thingsThatAreNotZero.length - 1) {
-      return 4;
-    }
-    return thingsThatAreNotZero[index];
-  }
-
-  getAllIndexesOfThingsThatAreNotZero(arr) {
-    const thingsThatAreNotZero = [];
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i]) {
-        thingsThatAreNotZero.push(i);
-      }
-    }
-    return thingsThatAreNotZero;
-  }
-
-  getCurrencyColor(index) {
-    return [
-      '#f5f558',
-      '#38fedc',
-      '#51ed3b',
-      '#c51111',
-      '#6a2fb9'
-    ][index];
   }
 }

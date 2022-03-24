@@ -1,0 +1,22 @@
+<div class = "card">
+  <div class="resource-cost-carrier">
+    <div class="circle-and-cost-carrier-1" *ngIf="getTotalItemsWithNonZeroCost(card.cost) > 3">
+      <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCostColor(card.cost, 0)}"></div>
+      <h1 class="bonus-circle-number-cost">{{ getColorCost(card.cost, 0) }}</h1>
+    </div>
+    <div class="circle-and-cost-carrier-2" *ngIf="getTotalItemsWithNonZeroCost(card.cost) > 2">
+      <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCostColor(card.cost, 1)}"></div>
+      <h1 class="bonus-circle-number-cost">{{ getColorCost(card.cost, 1) }}</h1>
+    </div>
+    <div class="circle-and-cost-carrier-3" *ngIf="getTotalItemsWithNonZeroCost(card.cost) > 1">
+      <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCostColor(card.cost, 2)}"></div>
+      <h1 class="bonus-circle-number-cost">{{ getColorCost(card.cost, 2) }}</h1>
+    </div>
+    <div class="circle-and-cost-carrier-4">
+      <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCostColor(card.cost, 3)}"></div>
+      <h1 class="bonus-circle-number-cost">{{ getColorCost(card.cost, 3) }}</h1>
+    </div>
+  </div>
+  <button class = "buy-button">Buy</button>
+  <button class = "reserve-button">Reserve</button>
+</div>

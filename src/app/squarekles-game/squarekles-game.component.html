@@ -3,430 +3,45 @@
     <h1 class = "title">TUFFBLUFF</h1>
     <p class="url-description-text">Give this URL to all friends that wish to join or watch: https://tuffbluff.com/squarekles/{{ identifier }}</p>
     <div class = bonus-carrier>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[0] !== null && game.unwonBonuses[0] > -1" class = existing-bonus-1>
-        <div class="square-cost-carrier">
-          <div class="existing-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(0, 0)) > 2">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(0, 0)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(0, 0) }}</h1>
-          </div>
-          <div class = "empty-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(0, 0)) <= 2">
-
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(0, 1)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(0, 1) }}</h1>
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(0, 2)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(0, 2) }}</h1>
-          </div>
-        </div>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[0]" class="bonus-1"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[1]" class="bonus-2"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[2]" class="bonus-3"></app-squarkles-bonus>
+      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[2] !== null && game.unwonBonuses[2] === 50" class = hashtag-bonus>
+        <h1 class = "hashtag-bonus-cost"># 3</h1>
+        <h2 class = "hashtag-bonus-subcaption">This is Stealable</h2>
       </div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[0] !== null && game.unwonBonuses[0] === -1" class = non-existing-bonus></div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[1] !== null && game.unwonBonuses[1] > -1" class = existing-bonus-2>
-        <div class="square-cost-carrier">
-          <div class="existing-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(1, 0)) > 2">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(1, 0)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(1, 0) }}</h1>
-          </div>
-          <div class = "empty-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(1, 0)) <= 2">
-
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(1, 1)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(1, 1) }}</h1>
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(1, 2)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(1, 2) }}</h1>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[1] !== null && game.unwonBonuses[1] === -1" class = non-existing-bonus></div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[2] !== null && game.unwonBonuses[2] > -1" class = existing-bonus-3>
-        <div class="square-cost-carrier">
-          <div class="existing-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(2, 0)) > 2">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(2, 0)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(2, 0) }}</h1>
-          </div>
-          <div class = "empty-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(2, 0)) <= 2">
-
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(2, 1)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(2, 1) }}</h1>
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(2, 2)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(2, 2) }}</h1>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[2] !== null && game.unwonBonuses[2] === -1" class = non-existing-bonus></div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[3] !== null && game.unwonBonuses[3] > -1" class = existing-bonus-4>
-        <div class="square-cost-carrier">
-          <div class="existing-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(3, 0)) > 2">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(3, 0)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(3, 0) }}</h1>
-          </div>
-          <div class = "empty-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(3, 0)) <= 2">
-
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(3, 1)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(3, 1) }}</h1>
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(3, 2)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(3, 2) }}</h1>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[3] !== null && game.unwonBonuses[3] === -1" class = non-existing-bonus></div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[4] !== null && game.unwonBonuses[4] > -1" class = existing-bonus-5>
-        <div class="square-cost-carrier">
-          <div class="existing-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(4, 0)) > 2">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(4, 0)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(4, 0) }}</h1>
-          </div>
-          <div class = "empty-square-and-cost-carrier" *ngIf="getSquareTotalColorsWithNonZeroCost(getVictoryTile(4, 0)) <= 2">
-
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(4, 1)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(4, 1) }}</h1>
-          </div>
-          <div class="existing-square-and-cost-carrier">
-            <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCurrencyBackgroundColor(4, 2)}">
-
-            </div>
-            <h1 class="bonus-square-number-cost">{{ this.getCostThatShouldAppearAtSquare(4, 2) }}</h1>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[4] !== null && game.unwonBonuses[4] === -1" class = non-existing-bonus></div>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[3]" class="bonus-4"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[4]" class="bonus-5"></app-squarkles-bonus>
     </div>
     <div class="top-tier-cards-carrier">
       <div class="deck">
 
         <button class="reserve-hidden-card-button">Reserve Unknown</button>
       </div>
-      <div class="resource-card-slot-1">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 0).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 0, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 0, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 0).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 0, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 0, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 0).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 0, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 0, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 0, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 0, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-2">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 1).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 1, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 1, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 1).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 1, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 1, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 1).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 1, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 1, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 1, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 1, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-3">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 2).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 2, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 2, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 2).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 2, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 2, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 2).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 2, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 2, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 2, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 2, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-4">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 3).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 3, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 3, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 3).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 3, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 3, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('top', 3).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 3, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 3, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('top', 3, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('top', 3, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
+      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('top', 0)" [tier]="'top'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('top', 1)" [tier]="'top'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('top', 2)" [tier]="'top'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('top', 3)" [tier]="'top'"></app-squarkles-card>
     </div>
     <div class="middle-tier-cards-carrier">
       <div class="deck">
 
         <button class="reserve-hidden-card-button">Reserve Unknown</button>
       </div>
-      <div class="resource-card-slot-1">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 0).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 0, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 0, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 0).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 0, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 0, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 0).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 0, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 0, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 0, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 0, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-2">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 1).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 1, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 1, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 1).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 1, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 1, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 1).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 1, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 1, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 1, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 1, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-3">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 2).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 2, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 2, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 2).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 2, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 2, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 2).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 2, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 2, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 2, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 2, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-4">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 3).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 3, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 3, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 3).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 3, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 3, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('middle', 3).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 3, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 3, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('middle', 3, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('middle', 3, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
+      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('middle', 0)" [tier]="'middle'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('middle', 1)" [tier]="'middle'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('middle', 2)" [tier]="'middle'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('middle', 3)" [tier]="'middle'"></app-squarkles-card>
     </div>
     <div class="bottom-tier-cards-carrier">
       <div class="deck">
 
         <button class="reserve-hidden-card-button">Reserve Unknown</button>
       </div>
-      <div class="resource-card-slot-1">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 0).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 0, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 0, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 0).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 0, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 0, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 0).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 0, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 0, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 0, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 0, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-2">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 1).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 1, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 1, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 1).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 1, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 1, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 1).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 1, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 1, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 1, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 1, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-3">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 2).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 2, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 2, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 2).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 2, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 2, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 2).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 2, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 2, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 2, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 2, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
-      <div class="resource-card-slot-4">
-
-        <div class="resource-cost-carrier">
-          <div class="circle-and-cost-carrier-1" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 3).cost) > 3">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 3, 0)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 3, 0) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-2" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 3).cost) > 2">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 3, 1)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 3, 1) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-3" *ngIf="getSquareTotalColorsWithNonZeroCost(getCard('bottom', 3).cost) > 1">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 3, 2)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 3, 2) }}</h1>
-          </div>
-          <div class="circle-and-cost-carrier-4">
-            <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCircleCostBackgroundColor('bottom', 3, 3)}"></div>
-            <h1 class="bonus-circle-number-cost">{{ this.getCircleCost('bottom', 3, 3) }}</h1>
-          </div>
-        </div>
-        <button class = "buy-button">Buy</button>
-        <button class = "reserve-button">Reserve</button>
-      </div>
+      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('bottom', 0)" [tier]="'bottom'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('bottom', 1)" [tier]="'bottom'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('bottom', 2)" [tier]="'bottom'"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('bottom', 3)" [tier]="'bottom'"></app-squarkles-card>
     </div>
   </div>
 </div>
