@@ -13,6 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SquareklesGameComponent } from './squarekles-game/squarekles-game.component';
 import { SquarklesCardComponent } from './squarkles-card/squarkles-card.component';
 import { SquarklesBonusComponent } from './squarkles-bonus/squarkles-bonus.component';
+import { CoinExchangeCarrierComponent } from './coin-exchange-carrier/coin-exchange-carrier.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SquarklesBonusComponent } from './squarkles-bonus/squarkles-bonus.compo
     InfluenceAvatarComponent,
     SquareklesGameComponent,
     SquarklesCardComponent,
-    SquarklesBonusComponent
+    SquarklesBonusComponent,
+    CoinExchangeCarrierComponent
   ],
   imports: [
     BrowserModule,

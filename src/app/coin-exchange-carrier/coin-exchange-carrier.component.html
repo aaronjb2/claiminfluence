@@ -1,0 +1,8 @@
+<div class="coin-exchange-component">
+  <h1 class="quantity-remaining">3</h1>
+  <div class = "coin-pile" [ngStyle]="{'background-color': getColorCodeByIndex()}"></div>
+  <div class = "coin-plus-quantity-remaining-plus-plus-sign-container">
+    <button class="plus-sign" *ngIf="elementIndex !== 5">+</button>
+    <button class="minus-sign">-</button>
+  </div>
+</div>

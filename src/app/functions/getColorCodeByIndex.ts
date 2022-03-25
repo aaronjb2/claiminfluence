@@ -1,9 +1,10 @@
 export function getColorCodeByIndex(index) {
   return [
     '#f5f558',
-    '#38fedc',
+    '#7878FF',
     '#51ed3b',
-    '#c51111',
-    '#6a2fb9'
+    '#FF3939',
+    '#B02FFF',
+    '#FFFFFF'
   ][index];
 }

@@ -2,6 +2,14 @@
   <div class = "game-container">
     <h1 class = "title">TUFFBLUFF</h1>
     <p class="url-description-text">Give this URL to all friends that wish to join or watch: https://tuffbluff.com/squarekles/{{ identifier }}</p>
+    <div class="coin-exchange-carrier-carrier">
+      <app-coin-exchange-carrier class="coin-exchange-carrier-1" [game]="game" [elementIndex]="0"></app-coin-exchange-carrier>
+      <app-coin-exchange-carrier class="coin-exchange-carrier-2" [game]="game" [elementIndex]="1"></app-coin-exchange-carrier>
+      <app-coin-exchange-carrier class="coin-exchange-carrier-3" [game]="game" [elementIndex]="2"></app-coin-exchange-carrier>
+      <app-coin-exchange-carrier class="coin-exchange-carrier-4" [game]="game" [elementIndex]="3"></app-coin-exchange-carrier>
+      <app-coin-exchange-carrier class="coin-exchange-carrier-5" [game]="game" [elementIndex]="4"></app-coin-exchange-carrier>
+      <app-coin-exchange-carrier class="coin-exchange-carrier-6" [game]="game" [elementIndex]="5"></app-coin-exchange-carrier>
+    </div>
     <div class = bonus-carrier>
       <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[0]" class="bonus-1"></app-squarkles-bonus>
       <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[1]" class="bonus-2"></app-squarkles-bonus>
