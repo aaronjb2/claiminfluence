@@ -1,4 +1,7 @@
-<div class = "card">
+<div class = "card" [ngStyle]="{'background-color': getColorCodeByIndex(card.color)}">
+  <h1 class = "point-value">{{card.pointValue === 0 ? '' : card.pointValue}}</h1>
+  <h1 class = "hashtags-quantity-1" *ngIf="game.hashtagMode && card.hashtags === 1">#</h1>
+  <h1 class = "hashtags-quantity-2" *ngIf="game.hashtagMode && card.hashtags === 2">##</h1>
   <div class="resource-cost-carrier">
     <div class="circle-and-cost-carrier-1" *ngIf="getTotalItemsWithNonZeroCost(card.cost) > 3">
       <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCostColor(card.cost, 0)}"></div>

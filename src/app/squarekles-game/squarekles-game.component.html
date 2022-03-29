@@ -11,41 +11,28 @@
       <app-coin-exchange-carrier class="coin-exchange-carrier-6" [game]="game" [elementIndex]="5"></app-coin-exchange-carrier>
     </div>
     <div class = bonus-carrier>
-      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[0]" class="bonus-1"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[1]" class="bonus-2"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[2]" class="bonus-3"></app-squarkles-bonus>
-      <div *ngIf="game && game.unwonBonuses && game.unwonBonuses[2] !== null && game.unwonBonuses[2] === 50" class = hashtag-bonus>
-        <h1 class = "hashtag-bonus-cost"># 3</h1>
-        <h2 class = "hashtag-bonus-subcaption">This is Stealable</h2>
-      </div>
-      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[3]" class="bonus-4"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[game.unwonBonuses[0]]" class="bonus-1"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[game.unwonBonuses[1]]" class="bonus-2"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="game.unwonBonuses[2] === 50 ? [] : victoryTiles[game.unwonBonuses[2]]" class="bonus-3"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[game.unwonBonuses[3]]" class="bonus-4"></app-squarkles-bonus>
       <app-squarkles-bonus [game]="game" [victoryTile]="victoryTiles[4]" class="bonus-5"></app-squarkles-bonus>
     </div>
     <div class="top-tier-cards-carrier">
-      <div class="deck">
-
-        <button class="reserve-hidden-card-button">Reserve Unknown</button>
-      </div>
+      <app-squarekles-deck [game]="game" [tier]="'top'"></app-squarekles-deck>
       <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('top', 0)" [tier]="'top'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('top', 1)" [tier]="'top'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('top', 2)" [tier]="'top'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('top', 3)" [tier]="'top'"></app-squarkles-card>
     </div>
     <div class="middle-tier-cards-carrier">
-      <div class="deck">
-
-        <button class="reserve-hidden-card-button">Reserve Unknown</button>
-      </div>
+      <app-squarekles-deck [game]="game" [tier]="'middle'"></app-squarekles-deck>
       <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('middle', 0)" [tier]="'middle'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('middle', 1)" [tier]="'middle'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('middle', 2)" [tier]="'middle'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('middle', 3)" [tier]="'middle'"></app-squarkles-card>
     </div>
     <div class="bottom-tier-cards-carrier">
-      <div class="deck">
-
-        <button class="reserve-hidden-card-button">Reserve Unknown</button>
-      </div>
+      <app-squarekles-deck [game]="game" [tier]="'bottom'"></app-squarekles-deck>
       <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('bottom', 0)" [tier]="'bottom'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('bottom', 1)" [tier]="'bottom'"></app-squarkles-card>
       <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('bottom', 2)" [tier]="'bottom'"></app-squarkles-card>

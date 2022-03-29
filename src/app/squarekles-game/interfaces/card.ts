@@ -1,5 +1,5 @@
 export interface Card {
-  color: string;
+  color: number;
   cost: number[];
   pointValue: number;
   hashtags: number;

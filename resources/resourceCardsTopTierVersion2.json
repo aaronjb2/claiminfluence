@@ -1,120 +1,120 @@
 [
   {
-    "color": "black",
+    "color": 4,
     "cost": [0, 3, 5, 3, 3],
     "pointValue": 3,
     "hashtags": 2
   },
   {
-    "color": "black",
+    "color": 4,
     "cost": [0, 3, 6, 0, 3],
     "pointValue": 4,
     "hashtags": 1
   },
   {
-    "color": "black",
+    "color": 4,
     "cost": [0, 0, 7, 0, 0],
     "pointValue": 4,
     "hashtags": 0
   },
   {
-    "color": "black",
+    "color": 4,
     "cost": [3, 0, 7, 0, 0],
     "pointValue": 5,
     "hashtags": 0
   },
   {
-    "color": "blue",
+    "color": 1,
     "cost": [3, 3, 0, 5, 3],
     "pointValue": 3,
     "hashtags": 2
   },
   {
-    "color": "blue",
+    "color": 1,
     "cost": [3, 0, 3, 6, 0],
     "pointValue": 4,
     "hashtags": 1
   },
   {
-    "color": "blue",
+    "color": 1,
     "cost": [0, 0, 0, 7, 0],
     "pointValue": 4,
     "hashtags": 0
   },
   {
-    "color": "blue",
+    "color": 1,
     "cost": [0, 0, 3, 7, 0],
     "pointValue": 5,
     "hashtags": 0
   },
   {
-    "color": "white",
+    "color": 0,
     "cost": [3, 5, 3, 3, 0],
     "pointValue": 3,
     "hashtags": 2
   },
   {
-    "color": "white",
+    "color": 0,
     "cost": [3, 6, 0, 3, 0],
     "pointValue": 4,
     "hashtags": 1
   },
   {
-    "color": "white",
+    "color": 0,
     "cost": [0, 7, 0, 0, 0],
     "pointValue": 4,
     "hashtags": 0
   },
   {
-    "color": "white",
+    "color": 0,
     "cost": [0, 7, 0, 0, 3],
     "pointValue": 5,
     "hashtags": 0
   },
   {
-    "color": "green",
+    "color": 2,
     "cost": [5, 3, 3, 0, 3],
     "pointValue": 3,
     "hashtags": 2
   },
   {
-    "color": "green",
+    "color": 2,
     "cost": [6, 0, 3, 0, 3],
     "pointValue": 4,
     "hashtags": 1
   },
   {
-    "color": "green",
+    "color": 2,
     "cost": [7, 0, 0, 0, 0],
     "pointValue": 4,
     "hashtags": 0
   },
   {
-    "color": "green",
+    "color": 2,
     "cost": [7, 0, 0, 3, 0],
     "pointValue": 5,
     "hashtags": 0
   },
   {
-    "color": "red",
+    "color": 3,
     "cost": [3, 3, 0, 3, 5],
     "pointValue": 3,
     "hashtags": 2
   },
   {
-    "color": "red",
+    "color": 3,
     "cost": [0, 0, 3, 3, 6],
     "pointValue": 4,
     "hashtags": 0
   },
   {
-    "color": "red",
+    "color": 3,
     "cost": [0, 0, 0, 0, 7],
     "pointValue": 4,
     "hashtags": 1
   },
   {
-    "color": "red",
+    "color": 3,
     "cost": [0, 3, 0, 0, 7],
     "pointValue": 5,
     "hashtags": 0

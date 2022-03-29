@@ -1,5 +1,8 @@
 <div class="bonus">
-  <div class="square-cost-carrier">
+  <h1 class="point-value">3</h1>
+  <h1 class = "hashtag-bonus-cost" *ngIf="victoryTile && victoryTile.length === 0"># 3</h1>
+  <h2 class = "hashtag-bonus-subcaption" *ngIf="victoryTile && victoryTile.length === 0">This is Stealable</h2>
+  <div class="square-cost-carrier" *ngIf="victoryTile && victoryTile.length > 0">
     <div class="square-cost-carrier-1" *ngIf="getTotalItemsWithNonZeroCost(victoryTile) > 2">
       <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile, 0)}">
 

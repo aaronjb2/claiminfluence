@@ -1,0 +1,9 @@
+<div class="deck">
+  <h1 class="top-tier-description" *ngIf="tier && tier === 'top'">Top Tier</h1>
+  <h1 class="middle-tier-description" *ngIf="tier && tier === 'middle'">Middle Tier</h1>
+  <h1 class="bottom-tier-description" *ngIf="tier && tier === 'bottom'">Bottom Tier</h1>
+  <h1 class="cards-remaining-text">Cards Remaining:</h1>
+  <h1 class="remaining-cards-double-digit" *ngIf="getCardsRemaining() > 9">{{ getCardsRemaining() }}</h1>
+  <h1 class="remaining-cards-single-digit" *ngIf="getCardsRemaining() < 10">{{ getCardsRemaining() }}</h1>
+  <button class="reserve-hidden-card-button" *ngIf="getCardsRemaining() > 0">Reserve Unknown</button>
+</div>

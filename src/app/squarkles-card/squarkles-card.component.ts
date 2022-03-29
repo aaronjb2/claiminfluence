@@ -25,5 +25,6 @@ export class SquarklesCardComponent implements OnInit {
   getCostColor(arr, index) { return getCostColor(arr, index); }
   getColorCost(arr, index) { return getColorCost(arr, index); }
   getTotalItemsWithNonZeroCost(arr) { return getTotalItemsWithNonZeroCost(arr); }
+  getColorCodeByIndex(index) { return getColorCodeByIndex(index); }
 
 }

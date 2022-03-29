@@ -1,0 +1,52 @@
+.deck {
+  height: 220px;
+  width: 190px;
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  border: 2px solid black;
+}
+
+.top-tier-description {
+  position: absolute;
+  top: 0px;
+  left: 40px;
+}
+
+.middle-tier-description {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+}
+
+.bottom-tier-description {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+}
+
+.cards-remaining-text {
+  position: absolute;
+  top: 60px;
+  text-align: center;
+}
+
+.remaining-cards-double-digit {
+  position: absolute;
+  top: 132px;
+  left: 75px;
+}
+
+.remaining-cards-single-digit {
+  position: absolute;
+  top: 132px;
+  left: 85px;
+}
+
+.reserve-hidden-card-button {
+  height: 25px;
+  width: 150px;
+  position: absolute;
+  bottom: 4px;
+  right: 20px;
+}

@@ -65,7 +65,7 @@ export class SquareklesGameComponent implements OnInit {
   getCard(tier, slotIndex): Card {
     if (!this.game) {
       return {
-        color: 'red',
+        color: 3,
         cost: [1, 1, 1, 1, 0],
         pointValue: 0,
         hashtags: 0
