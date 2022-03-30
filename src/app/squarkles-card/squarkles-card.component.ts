@@ -14,7 +14,6 @@ import { getCostColor } from '../functions/getCostColor';
 })
 export class SquarklesCardComponent implements OnInit {
   @Input() card: Card;
-  @Input() tier: string;
   @Input() game;
 
   constructor(private webSocketService: WebSocketService) { }
@@ -27,4 +26,7 @@ export class SquarklesCardComponent implements OnInit {
   getTotalItemsWithNonZeroCost(arr) { return getTotalItemsWithNonZeroCost(arr); }
   getColorCodeByIndex(index) { return getColorCodeByIndex(index); }
 
+  getHashtagsQuantityExistence(hashtagQuantity) {
+    return this.card && this.card.hashtags && this.card.hashtags === hashtagQuantity && this.game && this.game.hashtagMode;
+  }
 }

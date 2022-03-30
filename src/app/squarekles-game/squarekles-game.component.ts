@@ -65,6 +65,7 @@ export class SquareklesGameComponent implements OnInit {
   getCard(tier, slotIndex): Card {
     if (!this.game) {
       return {
+        tier,
         color: 3,
         cost: [1, 1, 1, 1, 0],
         pointValue: 0,
@@ -74,6 +75,16 @@ export class SquareklesGameComponent implements OnInit {
     const deck = tier === 'bottom' ? this.bottomTierCards : tier === 'middle' ? this.middleTierCards : this.topTierCards;
     const visibleSquares = tier === 'bottom' ? this.game.bottomTierVisibleSquares : tier === 'middle' ? this.game.middleTierVisibleSquares : this.game.topTierVisibleSquares;
     return deck[visibleSquares[slotIndex]];
+  }
+
+  getVictoryTile(index) {
+    if (this.victoryTiles && this.game && this.game.unwonBonuses && this.game.unwonBonuses[index] > -1) {
+      if (this.game.unwonBonuses[index] === 50) {
+        return [];
+      }
+      return this.victoryTiles[this.game.unwonBonuses[index]];
+    }
+    return [3, 3, 3, 0, 0];
   }
 
   isUpperCase(str) {
