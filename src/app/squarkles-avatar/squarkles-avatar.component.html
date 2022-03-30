@@ -1,0 +1,35 @@
+<div class="avatar">
+  <div class="small-divider-1"></div>
+  <div class="stick-1"></div>
+  <div class="stick-2"></div>
+  <div class="stick-3"></div>
+  <div class="stick-4"></div>
+  <div class="small-divider-2"></div>
+  <div class="big-divider"></div>
+  <div class = "square-of-square-plus-circle-1" [ngStyle]="{'background-color': getColorCodeByIndex(0)}"></div>
+  <h1 class="plus-sign-1">+</h1>
+  <div class = "circle-of-square-plus-circle-1" [ngStyle]="{'background-color': getColorCodeByIndex(0)}"></div>
+  <h1 class="combined-purchase-power-1-double-digit" *ngIf="getDoubleDigitTruthfulness(0)">12</h1>
+  <h1 class="combined-purchase-power-1-single-digit" *ngIf="!getDoubleDigitTruthfulness(0)">0</h1>
+  <div class = "square-of-square-plus-circle-2" [ngStyle]="{'background-color': getColorCodeByIndex(1)}"></div>
+  <h1 class="plus-sign-2">+</h1>
+  <div class = "circle-of-square-plus-circle-2" [ngStyle]="{'background-color': getColorCodeByIndex(1)}"></div>
+  <h1 class="combined-purchase-power-2-double-digit" *ngIf="getDoubleDigitTruthfulness(1)">12</h1>
+  <h1 class="combined-purchase-power-2-single-digit" *ngIf="!getDoubleDigitTruthfulness(1)">0</h1>
+  <div class = "square-of-square-plus-circle-3" [ngStyle]="{'background-color': getColorCodeByIndex(2)}"></div>
+  <h1 class="plus-sign-3">+</h1>
+  <div class = "circle-of-square-plus-circle-3" [ngStyle]="{'background-color': getColorCodeByIndex(2)}"></div>
+  <h1 class="combined-purchase-power-3-double-digit" *ngIf="getDoubleDigitTruthfulness(2)">12</h1>
+  <h1 class="combined-purchase-power-3-single-digit" *ngIf="!getDoubleDigitTruthfulness(2)">0</h1>
+  <div class = "square-of-square-plus-circle-4" [ngStyle]="{'background-color': getColorCodeByIndex(3)}"></div>
+  <h1 class="plus-sign-4">+</h1>
+  <div class = "circle-of-square-plus-circle-4" [ngStyle]="{'background-color': getColorCodeByIndex(3)}"></div>
+  <h1 class="combined-purchase-power-4-double-digit" *ngIf="getDoubleDigitTruthfulness(3)">12</h1>
+  <h1 class="combined-purchase-power-4-single-digit" *ngIf="!getDoubleDigitTruthfulness(3)">0</h1>
+  <div class = "square-of-square-plus-circle-5" [ngStyle]="{'background-color': getColorCodeByIndex(4)}"></div>
+  <h1 class="plus-sign-5">+</h1>
+  <div class = "circle-of-square-plus-circle-5" [ngStyle]="{'background-color': getColorCodeByIndex(4)}"></div>
+  <h1 class="combined-purchase-power-5-double-digit" *ngIf="getDoubleDigitTruthfulness(4)">12</h1>
+  <h1 class="combined-purchase-power-5-single-digit" *ngIf="!getDoubleDigitTruthfulness(4)">0</h1>
+  <div class="small-divider-3"></div>
+</div>

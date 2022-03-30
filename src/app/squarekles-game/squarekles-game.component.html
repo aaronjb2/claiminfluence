@@ -2,6 +2,12 @@
   <div class = "game-container">
     <h1 class = "title">TUFFBLUFF</h1>
     <p class="url-description-text">Give this URL to all friends that wish to join or watch: https://tuffbluff.com/squarekles/{{ identifier }}</p>
+    <div class = "player-avatar-container">
+      <app-squarkles-avatar class = "player-1-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(0)" [ngStyle]="{'top': '0px'}"></app-squarkles-avatar>
+      <app-squarkles-avatar class = "player-2-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(1)" [ngStyle]="{'top': '205px'}"></app-squarkles-avatar>
+      <app-squarkles-avatar class = "player-3-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(2)" [ngStyle]="{'top': '410px'}"></app-squarkles-avatar>
+      <app-squarkles-avatar class = "player-3-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(3)" [ngStyle]="{'top': '615px'}"></app-squarkles-avatar>
+    </div>
     <div class="coin-exchange-carrier-carrier">
       <app-coin-exchange-carrier class="coin-exchange-carrier-1" [game]="game" [elementIndex]="0"></app-coin-exchange-carrier>
       <app-coin-exchange-carrier class="coin-exchange-carrier-2" [game]="game" [elementIndex]="1"></app-coin-exchange-carrier>

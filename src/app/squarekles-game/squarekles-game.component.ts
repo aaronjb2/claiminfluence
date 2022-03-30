@@ -87,6 +87,20 @@ export class SquareklesGameComponent implements OnInit {
     return [3, 3, 3, 0, 0];
   }
 
+  getWhetherPlayerAvatarShouldExist(index) {
+    if (this.game && this.game.players && (this.game.players.length > index || index < 2)) {
+      return true;
+    }
+    return false;
+  }
+
+  getNumberOfPeoplePlaying() {
+    if (this.game && this.game.players) {
+      return this.game.players.length;
+    }
+    return 4;
+  }
+
   isUpperCase(str) {
     return str === str.toUpperCase();
   }

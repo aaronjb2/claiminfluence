@@ -15,6 +15,7 @@ import { SquarklesCardComponent } from './squarkles-card/squarkles-card.componen
 import { SquarklesBonusComponent } from './squarkles-bonus/squarkles-bonus.component';
 import { CoinExchangeCarrierComponent } from './coin-exchange-carrier/coin-exchange-carrier.component';
 import { SquareklesDeckComponent } from './squarekles-deck/squarekles-deck.component';
+import { SquarklesAvatarComponent } from './squarkles-avatar/squarkles-avatar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SquareklesDeckComponent } from './squarekles-deck/squarekles-deck.compo
     SquarklesCardComponent,
     SquarklesBonusComponent,
     CoinExchangeCarrierComponent,
-    SquareklesDeckComponent
+    SquareklesDeckComponent,
+    SquarklesAvatarComponent
   ],
   imports: [
     BrowserModule,
