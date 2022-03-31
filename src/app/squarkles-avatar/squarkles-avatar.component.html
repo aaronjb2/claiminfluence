@@ -1,35 +1,59 @@
 <div class="avatar">
+  <h1 class="hashtag-symbol">#-</h1>
+  <h1 class="hashtag-quantity">0</h1>
+  <h1 class="player-points-single-digit" *ngIf="getPlayerPoints() < 10">{{ getPlayerPoints() }}</h1>
+  <h1 class="player-points-double-digit" *ngIf="getPlayerPoints() > 9">{{ getPlayerPoints() }}</h1>
+  <h3 class="purchasing-text">Purchasing</h3>
+  <h3 class="power-text">Power</h3>
   <div class="small-divider-1"></div>
+  <h3 class="one-time-text">1-time</h3>
   <div class="stick-1"></div>
   <div class="stick-2"></div>
   <div class="stick-3"></div>
   <div class="stick-4"></div>
+  <div class="stick-5"></div>
+  <div class="stick-6"></div>
+  <div class="stick-7"></div>
+  <div class="stick-8"></div>
+  <div class="color-1"  [ngStyle]="{'background-color': getColorCodeByIndex(0)}"></div>
+  <div class="color-2"  [ngStyle]="{'background-color': getColorCodeByIndex(1)}"></div>
+  <div class="color-3"  [ngStyle]="{'background-color': getColorCodeByIndex(2)}"></div>
+  <div class="color-4"  [ngStyle]="{'background-color': getColorCodeByIndex(3)}"></div>
+  <div class="color-5"  [ngStyle]="{'background-color': getColorCodeByIndex(4)}"></div>
+  <div class="color-6"  [ngStyle]="{'background-color': getColorCodeByIndex(5)}"></div>
+  <div class="color-7"  [ngStyle]="{'background-color': getColorCodeByIndex(6)}"></div>
+  <h1 class="purchasing-power-one-time-text-1">0</h1>
+  <h1 class="purchasing-power-one-time-text-2">0</h1>
+  <h1 class="purchasing-power-one-time-text-3">0</h1>
+  <h1 class="purchasing-power-one-time-text-4">0</h1>
+  <h1 class="purchasing-power-one-time-text-5">0</h1>
+  <h1 class="purchasing-power-one-time-text-6">0</h1>
+  <h1 class="purchasing-power-one-time-text-7">0</h1>
+  <h1 class="purchasing-power-one-time-text-8-single-digit" *ngIf="getTotalTokens() < 10">0</h1>
+  <h1 class="purchasing-power-one-time-text-8-double-digit" *ngIf="getTotalTokens() > 9">10</h1>
   <div class="small-divider-2"></div>
+  <h1 class="purchasing-power-permanent-text-1-single-digit" *ngIf="getTotalPermanentPurchasingPower(0) < 10">0</h1>
+  <h1 class="purchasing-power-permanent-text-1-double-digit" *ngIf="getTotalPermanentPurchasingPower(0) > 9">10</h1>
+  <h1 class="purchasing-power-permanent-text-2-single-digit" *ngIf="getTotalPermanentPurchasingPower(1) < 10">0</h1>
+  <h1 class="purchasing-power-permanent-text-2-double-digit" *ngIf="getTotalPermanentPurchasingPower(1) > 9">10</h1>
+  <h1 class="purchasing-power-permanent-text-3-single-digit" *ngIf="getTotalPermanentPurchasingPower(2) < 10">0</h1>
+  <h1 class="purchasing-power-permanent-text-3-double-digit" *ngIf="getTotalPermanentPurchasingPower(2) > 9">10</h1>
+  <h1 class="purchasing-power-permanent-text-4-single-digit" *ngIf="getTotalPermanentPurchasingPower(3) < 10">0</h1>
+  <h1 class="purchasing-power-permanent-text-4-double-digit" *ngIf="getTotalPermanentPurchasingPower(3) > 9">10</h1>
+  <h1 class="purchasing-power-permanent-text-5-single-digit" *ngIf="getTotalPermanentPurchasingPower(4) < 10">0</h1>
+  <h1 class="purchasing-power-permanent-text-5-double-digit" *ngIf="getTotalPermanentPurchasingPower(4) > 9">10</h1>
+  <h3 class="permanent-text">Permanent</h3>
   <div class="big-divider"></div>
-  <div class = "square-of-square-plus-circle-1" [ngStyle]="{'background-color': getColorCodeByIndex(0)}"></div>
-  <h1 class="plus-sign-1">+</h1>
-  <div class = "circle-of-square-plus-circle-1" [ngStyle]="{'background-color': getColorCodeByIndex(0)}"></div>
-  <h1 class="combined-purchase-power-1-double-digit" *ngIf="getDoubleDigitTruthfulness(0)">12</h1>
-  <h1 class="combined-purchase-power-1-single-digit" *ngIf="!getDoubleDigitTruthfulness(0)">0</h1>
-  <div class = "square-of-square-plus-circle-2" [ngStyle]="{'background-color': getColorCodeByIndex(1)}"></div>
-  <h1 class="plus-sign-2">+</h1>
-  <div class = "circle-of-square-plus-circle-2" [ngStyle]="{'background-color': getColorCodeByIndex(1)}"></div>
-  <h1 class="combined-purchase-power-2-double-digit" *ngIf="getDoubleDigitTruthfulness(1)">12</h1>
-  <h1 class="combined-purchase-power-2-single-digit" *ngIf="!getDoubleDigitTruthfulness(1)">0</h1>
-  <div class = "square-of-square-plus-circle-3" [ngStyle]="{'background-color': getColorCodeByIndex(2)}"></div>
-  <h1 class="plus-sign-3">+</h1>
-  <div class = "circle-of-square-plus-circle-3" [ngStyle]="{'background-color': getColorCodeByIndex(2)}"></div>
-  <h1 class="combined-purchase-power-3-double-digit" *ngIf="getDoubleDigitTruthfulness(2)">12</h1>
-  <h1 class="combined-purchase-power-3-single-digit" *ngIf="!getDoubleDigitTruthfulness(2)">0</h1>
-  <div class = "square-of-square-plus-circle-4" [ngStyle]="{'background-color': getColorCodeByIndex(3)}"></div>
-  <h1 class="plus-sign-4">+</h1>
-  <div class = "circle-of-square-plus-circle-4" [ngStyle]="{'background-color': getColorCodeByIndex(3)}"></div>
-  <h1 class="combined-purchase-power-4-double-digit" *ngIf="getDoubleDigitTruthfulness(3)">12</h1>
-  <h1 class="combined-purchase-power-4-single-digit" *ngIf="!getDoubleDigitTruthfulness(3)">0</h1>
-  <div class = "square-of-square-plus-circle-5" [ngStyle]="{'background-color': getColorCodeByIndex(4)}"></div>
-  <h1 class="plus-sign-5">+</h1>
-  <div class = "circle-of-square-plus-circle-5" [ngStyle]="{'background-color': getColorCodeByIndex(4)}"></div>
-  <h1 class="combined-purchase-power-5-double-digit" *ngIf="getDoubleDigitTruthfulness(4)">12</h1>
-  <h1 class="combined-purchase-power-5-single-digit" *ngIf="!getDoubleDigitTruthfulness(4)">0</h1>
+  <h1 class="purchasing-power-total-text-1-single-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(0) < 10">0</h1>
+  <h1 class="purchasing-power-total-text-1-double-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(0) > 9">10</h1>
+  <h1 class="purchasing-power-total-text-2-single-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(1) < 10">0</h1>
+  <h1 class="purchasing-power-total-text-2-double-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(1) > 9">10</h1>
+  <h1 class="purchasing-power-total-text-3-single-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(2) < 10">0</h1>
+  <h1 class="purchasing-power-total-text-3-double-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(2) > 9">10</h1>
+  <h1 class="purchasing-power-total-text-4-single-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(3) < 10">0</h1>
+  <h1 class="purchasing-power-total-text-4-double-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(3) > 9">10</h1>
+  <h1 class="purchasing-power-total-text-5-single-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(4) < 10">0</h1>
+  <h1 class="purchasing-power-total-text-5-double-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(4) > 9">10</h1>
+  <h3 class="total-text">Total</h3>
   <div class="small-divider-3"></div>
 </div>

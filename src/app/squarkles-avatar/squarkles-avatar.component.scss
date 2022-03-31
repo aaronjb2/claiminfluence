@@ -7,6 +7,34 @@
   left: 0px;
 }
 
+.hashtag-symbol {
+  position: absolute;
+  top: -25px;
+  left: 2px;
+  font-size: 30px;
+}
+
+.hashtag-quantity {
+  position: absolute;
+  top: -25px;
+  left: 35px;
+  font-size: 30px;
+}
+
+.player-points-single-digit {
+  position: absolute;
+  top: -30px;
+  left: 471px;
+  font-size: 34px;
+}
+
+.player-points-double-digit {
+  position: absolute;
+  top: -30px;
+  left: 451px;
+  font-size: 34px;
+}
+
 .stick-1 {
   position: absolute;
   background-color: black;
@@ -29,9 +57,9 @@
   position: absolute;
   background-color: black;
   height: 125px;
-  width: 2px;
+  width: 1px;
   top: 35px;
-  left: 195px;
+  left: 145px;
 }
 
 .stick-3 {
@@ -40,7 +68,7 @@
   height: 125px;
   width: 1px;
   top: 35px;
-  left: 294px;
+  left: 195px;
 }
 
 .stick-4 {
@@ -49,7 +77,43 @@
   height: 125px;
   width: 1px;
   top: 35px;
-  left: 393px;
+  left: 245px;
+}
+
+.stick-5 {
+  position: absolute;
+  background-color: black;
+  height: 125px;
+  width: 1px;
+  top: 35px;
+  left: 295px;
+}
+
+.stick-6 {
+  position: absolute;
+  background-color: black;
+  height: 125px;
+  width: 1px;
+  top: 35px;
+  left: 345px;
+}
+
+.stick-7{
+  position: absolute;
+  background-color: black;
+  height: 66px;
+  width: 1px;
+  top: 35px;
+  left: 395px;
+}
+
+.stick-8 {
+  position: absolute;
+  background-color: black;
+  height: 66px;
+  width: 4px;
+  top: 35px;
+  left: 445px;
 }
 
 .small-divider-1 {
@@ -57,214 +121,303 @@
   width: 496px;
   height: 2px;
   position: absolute;
-  top: 35px;
+  top: 70px;
 }
 
 .small-divider-2 {
   background-color: black;
-  width: 496px;
+  width: 346px;
   height: 2px;
   position: absolute;
-  top: 80px;
+  top: 100px;
 }
 
 .big-divider {
   background-color: black;
-  width: 496px;
+  width: 346px;
   height: 4px;
   position: absolute;
-  top: 125px;
+  top: 130px;
 }
 
 .small-divider-3 {
   background-color: black;
-  width: 496px;
+  width: 346px;
   height: 2px;
   position: absolute;
   top: 160px;
 }
 
-.square-of-square-plus-circle-1 {
-  height: 20px;
-  width: 20px;
+.purchasing-text {
   position: absolute;
-  border: 2px solid black;
-  top: 132px;
   left: 2px;
+  top: 15px;
 }
 
-.plus-sign-1 {
+.power-text {
   position: absolute;
-  top: 102px;
-  left: 23px;
+  left: 2px;
+  top: 32px;
 }
 
-.circle-of-square-plus-circle-1 {
-  height: 20px;
-  width: 20px;
+.one-time-text {
   position: absolute;
-  border: 2px solid black;
-  top: 132px;
-  left: 43px;
+  left: 2px;
+  top: 60px;
+}
+
+.permanent-text {
+  position: absolute;
+  left: 2px;
+  top: 90px;
+}
+
+.total-text {
+  position: absolute;
+  left: 2px;
+  top: 120px;
+}
+
+.color-1 {
+  position: absolute;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
-}
-
-.combined-purchase-power-1-single-digit {
-  position: absolute;
-  top: 104px;
-  left: 72px;
-}
-
-.combined-purchase-power-1-double-digit {
-  position: absolute;
-  top: 104px;
-  left: 65px;
-}
-
-.square-of-square-plus-circle-2 {
-  height: 20px;
-  width: 20px;
-  position: absolute;
   border: 2px solid black;
-  top: 132px;
-  left: 101px;
+  top: 38px;
+  left: 106px;
 }
 
-.plus-sign-2 {
+.color-2 {
   position: absolute;
-  top: 102px;
-  left: 122px;
-}
-
-.circle-of-square-plus-circle-2 {
-  height: 20px;
-  width: 20px;
-  position: absolute;
-  border: 2px solid black;
-  top: 132px;
-  left: 142px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
-}
-
-.combined-purchase-power-2-single-digit {
-  position: absolute;
-  top: 104px;
-  left: 171px;
-}
-
-.combined-purchase-power-2-double-digit {
-  position: absolute;
-  top: 104px;
-  left: 164px;
-}
-
-.square-of-square-plus-circle-3 {
-  height: 20px;
-  width: 20px;
-  position: absolute;
   border: 2px solid black;
-  top: 132px;
-  left: 200px;
+  top: 38px;
+  left: 156px;
 }
 
-.plus-sign-3 {
+.color-3 {
   position: absolute;
-  top: 102px;
-  left: 221px;
-}
-
-.circle-of-square-plus-circle-3 {
-  height: 20px;
-  width: 20px;
-  position: absolute;
-  border: 2px solid black;
-  top: 132px;
-  left: 241px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
-}
-
-.combined-purchase-power-3-single-digit {
-  position: absolute;
-  top: 104px;
-  left: 270px;
-}
-
-.combined-purchase-power-3-double-digit {
-  position: absolute;
-  top: 104px;
-  left: 263px;
-}
-
-.square-of-square-plus-circle-4 {
-  height: 20px;
-  width: 20px;
-  position: absolute;
   border: 2px solid black;
-  top: 132px;
-  left: 299px;
+  top: 38px;
+  left: 206px;
 }
 
-.plus-sign-4 {
+.color-4 {
   position: absolute;
-  top: 102px;
-  left: 320px;
-}
-
-.circle-of-square-plus-circle-4 {
-  height: 20px;
-  width: 20px;
-  position: absolute;
-  border: 2px solid black;
-  top: 132px;
-  left: 340px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
+  border: 2px solid black;
+  top: 38px;
+  left: 256px;
 }
 
-.combined-purchase-power-4-single-digit {
+.color-5 {
   position: absolute;
-  top: 104px;
-  left: 369px;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 2px solid black;
+  top: 38px;
+  left: 306px;
 }
 
-.combined-purchase-power-4-double-digit {
+.color-6 {
   position: absolute;
-  top: 104px;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 2px solid black;
+  top: 38px;
+  left: 356px;
+}
+
+.color-7 {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 2px solid black;
+  top: 38px;
+  left: 406px;
+}
+
+.purchasing-power-one-time-text-1 {
+  position: absolute;
+  top: 47px;
+  left: 112px;
+}
+
+.purchasing-power-one-time-text-2 {
+  position: absolute;
+  top: 47px;
+  left: 162px;
+}
+
+.purchasing-power-one-time-text-3 {
+  position: absolute;
+  top: 47px;
+  left: 212px;
+}
+
+.purchasing-power-one-time-text-4 {
+  position: absolute;
+  top: 47px;
+  left: 262px;
+}
+
+.purchasing-power-one-time-text-5 {
+  position: absolute;
+  top: 47px;
+  left: 312px;
+}
+
+.purchasing-power-one-time-text-6 {
+  position: absolute;
+  top: 47px;
   left: 362px;
 }
 
-.square-of-square-plus-circle-5 {
-  height: 20px;
-  width: 20px;
+.purchasing-power-one-time-text-7 {
   position: absolute;
-  border: 2px solid black;
-  top: 132px;
-  left: 398px;
+  top: 47px;
+  left: 412px;
 }
 
-.plus-sign-5 {
+.purchasing-power-one-time-text-8-single-digit {
   position: absolute;
-  top: 102px;
-  left: 419px;
+  top: 47px;
+  left: 462px;
 }
 
-.circle-of-square-plus-circle-5 {
-  height: 20px;
-  width: 20px;
+.purchasing-power-one-time-text-8-double-digit {
   position: absolute;
-  border: 2px solid black;
-  top: 132px;
-  left: 439px;
-  border-radius: 50%;
+  top: 47px;
+  left: 455px;
 }
 
-.combined-purchase-power-5-single-digit {
+.purchasing-power-permanent-text-1-single-digit {
   position: absolute;
-  top: 104px;
-  left: 468px;
+  top: 76px;
+  left: 112px;
 }
 
-.combined-purchase-power-5-double-digit {
+.purchasing-power-permanent-text-2-single-digit {
   position: absolute;
-  top: 104px;
-  left: 461px;
+  top: 76px;
+  left: 162px;
+}
+
+.purchasing-power-permanent-text-3-single-digit {
+  position: absolute;
+  top: 76px;
+  left: 212px;
+}
+
+.purchasing-power-permanent-text-4-single-digit {
+  position: absolute;
+  top: 76px;
+  left: 262px;
+}
+
+.purchasing-power-permanent-text-5-single-digit {
+  position: absolute;
+  top: 76px;
+  left: 312px;
+}
+
+.purchasing-power-permanent-text-1-double-digit {
+  position: absolute;
+  top: 76px;
+  left: 103px;
+}
+
+.purchasing-power-permanent-text-2-double-digit {
+  position: absolute;
+  top: 76px;
+  left: 153px;
+}
+
+.purchasing-power-permanent-text-3-double-digit {
+  position: absolute;
+  top: 76px;
+  left: 203px;
+}
+
+.purchasing-power-permanent-text-4-double-digit {
+  position: absolute;
+  top: 76px;
+  left: 253px;
+}
+
+.purchasing-power-permanent-text-5-double-digit {
+  position: absolute;
+  top: 76px;
+  left: 303px;
+}
+
+.purchasing-power-total-text-1-single-digit {
+  position: absolute;
+  top: 108px;
+  left: 112px;
+}
+
+.purchasing-power-total-text-2-single-digit {
+  position: absolute;
+  top: 108px;
+  left: 162px;
+}
+
+.purchasing-power-total-text-3-single-digit {
+  position: absolute;
+  top: 108px;
+  left: 212px;
+}
+
+.purchasing-power-total-text-4-single-digit {
+  position: absolute;
+  top: 108px;
+  left: 262px;
+}
+
+.purchasing-power-total-text-5-single-digit {
+  position: absolute;
+  top: 108px;
+  left: 312px;
+}
+
+.purchasing-power-total-text-1-double-digit {
+  position: absolute;
+  top: 108px;
+  left: 103px;
+}
+
+.purchasing-power-total-text-2-double-digit {
+  position: absolute;
+  top: 108px;
+  left: 153px;
+}
+
+.purchasing-power-total-text-3-double-digit {
+  position: absolute;
+  top: 108px;
+  left: 203px;
+}
+
+.purchasing-power-total-text-4-double-digit {
+  position: absolute;
+  top: 108px;
+  left: 253px;
+}
+
+.purchasing-power-total-text-5-double-digit {
+  position: absolute;
+  top: 108px;
+  left: 303px;
 }

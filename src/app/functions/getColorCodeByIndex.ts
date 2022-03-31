@@ -5,6 +5,7 @@ export function getColorCodeByIndex(index) {
     '#51ed3b',
     '#FF3939',
     '#B02FFF',
-    '#FFFFFF'
+    '#FFFFFF',
+    '#FFA500'
   ][index];
 }

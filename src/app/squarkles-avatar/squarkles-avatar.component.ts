@@ -23,4 +23,20 @@ export class SquarklesAvatarComponent implements OnInit {
     return false;
   }
 
+  getTotalTokens() {
+    return 9;
+  }
+
+  getTotalPermanentPurchasingPower(index) {
+    return 9;
+  }
+
+  getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(index) {
+    return 9;
+  }
+
+  getPlayerPoints() {
+    return 0;
+  }
+
 }
