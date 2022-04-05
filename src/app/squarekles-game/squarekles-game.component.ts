@@ -108,4 +108,15 @@ export class SquareklesGameComponent implements OnInit {
   redirectToAllCaps(identifier) {
     this.router.navigate( ['squarekles/' + identifier]);
   }
+
+  getPositionOfPlayerAtIndex(index) {
+    return index === 3 ? '615px' : index === 2 ? '410px' : index === 1 ? '205px' : '0px';
+  }
+
+  bonusShouldShowUp(index) {
+    if (this.game && this.game.unwonBonuses && this.game.unwonBonuses[index] > -1) {
+      return true;
+    }
+    return false;
+  }
 }

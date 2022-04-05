@@ -1,6 +1,11 @@
 <div class="avatar">
   <h1 class="hashtag-symbol">#-</h1>
   <h1 class="hashtag-quantity">0</h1>
+  <div class ="name" *ngIf="!changingName">
+    {{ game.players[index].name }}
+  </div>
+  <input type="text" class="name-change" *ngIf="changingName" #newName (keyup.enter)="changeName(newName.value)" maxlength="11" (change)="setTypedName(newName.value)" />
+  <button class="set-name" (click)="toggleChangingName(typedName)" *ngIf="game && !game.started"></button>
   <h1 class="player-points-single-digit" *ngIf="getPlayerPoints() < 10">{{ getPlayerPoints() }}</h1>
   <h1 class="player-points-double-digit" *ngIf="getPlayerPoints() > 9">{{ getPlayerPoints() }}</h1>
   <h3 class="purchasing-text">Purchasing</h3>
@@ -56,4 +61,31 @@
   <h1 class="purchasing-power-total-text-5-double-digit" *ngIf="getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(4) > 9">10</h1>
   <h3 class="total-text">Total</h3>
   <div class="small-divider-3"></div>
+  <button class = "view-items-obtained-button" (click)="setItemBeingDisplayed(0)">View Items Obtained</button>
+  <button class = "view-items-reserved-button" (click)="setItemBeingDisplayed(1)">View Items Reserved</button>
+  <div class = "items-obtained-container" *ngIf="itemBeingDisplayed === 0" [ngStyle]="{'z-index': index + 1}">
+    <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
+    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].card" class="card-0" *ngIf="evaluateIfCardShouldExist(0)"></app-squarkles-card>
+    <app-squarkles-bonus class="bonus-won-0" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].bonus" *ngIf="evaluateIfBonusShouldExist(0)"></app-squarkles-bonus>
+    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].card" class="card-1" *ngIf="evaluateIfCardShouldExist(1)"></app-squarkles-card>
+    <app-squarkles-bonus class="bonus-won-1" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].bonus" *ngIf="evaluateIfBonusShouldExist(1)"></app-squarkles-bonus>
+    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].card" class="card-2" *ngIf="evaluateIfCardShouldExist(2)"></app-squarkles-card>
+    <app-squarkles-bonus class="bonus-won-2" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].bonus" *ngIf="evaluateIfBonusShouldExist(2)"></app-squarkles-bonus>
+    <div class="decrease-page-button-enabled" (click)="changePageNumber(true)" *ngIf="pageNumber > 1">
+      <img class="decrease-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="decrease-page-button-disabled" *ngIf="pageNumber <= 1">
+      <img class="decrease-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="increase-page-button-enabled" (click)="changePageNumber()" *ngIf="pageNumber < getTotalPages()">
+      <img class="increase-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="increase-page-button-disabled" *ngIf="pageNumber >= getTotalPages()">
+      <img class="increase-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <h1 class="page-description">{{ 'Page ' + pageNumber + ' of ' + getTotalPages() }}</h1>
+  </div>
+  <div class = "items-reserved-container" *ngIf="itemBeingDisplayed === 1" [ngStyle]="{'z-index': index + 1}">
+    <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
+  </div>
 </div>

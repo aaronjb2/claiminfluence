@@ -3,10 +3,10 @@
     <h1 class = "title">TUFFBLUFF</h1>
     <p class="url-description-text">Give this URL to all friends that wish to join or watch: https://tuffbluff.com/squarekles/{{ identifier }}</p>
     <div class = "player-avatar-container">
-      <app-squarkles-avatar class = "player-1-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(0)" [ngStyle]="{'top': '0px'}"></app-squarkles-avatar>
-      <app-squarkles-avatar class = "player-2-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(1)" [ngStyle]="{'top': '205px'}"></app-squarkles-avatar>
-      <app-squarkles-avatar class = "player-3-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(2)" [ngStyle]="{'top': '410px'}"></app-squarkles-avatar>
-      <app-squarkles-avatar class = "player-3-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(3)" [ngStyle]="{'top': '615px'}"></app-squarkles-avatar>
+      <app-squarkles-avatar class = "player-1-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(0)" [ngStyle]="{'top': getPositionOfPlayerAtIndex(0)}" [game]="game" [index]="0"></app-squarkles-avatar>
+      <app-squarkles-avatar class = "player-2-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(1)" [ngStyle]="{'top': getPositionOfPlayerAtIndex(1)}" [game]="game" [index]="1"></app-squarkles-avatar>
+      <app-squarkles-avatar class = "player-3-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(2)" [ngStyle]="{'top': getPositionOfPlayerAtIndex(2)}" [game]="game" [index]="2"></app-squarkles-avatar>
+      <app-squarkles-avatar class = "player-3-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(3)" [ngStyle]="{'top': getPositionOfPlayerAtIndex(3)}" [game]="game" [index]="3"></app-squarkles-avatar>
     </div>
     <div class="coin-exchange-carrier-carrier">
       <app-coin-exchange-carrier class="coin-exchange-carrier-1" [game]="game" [elementIndex]="0"></app-coin-exchange-carrier>
@@ -17,11 +17,11 @@
       <app-coin-exchange-carrier class="coin-exchange-carrier-6" [game]="game" [elementIndex]="5"></app-coin-exchange-carrier>
     </div>
     <div class = bonus-carrier>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(0)" class="bonus-1"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(1)" class="bonus-2"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(2)" class="bonus-3"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(3)" class="bonus-4"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(4)" class="bonus-5"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(0)" class="bonus-1" *ngIf="bonusShouldShowUp(0)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(1)" class="bonus-2" *ngIf="bonusShouldShowUp(1)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(2)" class="bonus-3" *ngIf="bonusShouldShowUp(2)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(3)" class="bonus-4" *ngIf="bonusShouldShowUp(3)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(4)" class="bonus-5" *ngIf="bonusShouldShowUp(4)"></app-squarkles-bonus>
     </div>
     <div class="top-tier-cards-carrier">
       <app-squarekles-deck [game]="game" [tier]="'top'"></app-squarekles-deck>
