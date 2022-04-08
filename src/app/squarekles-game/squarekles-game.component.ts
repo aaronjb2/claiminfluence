@@ -3,14 +3,14 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {WebSocketService} from '../web-socket.service';
 import {GameStateProviderService} from '../game-state-provider.service';
 import {Card} from './interfaces/card';
-const resourceCardsBottomTierVersion1 = require('../../../resources/resourceCardsBottomTierVersion1.json');
-const resourceCardsBottomTierVersion2 = require('../../../resources/resourceCardsBottomTierVersion2.json');
-const resourceCardsMiddleTierVersion1 = require('../../../resources/resourceCardsMiddleTierVersion1.json');
-const resourceCardsMiddleTierVersion2 = require('../../../resources/resourceCardsMiddleTierVersion2.json');
-const resourceCardsTopTierVersion1 = require('../../../resources/resourceCardsTopTierVersion1.json');
-const resourceCardsTopTierVersion2 = require('../../../resources/resourceCardsTopTierVersion2.json');
-const victoryTilesVersion1 = require('../../../resources/victoryTilesVersion1.json');
-const victoryTilesVersion2 = require('../../../resources/victoryTilesVersion2.json');
+import {Player} from './interfaces/player';
+import {CardLocation} from './enums/card-location';
+import {setCardPositions} from '../functions/setCardPositions';
+import {BonusTile} from './interfaces/bonus-tile';
+import {initializeVictoryTiles} from '../functions/initializeVictoryTiles';
+import {SquarekleGame} from './interfaces/squarekle-game';
+import {BonusLocation} from './enums/bonus-location';
+import {Tiers} from './enums/tiers';
 
 @Component({
   selector: 'app-squarekles-game',
@@ -20,12 +20,11 @@ const victoryTilesVersion2 = require('../../../resources/victoryTilesVersion2.js
   ]
 })
 export class SquareklesGameComponent implements OnInit {
+  CardLocation = CardLocation;
+  BonusLocation = BonusLocation;
+  Tiers = Tiers;
   identifier: string;
-  bottomTierCards: Card[];
-  middleTierCards: Card[];
-  topTierCards: Card[];
-  victoryTiles: object[];
-  game;
+  game: SquarekleGame;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -41,50 +40,162 @@ export class SquareklesGameComponent implements OnInit {
       }
     });
     this.webSocketService.emit('join-squarekles-identifier', this.identifier);
-    this.gameStateProviderService.getSquareklesState(this.identifier).subscribe((game) => {
-      this.game = game;
-      this.updateVariables();
+    this.gameStateProviderService.getSquareklesState(this.getGenericGameOfVersion(1)).subscribe((game) => {
+      this.game = this.getGameFromResponse(game);
     });
     this.listen();
   }
 
   listen() {
     this.webSocketService.listen('update-squarekles-game').subscribe(response => {
-      this.game = response;
-      this.updateVariables();
+      this.game = this.getGameFromResponse(response);
     });
   }
 
-  updateVariables() {
-    this.bottomTierCards = this.game.gameVersion && this.game.gameVersion === 1 ? resourceCardsBottomTierVersion2 : resourceCardsBottomTierVersion1;
-    this.middleTierCards = this.game.gameVersion && this.game.gameVersion === 1 ? resourceCardsMiddleTierVersion2 : resourceCardsMiddleTierVersion1;
-    this.topTierCards = this.game.gameVersion && this.game.gameVersion === 1 ? resourceCardsTopTierVersion2 : resourceCardsTopTierVersion1;
-    this.victoryTiles = this.game.gameVersion && this.game.gameVersion === 1 ? victoryTilesVersion2 : victoryTilesVersion1;
+  getGenericGame(): SquarekleGame {
+    const player0 = this.getGenericPlayer(0);
+    const player1 = this.getGenericPlayer(1);
+    const player2 = this.getGenericPlayer(2);
+    const player3 = this.getGenericPlayer(3);
+    const cards = this.getGenericCardList();
+    const victoryTiles = this.getGenericVictoryTiles();
+    return {
+      identifier: this.identifier ? this.identifier : 'dontwantthistoexist',
+      started: false,
+      turn: -1,
+      gameVersion: 0,
+      mustBuyTopTierSquareToWin: false,
+      mustHaveOneSquareOfEachColorToWin: false,
+      hashtagMode: false,
+      contemplatedCirclesToPutBack: [0, 0, 0, 0, 0, 0],
+      contemplatedCirclesToTake: [0, 0, 0, 0, 0],
+      cards,
+      bonusTiles: victoryTiles,
+      players: [
+        player0,
+        player1,
+        player2,
+        player3
+      ]
+    };
   }
 
-  getCard(tier, slotIndex): Card {
+  getGenericGameUnfiltered(): SquarekleGame {
+    const game = JSON.parse(JSON.stringify(require('../../../resources/squareklesGenericGame.json')));
+    game.identifier = this.identifier ? this.identifier : game.identifier;
+    return game;
+  }
+
+  getGenericGameOfVersion(gameVersion): SquarekleGame {
+    const game = this.getGenericGameUnfiltered();
+    game.cards = game.cards.filter(x => x.gameVersion === gameVersion);
+    game.bonusTiles = game.bonusTiles.filter(x => x.gameVersion === gameVersion);
+    if (gameVersion === 1) {
+      game.hashtagMode = true;
+      game.mustHaveOneSquareOfEachColorToWin = true;
+      game.mustBuyTopTierSquareToWin = true;
+    }
+    return game;
+  }
+
+  getGameFromResponse(game): SquarekleGame {
+    return new SquarekleGame(game.identifier ? game.identifier : 'dontwantthistoexist',
+      !!game.started,
+      (game.turn || game.turn === 0) ? game.turn : 0,
+      (game.gameVersion || game.gameVersion === 0) ? game.gameVersion : 0,
+      !!game.mustBuyTopTierSquareToWin,
+      !!game.mustHaveOneSquareOfEachColorToWin,
+      !!game.hashtagMode,
+      game.contemplatedCirclesToTake ? game.contemplatedCirclesToTake : [0, 0, 0, 0, 0],
+      game.contemplatedCirclesToPutBack ? game.contemplatedCirclesToPutBack : [0, 0, 0, 0, 0, 0],
+      game.players ? game.players : [this.getGenericPlayer(0), this.getGenericPlayer(1),
+        this.getGenericPlayer(2), this.getGenericPlayer(3)],
+      game.cards ? game.cards : this.getGenericCardList(),
+      game.bonusTiles ? game.bonusTiles : this.getGenericVictoryTiles());
+  }
+
+  getGenericPlayer(index: number): Player {
+    const playerName = (index + 1).toString();
+    return {
+      name: 'Player' + playerName + 'name',
+      color: index,
+      circles: [0, 0, 0, 0, 0, 0, 0]
+    };
+  }
+
+  getGenericCardList(): Card[] {
+    const cardList = JSON.parse(JSON.stringify(require('../../../resources/squareklesCards.json'))).filter(x => x.gameVersion === 0);
+    setCardPositions(cardList);
+    return cardList;
+  }
+
+  getGenericVictoryTiles(): BonusTile[] {
+    const victoryTiles = JSON.parse(JSON.stringify(require('../../../resources/squareklesVictoryTiles.json'))).filter(x => x.gameVersion === 0);
+    initializeVictoryTiles(victoryTiles, 4, false);
+    return victoryTiles;
+  }
+
+  getGenericCard(tier, cardLocation): Card {
+    return {
+      tier,
+      color: 3,
+      cost: [1, 1, 1, 1, 0],
+      pointValue: 0,
+      hashtags: 0,
+      gameVersion: 0,
+      cardLocation
+    };
+  }
+
+  getGenericVictoryTile(bonusLocation): BonusTile {
+    return {
+      cost: [3, 3, 3, 0, 0],
+      bonusLocation,
+      gameVersion: 0,
+      otherSideTaken: false
+    };
+  }
+
+  getCard(tier, cardLocation): Card {
     if (!this.game) {
-      return {
-        tier,
-        color: 3,
-        cost: [1, 1, 1, 1, 0],
-        pointValue: 0,
-        hashtags: 0
-      };
+      return this.getGenericCard(tier, cardLocation);
     }
-    const deck = tier === 'bottom' ? this.bottomTierCards : tier === 'middle' ? this.middleTierCards : this.topTierCards;
-    const visibleSquares = tier === 'bottom' ? this.game.bottomTierVisibleSquares : tier === 'middle' ? this.game.middleTierVisibleSquares : this.game.topTierVisibleSquares;
-    return deck[visibleSquares[slotIndex]];
+    const cardsThatMeetCriteria = this.game.cards.filter(x => x.cardLocation === cardLocation);
+    if (cardsThatMeetCriteria.length === 0) {
+      return this.getGenericCard(tier, cardLocation);
+    }
+    return cardsThatMeetCriteria[0];
   }
 
-  getVictoryTile(index) {
-    if (this.victoryTiles && this.game && this.game.unwonBonuses && this.game.unwonBonuses[index] > -1) {
-      if (this.game.unwonBonuses[index] === 50) {
-        return [];
-      }
-      return this.victoryTiles[this.game.unwonBonuses[index]];
+  getVictoryTile(bonusLocation): BonusTile  {
+    if (!this.game) {
+      return this.getGenericVictoryTile(bonusLocation);
     }
-    return [3, 3, 3, 0, 0];
+    const bonusesThatMeetCriteria = this.game.bonusTiles.filter(x => x.bonusLocation === bonusLocation);
+    if (bonusesThatMeetCriteria.length === 0) {
+      return this.getGenericVictoryTile(bonusLocation);
+    }
+    return  bonusesThatMeetCriteria[0];
+  }
+
+  cardExistsAtPositionAndTier(cardLocation: number, tier: string): boolean {
+    if (this.game) {
+      const cardsMeetingCriteria = this.game.cards.filter(x => x.tier === tier && x.cardLocation === cardLocation);
+      if (cardsMeetingCriteria.length > 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bonusExistsAtSlot(bonusLocation: number): boolean {
+    if (this.game) {
+      const bonusesThatMeetCriteria = this.game.bonusTiles.filter(x => x.bonusLocation === bonusLocation);
+      if (bonusesThatMeetCriteria.length > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   getWhetherPlayerAvatarShouldExist(index) {
@@ -92,13 +203,6 @@ export class SquareklesGameComponent implements OnInit {
       return true;
     }
     return false;
-  }
-
-  getNumberOfPeoplePlaying() {
-    if (this.game && this.game.players) {
-      return this.game.players.length;
-    }
-    return 4;
   }
 
   isUpperCase(str) {
@@ -111,12 +215,5 @@ export class SquareklesGameComponent implements OnInit {
 
   getPositionOfPlayerAtIndex(index) {
     return index === 3 ? '615px' : index === 2 ? '410px' : index === 1 ? '205px' : '0px';
-  }
-
-  bonusShouldShowUp(index) {
-    if (this.game && this.game.unwonBonuses && this.game.unwonBonuses[index] > -1) {
-      return true;
-    }
-    return false;
   }
 }

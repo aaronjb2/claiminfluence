@@ -6,6 +6,7 @@ import { getNthElementWithNonZeroValue } from '../functions/getNthElementWithNon
 import { getTotalItemsWithNonZeroCost } from '../functions/getTotalItemsWithNonZeroCost';
 import { getColorCost } from '../functions/getColorCost';
 import { getCostColor } from '../functions/getCostColor';
+import {BonusTile} from '../squarekles-game/interfaces/bonus-tile';
 
 @Component({
   selector: 'app-squarkles-bonus',
@@ -13,15 +14,15 @@ import { getCostColor } from '../functions/getCostColor';
   styleUrls: ['./squarkles-bonus.component.scss']
 })
 export class SquarklesBonusComponent implements OnInit {
-  @Input() victoryTile: number[];
+  @Input() victoryTile: BonusTile;
   @Input() game;
 
   constructor(private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
   }
-  getCostColor(arr, index) { return getCostColor(arr, index, 3); }
-  getColorCost(arr, index) { return getColorCost(arr, index, 3); }
-  getTotalItemsWithNonZeroCost(arr) { return getTotalItemsWithNonZeroCost(arr); }
+  getCostColor(arr: number[], index: number): string { return getCostColor(arr, index, 3); }
+  getColorCost(arr: number[], index: number): number { return getColorCost(arr, index, 3); }
+  getTotalItemsWithNonZeroCost(arr: number[]): number { return getTotalItemsWithNonZeroCost(arr); }
 
 }

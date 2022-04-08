@@ -17,32 +17,32 @@
       <app-coin-exchange-carrier class="coin-exchange-carrier-6" [game]="game" [elementIndex]="5"></app-coin-exchange-carrier>
     </div>
     <div class = bonus-carrier>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(0)" class="bonus-1" *ngIf="bonusShouldShowUp(0)"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(1)" class="bonus-2" *ngIf="bonusShouldShowUp(1)"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(2)" class="bonus-3" *ngIf="bonusShouldShowUp(2)"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(3)" class="bonus-4" *ngIf="bonusShouldShowUp(3)"></app-squarkles-bonus>
-      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(4)" class="bonus-5" *ngIf="bonusShouldShowUp(4)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot0)" class="bonus-1" *ngIf="bonusExistsAtSlot(BonusLocation.Slot0)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot1)" class="bonus-2" *ngIf="bonusExistsAtSlot(BonusLocation.Slot1)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot2)" class="bonus-3" *ngIf="bonusExistsAtSlot(BonusLocation.Slot2)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot3)" class="bonus-4" *ngIf="bonusExistsAtSlot(BonusLocation.Slot3)"></app-squarkles-bonus>
+      <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot4)" class="bonus-5" *ngIf="bonusExistsAtSlot(BonusLocation.Slot4)"></app-squarkles-bonus>
     </div>
     <div class="top-tier-cards-carrier">
-      <app-squarekles-deck [game]="game" [tier]="'top'"></app-squarekles-deck>
-      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('top', 0)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('top', 1)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('top', 2)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('top', 3)"></app-squarkles-card>
+      <app-squarekles-deck [game]="game" [tier]="Tiers.Top"></app-squarekles-deck>
+      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
     </div>
     <div class="middle-tier-cards-carrier">
-      <app-squarekles-deck [game]="game" [tier]="'middle'"></app-squarekles-deck>
-      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('middle', 0)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('middle', 1)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('middle', 2)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('middle', 3)"></app-squarkles-card>
+      <app-squarekles-deck [game]="game" [tier]="Tiers.Middle"></app-squarekles-deck>
+      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
     </div>
     <div class="bottom-tier-cards-carrier">
-      <app-squarekles-deck [game]="game" [tier]="'bottom'"></app-squarekles-deck>
-      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard('bottom', 0)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard('bottom', 1)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard('bottom', 2)"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard('bottom', 3)"></app-squarkles-card>
+      <app-squarekles-deck [game]="game" [tier]="Tiers.Bottom"></app-squarekles-deck>
+      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
     </div>
   </div>
 </div>

@@ -1,0 +1,1777 @@
+{
+  "identifier": "REPLACETHIS",
+  "started": false,
+  "turn": 0,
+  "gameVersion": 0,
+  "mustBuyTopTierSquareToWin": false,
+  "mustHaveOneSquareOfEachColorToWin": false,
+  "hashtagMode": false,
+  "contemplatedCirclesToTake": [0, 0, 0, 0, 0],
+  "contemplatedCirclesToPutBack": [0, 0, 0, 0, 0, 0],
+  "players": [
+    {
+      "name": "player1Name",
+      "color": 0,
+      "circles": [0, 0, 0, 0, 0, 0]
+    },
+    {
+      "name": "player2Name",
+      "color": 1,
+      "circles": [0, 0, 0, 0, 0, 0]
+    },
+    {
+      "name": "player3Name",
+      "color": 2,
+      "circles": [0, 0, 0, 0, 0, 0]
+    },
+    {
+      "name": "player4Name",
+      "color": 3,
+      "circles": [0, 0, 0, 0, 0, 0]
+    }
+  ],
+  "bonusTiles": [
+    {
+      "cost": [3, 3, 3, 0, 0],
+      "gameVersion": 0,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 0, 0, 4, 4],
+      "gameVersion": 0,
+      "bonusLocation": 50,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [3, 3, 0, 0, 3],
+      "gameVersion": 0,
+      "bonusLocation": 40,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 0, 3, 3, 3],
+      "gameVersion": 0,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 0, 4, 4, 0],
+      "gameVersion": 0,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [3, 0, 0, 3, 3],
+      "gameVersion": 0,
+      "bonusLocation": 60,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 3, 3, 3, 0],
+      "gameVersion": 0,
+      "bonusLocation": 70,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [4, 4, 0, 0, 0],
+      "gameVersion": 0,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [4, 0, 0, 0, 4],
+      "gameVersion": 0,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 4, 4, 0, 0],
+      "gameVersion": 0,
+      "bonusLocation": 80,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [],
+      "gameVersion": 0,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [3, 3, 0, 3, 0],
+      "gameVersion": 1,
+      "bonusLocation": 50,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 3, 0, 3, 3],
+      "gameVersion": 1,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 4, 0, 4, 0],
+      "gameVersion": 1,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [3, 0, 3, 0, 3],
+      "gameVersion": 1,
+      "bonusLocation": 80,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [4, 4, 0, 0, 0],
+      "gameVersion": 1,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 0, 0, 4, 4],
+      "gameVersion": 1,
+      "bonusLocation": 40,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [4, 0, 4, 0, 0],
+      "gameVersion": 1,
+      "bonusLocation": -1,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [0, 0, 4, 0, 4],
+      "gameVersion": 1,
+      "bonusLocation": 70,
+      "otherSideTaken": false
+    },
+    {
+      "cost": [],
+      "gameVersion": 1,
+      "bonusLocation": 60,
+      "otherSideTaken": false
+    }
+  ],
+  "cards": [
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [0, 3, 3, 5, 3],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 0,
+      "cardLocation": 63
+    },
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [3, 0, 0, 3, 6],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [0, 0, 0, 0, 7],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [3, 0, 0, 0, 7],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [3, 5, 3, 3, 0],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 1,
+      "cardLocation": 61
+    },
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [3, 6, 0, 3, 0],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 62
+    },
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [0, 7, 0, 0, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 0,
+      "cost": [0, 7, 0, 0, 3],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 0, 3, 2, 2],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 50
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [2, 3, 0, 3, 0],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 0, 1, 4, 2],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 0, 0, 5, 3],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 51
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 0, 0, 5, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [6, 0, 0, 0, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 2, 3, 0, 2],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [3, 2, 3, 0, 0],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 50
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 2, 4, 1, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [3, 0, 5, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 0, 5, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 0,
+      "cost": [0, 0, 6, 0, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 1, 1, 1, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 1, 2, 1, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 2, 2, 0, 1],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [3, 1, 0, 0, 1],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 42
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 0, 0, 2, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 2, 0, 0, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 3, 0, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 0, 4, 0, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [1, 1, 0, 1, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 1, 1, 2, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 0, 1, 2, 2],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [1, 1, 0, 3, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [1, 0, 0, 2, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 0, 2, 2, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 0, 0, 3, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 0,
+      "cost": [0, 0, 0, 4, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [3, 0, 3, 3, 5],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [6, 3, 0, 0, 3],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [7, 0, 0, 0, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [7, 3, 0, 0, 0],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [3, 3, 0, 5, 3],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [3, 0, 3, 6, 0],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [0, 0, 0, 7, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 1,
+      "cost": [0, 0, 3, 7, 0],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 2, 2, 3, 0],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 52
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 2, 3, 0, 3],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [2, 0, 0, 1, 4],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [5, 3, 0, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 5, 0, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 6, 0, 0, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 2, 2, 0, 3],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [2, 0, 0, 3, 3],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 2, 1, 0, 4],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 0, 0, 3, 5],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 51
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 0, 0, 0, 5],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 0, 0, 0, 6],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [1, 0, 1, 1, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [1, 0, 1, 2, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [1, 0, 2, 2, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [0, 1, 3, 1, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [1, 0, 0, 0, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [0, 0, 2, 0, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [0, 0, 0, 0, 3],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [0, 0, 0, 4, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [1, 1, 1, 0, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 42
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [0, 1, 1, 2, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [2, 1, 2, 0, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [3, 0, 1, 0, 1],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [2, 0, 0, 1, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [2, 0, 0, 0, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [3, 0, 0, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 1,
+      "cost": [4, 0, 0, 0, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [5, 3, 3, 0, 3],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [3, 6, 3, 0, 0],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [0, 7, 0, 0, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [0, 7, 3, 0, 0],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 62
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [5, 3, 3, 0, 3],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 1,
+      "cardLocation": 63
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [6, 0, 3, 0, 3],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [7, 0, 0, 0, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 2,
+      "cost": [7, 0, 0, 3, 0],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 2, 2, 3, 0],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 2, 3, 0, 3],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [2, 0, 0, 1, 4],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [5, 3, 0, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 5, 0, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 1,
+      "cost": [0, 6, 0, 0, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 2,
+      "cost": [0, 0, 2, 3, 2],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 2,
+      "cost": [3, 0, 0, 3, 2],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 2,
+      "cost": [0, 1, 2, 4, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 2,
+      "cost": [0, 0, 0, 5, 3],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 2,
+      "cost": [0, 0, 0, 5, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 2,
+      "cost": [0, 0, 0, 6, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [1, 1, 0, 1, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [1, 1, 0, 1, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 1, 0, 2, 2],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [1, 3, 1, 0, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [2, 1, 0, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 2, 0, 2, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 0, 0, 3, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 0, 0, 0, 4],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 41
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [1, 1, 1, 0, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 1, 1, 1, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [1, 2, 0, 0, 2],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 1, 0, 1, 3],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [1, 0, 0, 0, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [1, 0, 0, 0, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 0, 0, 0, 3],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 2,
+      "cost": [0, 0, 0, 0, 4],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [3, 5, 3, 0, 3],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 0,
+      "cardLocation": 61
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [0, 3, 6, 3, 0],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [0, 0, 7, 0, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [0, 0, 7, 3, 0],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [3, 3, 0, 3, 5],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [0, 0, 3, 3, 6],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [0, 0, 0, 0, 7],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 60
+    },
+    {
+      "tier": "top",
+      "color": 3,
+      "cost": [0, 3, 0, 0, 7],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [2, 0, 0, 2, 3],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [0, 3, 0, 2, 3],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 53
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [1, 4, 2, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [3, 0, 0, 0, 5],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [0, 0, 0, 0, 5],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [0, 0, 0, 6, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [2, 3, 0, 2, 0],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [0, 3, 2, 3, 0],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [2, 4, 0, 0, 1],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [0, 5, 3, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [0, 5, 0, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 3,
+      "cost": [0, 6, 0, 0, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 52
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [1, 1, 1, 0, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [2, 1, 1, 0, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [2, 0, 1, 0, 2],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [1, 0, 0, 1, 3],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [0, 2, 1, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [2, 0, 0, 2, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [3, 0, 0, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [4, 0, 0, 0, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [1, 1, 1, 1, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [1, 1, 2, 1, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [2, 0, 2, 1, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [0, 1, 3, 0, 1],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 43
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [0, 0, 2, 1, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [0, 0, 2, 0, 2],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [0, 0, 3, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 3,
+      "cost": [0, 0, 4, 0, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 41
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [3, 3, 5, 3, 0],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 0,
+      "cardLocation": 60
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [0, 0, 3, 6, 3],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [0, 0, 0, 7, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [0, 0, 0, 7, 3],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [0, 3, 5, 3, 3],
+      "pointValue": 3,
+      "hashtags": 2,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [0, 3, 6, 0, 3],
+      "pointValue": 4,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [0, 0, 7, 0, 0],
+      "pointValue": 4,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "top",
+      "color": 4,
+      "cost": [3, 0, 7, 0, 0],
+      "pointValue": 5,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [3, 2, 2, 0, 0],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [3, 0, 3, 0, 2],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [0, 1, 4, 2, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [0, 0, 5, 3, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [5, 0, 0, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [0, 0, 0, 0, 6],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [3, 0, 2, 0, 2],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [3, 2, 0, 0, 3],
+      "pointValue": 1,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [4, 2, 1, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [5, 0, 0, 3, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [5, 0, 0, 0, 0],
+      "pointValue": 2,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "middle",
+      "color": 4,
+      "cost": [6, 0, 0, 0, 0],
+      "pointValue": 3,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 53
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [1, 1, 1, 1, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [1, 2, 1, 1, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [2, 2, 0, 1, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 43
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 0, 1, 3, 1],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 0, 2, 1, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [2, 0, 2, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 0, 3, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 4, 0, 0, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 0,
+      "cardLocation": 40
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [1, 1, 1, 0, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 40
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 2, 1, 1, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 2, 1, 2, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [1, 3, 0, 1, 0],
+      "pointValue": 0,
+      "hashtags": 1,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 2, 0, 0, 1],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [2, 2, 0, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 3, 0, 0, 0],
+      "pointValue": 0,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    },
+    {
+      "tier": "bottom",
+      "color": 4,
+      "cost": [0, 4, 0, 0, 0],
+      "pointValue": 1,
+      "hashtags": 0,
+      "gameVersion": 1,
+      "cardLocation": 70
+    }
+  ]
+}

@@ -8,14 +8,10 @@ import { SquarklesCardComponent } from '../squarkles-card/squarkles-card.compone
 import {WebSocketService} from '../web-socket.service';
 import {ItemObtained} from '../squarekles-game/interfaces/itemObtained';
 import {Card} from '../squarekles-game/interfaces/card';
-const resourceCardsBottomTierVersion1 = require('../../../resources/resourceCardsBottomTierVersion1.json');
-const resourceCardsBottomTierVersion2 = require('../../../resources/resourceCardsBottomTierVersion2.json');
-const resourceCardsMiddleTierVersion1 = require('../../../resources/resourceCardsMiddleTierVersion1.json');
-const resourceCardsMiddleTierVersion2 = require('../../../resources/resourceCardsMiddleTierVersion2.json');
-const resourceCardsTopTierVersion1 = require('../../../resources/resourceCardsTopTierVersion1.json');
-const resourceCardsTopTierVersion2 = require('../../../resources/resourceCardsTopTierVersion2.json');
-const victoryTilesVersion1 = require('../../../resources/victoryTilesVersion1.json');
-const victoryTilesVersion2 = require('../../../resources/victoryTilesVersion2.json');
+import {SquarekleGame} from '../squarekles-game/interfaces/squarekle-game';
+import {CardLocation} from '../squarekles-game/enums/card-location';
+import {BonusLocation} from '../squarekles-game/enums/bonus-location';
+import {BonusTile} from '../squarekles-game/interfaces/bonus-tile';
 
 @Component({
   selector: 'app-squarkles-avatar',
@@ -24,32 +20,23 @@ const victoryTilesVersion2 = require('../../../resources/victoryTilesVersion2.js
 })
 export class SquarklesAvatarComponent implements OnInit {
   @Input() index: number;
-  @Input() game;
+  @Input() game: SquarekleGame;
   typedName = '';
   changingName: boolean = false;
   itemBeingDisplayed: number = -1;
   pageNumber: number = 1;
-  bottomTierCards: Card[];
-  middleTierCards: Card[];
-  topTierCards: Card[];
-  victoryTiles: object[];
+  displayingIndex0: boolean = false;
+  displayingIndex1: boolean = false;
+  displayingIndex2: boolean = false;
 
   constructor(private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
-    this.updateVariables();
-  }
-
-  updateVariables() {
-    this.bottomTierCards = this.game.gameVersion && this.game.gameVersion === 1 ? resourceCardsBottomTierVersion2 : resourceCardsBottomTierVersion1;
-    this.middleTierCards = this.game.gameVersion && this.game.gameVersion === 1 ? resourceCardsMiddleTierVersion2 : resourceCardsMiddleTierVersion1;
-    this.topTierCards = this.game.gameVersion && this.game.gameVersion === 1 ? resourceCardsTopTierVersion2 : resourceCardsTopTierVersion1;
-    this.victoryTiles = this.game.gameVersion && this.game.gameVersion === 1 ? victoryTilesVersion2 : victoryTilesVersion1;
   }
 
   getColorCodeByIndex(index) { return getColorCodeByIndex(index); }
 
-  getDoubleDigitTruthfulness(index) {
+  isDoubleDigit(index) {
     return false;
   }
 
@@ -93,26 +80,73 @@ export class SquarklesAvatarComponent implements OnInit {
     this.itemBeingDisplayed = itemBeingDisplayed;
     if (this.itemBeingDisplayed !== 0 && this.itemBeingDisplayed !== 1) {
       this.pageNumber = 1;
+      this.stopDisplayingAtIndex(0);
+      this.stopDisplayingAtIndex(1);
+      this.stopDisplayingAtIndex(2);
     }
   }
 
   getTotalObtainedItems() {
     let totalObtainedItems = 0;
-    if (this.game && this.game.players  && this.game.players[this.index]) {
-      if (this.game.players[this.index].bonusesWon) {
-        totalObtainedItems += this.game.players[this.index].bonusesWon.length;
-      }
-      if (this.game.players[this.index].bottomTierSquaresBought) {
-        totalObtainedItems += this.game.players[this.index].bottomTierSquaresBought.length;
-      }
-      if (this.game.players[this.index].middleTierSquaresBought) {
-        totalObtainedItems += this.game.players[this.index].middleTierSquaresBought.length;
-      }
-      if (this.game.players[this.index].topTierSquaresBought) {
-        totalObtainedItems += this.game.players[this.index].topTierSquaresBought.length;
-      }
+    if (this.game) {
+      const cardOwnershipNumber = this.getIntegerRepresentingPlayerCardOwnershipLocation(this.index);
+      const bonusTileOwnershipNumber = this.getIntegerRepresentingPlayerBonusTileOwnershipLocation(this.index);
+      totalObtainedItems += this.game.bonusTiles.filter(x => x.bonusLocation === bonusTileOwnershipNumber).length;
+      totalObtainedItems += this.game.cards.filter(x => x.cardLocation === cardOwnershipNumber).length;
     }
     return totalObtainedItems;
+  }
+
+  getIntegerRepresentingPlayerCardOwnershipLocation(index: number): number {
+    if (index === 3) {
+      return CardLocation.Player3Owned;
+    }
+    if (index === 2) {
+      return CardLocation.Player2Owned;
+    }
+    if (index === 1) {
+      return CardLocation.Player1Owned;
+    }
+    return CardLocation.Player0Owned;
+  }
+
+  getIntegerRepresentingPlayerCardKnownReservedLocation(index: number): number {
+    if (index === 3) {
+      return CardLocation.Player3KnownReserved;
+    }
+    if (index === 2) {
+      return CardLocation.Player2KnownReserved;
+    }
+    if (index === 1) {
+      return CardLocation.Player1KnownReserved;
+    }
+    return CardLocation.Player0KnownReserved;
+  }
+
+  getIntegerRepresentingPlayerCardSecretReservedLocation(index: number): number {
+    if (index === 3) {
+      return CardLocation.Player3SecretReserved;
+    }
+    if (index === 2) {
+      return CardLocation.Player2SecretReserved;
+    }
+    if (index === 1) {
+      return CardLocation.Player1SecretReserved;
+    }
+    return CardLocation.Player0SecretReserved;
+  }
+
+  getIntegerRepresentingPlayerBonusTileOwnershipLocation(index: number): number {
+    if (index === 3) {
+      return BonusLocation.Player3Owned;
+    }
+    if (index === 2) {
+      return BonusLocation.Player2Owned;
+    }
+    if (index === 1) {
+      return BonusLocation.Player1Owned;
+    }
+    return BonusLocation.Player0Owned;
   }
 
   getTotalPages() {
@@ -134,93 +168,47 @@ export class SquarklesAvatarComponent implements OnInit {
       color: 0,
       cost: [1, 1, 1, 1, 0],
       pointValue: 0,
-      hashtags: 0
+      hashtags: 0,
+      gameVersion: 0,
+      cardLocation: this.getIntegerRepresentingPlayerCardOwnershipLocation(this.index)
     };
   }
 
-  getGenericVictoryTile(): number[] {
-    return [3, 3, 3, 0, 0];
+  getGenericVictoryTile(): BonusTile {
+    return {
+      cost: [3, 3, 3, 0, 0],
+      gameVersion: 0,
+      bonusLocation: this.getIntegerRepresentingPlayerBonusTileOwnershipLocation(this.index),
+      otherSideTaken: false
+    };
   }
 
   getItemsObtainedArray(): ItemObtained[] {
     const itemsObtained = [];
-    if (this.game && this.game.players && this.game.players[this.index]  && this.victoryTiles && this.bottomTierCards && this.middleTierCards && this.topTierCards) {
-      if (this.game.players[this.index].bonusesWon) {
-        for (let i = 0; i < this.game.players[this.index].bonusesWon.length; i++) {
-          itemsObtained.push({
-            isBonus: true,
-            card: this.getGenericCard(),
-            bonus: this.game.players[this.index].bonusesWon[i] === 50 ? [] : this.victoryTiles[this.game.players[this.index].bonusesWon[i]]
-          });
-        }
+    if (this.game) {
+      const playerBonusOwnershipNumber = this.getIntegerRepresentingPlayerBonusTileOwnershipLocation(this.index);
+      const playerCardOwnershipNumber = this.getIntegerRepresentingPlayerCardOwnershipLocation(this.index);
+      const bonuses = this.game.bonusTiles.filter(x => x.bonusLocation === playerBonusOwnershipNumber);
+      const cards = this.game.cards.filter(x => x.cardLocation === playerCardOwnershipNumber);
+      for (let i = 0; i < bonuses.length; i++) {
+        itemsObtained.push({
+          isBonus: true,
+          bonus: bonuses[i],
+          card: this.getGenericCard()
+        });
       }
-      if (this.game.players[this.index].bottomTierSquaresBought && this.game.players[this.index].middleTierSquaresBought && this.game.players[this.index].topTierSquaresBought) {
-        const cardsForColor0 = this.getAllObtainedCardsOfACertainColor(0);
-        const cardsForColor1 = this.getAllObtainedCardsOfACertainColor(1);
-        const cardsForColor2 = this.getAllObtainedCardsOfACertainColor(2);
-        const cardsForColor3 = this.getAllObtainedCardsOfACertainColor(3);
-        const cardsForColor4 = this.getAllObtainedCardsOfACertainColor(4);
-        for (let i = 0; i < cardsForColor0.length; i++) {
-          itemsObtained.push({
-            isBonus: false,
-            card: cardsForColor0[i],
-            bonus: this.getGenericVictoryTile()
-          });
-        }
-        for (let i = 0; i < cardsForColor1.length; i++) {
-          itemsObtained.push({
-            isBonus: false,
-            card: cardsForColor1[i],
-            bonus: this.getGenericVictoryTile()
-          });
-        }
-        for (let i = 0; i < cardsForColor2.length; i++) {
-          itemsObtained.push({
-            isBonus: false,
-            card: cardsForColor2[i],
-            bonus: this.getGenericVictoryTile()
-          });
-        }
-        for (let i = 0; i < cardsForColor3.length; i++) {
-          itemsObtained.push({
-            isBonus: false,
-            card: cardsForColor3[i],
-            bonus: this.getGenericVictoryTile()
-          });
-        }
-        for (let i = 0; i < cardsForColor4.length; i++) {
-          itemsObtained.push({
-            isBonus: false,
-            card: cardsForColor4[i],
-            bonus: this.getGenericVictoryTile()
-          });
-        }
+      for (let i = 0; i < cards.length; i++) {
+        itemsObtained.push({
+          isBonus: false,
+          bonus: this.getGenericVictoryTile(),
+          card: cards[i]
+        });
       }
     }
     return itemsObtained;
   }
 
-  getAllObtainedCardsOfACertainColor(index): Card[] {
-    const cards = [];
-    for (let i = 0; i < this.game.players[this.index].topTierSquaresBought.length; i++) {
-      if (this.topTierCards[this.game.players[this.index].topTierSquaresBought[i]].color === index) {
-        cards.push(this.topTierCards[this.game.players[this.index].topTierSquaresBought[i]]);
-      }
-    }
-    for (let i = 0; i < this.game.players[this.index].middleTierSquaresBought.length; i++) {
-      if (this.middleTierCards[this.game.players[this.index].middleTierSquaresBought[i]].color === index) {
-        cards.push(this.middleTierCards[this.game.players[this.index].middleTierSquaresBought[i]]);
-      }
-    }
-    for (let i = 0; i < this.game.players[this.index].bottomTierSquaresBought.length; i++) {
-      if (this.bottomTierCards[this.game.players[this.index].bottomTierSquaresBought[i]].color === index) {
-        cards.push(this.bottomTierCards[this.game.players[this.index].bottomTierSquaresBought[i]]);
-      }
-    }
-    return cards;
-  }
-
-  getIndexOfItemToLookAt(index) {
+  getIndexOfItemToLookAt(index): number {
     return this.pageNumber * 3 - 3 + index;
   }
 
@@ -236,11 +224,111 @@ export class SquarklesAvatarComponent implements OnInit {
     return indexOfItemToLookAt <= itemsObtainedArray.length - 1 && itemsObtainedArray[indexOfItemToLookAt].isBonus;
   }
 
-  getQuantityOfSecretReservedCards() {
-    let numberOfSecretReservedCards
+  getQuantityOfSecretReservedCards(): number {
+    let numberOfSecretReservedCards = 0;
+    if (this.game) {
+      const secretNum = this.getIntegerRepresentingPlayerCardSecretReservedLocation(this.index);
+      numberOfSecretReservedCards = this.game.cards.filter(x => x.cardLocation === secretNum).length;
+    }
+    return numberOfSecretReservedCards;
   }
 
-  evaluateIfReservedCardShouldAppear(index) {
+  getQuantityOfKnownReservedCards(): number {
+    let numberOfKnownReservedCards = 0;
+    if (this.game) {
+      const knownNum = this.getIntegerRepresentingPlayerCardKnownReservedLocation(this.index);
+      numberOfKnownReservedCards = this.game.cards.filter(x => x.cardLocation === knownNum).length;
+    }
+    return numberOfKnownReservedCards;
+  }
 
+  getReservedCards(): Card[] {
+    if (this.game) {
+      const secretNum = this.getIntegerRepresentingPlayerCardSecretReservedLocation(this.index);
+      const knownNum = this.getIntegerRepresentingPlayerCardKnownReservedLocation(this.index);
+      return this.game.cards.filter(x => x.cardLocation === secretNum || x.cardLocation === knownNum);
+    }
+    return [];
+  }
+
+  evaluateIfDisplayButtonShouldAppear(index: number): boolean {
+    if (this.game) {
+      const secretNum = this.getIntegerRepresentingPlayerCardSecretReservedLocation(this.index);
+      const reservedCards = this.getReservedCards();
+      if (reservedCards[index] && reservedCards[index].cardLocation === secretNum && !this.varForIndexToDisplayIsTrue(index)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  evaluateIfHideButtonShouldAppear(index: number): boolean {
+    if (this.game) {
+      const secretNum = this.getIntegerRepresentingPlayerCardSecretReservedLocation(this.index);
+      const reservedCards = this.getReservedCards();
+      if (reservedCards[index] && reservedCards[index].cardLocation === secretNum && this.varForIndexToDisplayIsTrue(index)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  evaluateIfReservedCardShouldAppear(index: number): boolean {
+    if (this.game) {
+      const secretNum = this.getIntegerRepresentingPlayerCardSecretReservedLocation(this.index);
+      const knownNum = this.getIntegerRepresentingPlayerCardKnownReservedLocation(this.index);
+      const reservedCards = this.getReservedCards();
+      if (reservedCards[index]) {
+        if (reservedCards[index].cardLocation === secretNum && this.varForIndexToDisplayIsTrue(index)) {
+          return true;
+        }
+        if (reservedCards[index].cardLocation === knownNum) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  getExistingReservedCardThatShouldAppearAtIndex(index): Card {
+    const cards = this.getReservedCards();
+    return cards[index] ? cards[index] : this.getGenericCard();
+  }
+
+  varForIndexToDisplayIsTrue(index): boolean {
+    if (index === 0 && this.displayingIndex0) {
+      return true;
+    }
+    if (index === 1 && this.displayingIndex1) {
+      return true;
+    }
+    if (index === 2 && this.displayingIndex2) {
+      return true;
+    }
+    return false;
+  }
+
+  startDisplayingAtIndex(index) {
+    if (index === 0) {
+      this.displayingIndex0 = true;
+    }
+    if (index === 1) {
+      this.displayingIndex1 = true;
+    }
+    if (index === 2) {
+      this.displayingIndex2 = true;
+    }
+  }
+
+  stopDisplayingAtIndex(index) {
+    if (index === 0) {
+      this.displayingIndex0 = false;
+    }
+    if (index === 1) {
+      this.displayingIndex1 = false;
+    }
+    if (index === 2) {
+      this.displayingIndex2 = false;
+    }
   }
 }

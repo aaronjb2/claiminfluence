@@ -6,6 +6,7 @@ import { getNthElementWithNonZeroValue } from '../functions/getNthElementWithNon
 import { getTotalItemsWithNonZeroCost } from '../functions/getTotalItemsWithNonZeroCost';
 import { getColorCost } from '../functions/getColorCost';
 import { getCostColor } from '../functions/getCostColor';
+import {SquarekleGame} from '../squarekles-game/interfaces/squarekle-game';
 
 @Component({
   selector: 'app-squarkles-card',
@@ -14,19 +15,29 @@ import { getCostColor } from '../functions/getCostColor';
 })
 export class SquarklesCardComponent implements OnInit {
   @Input() card: Card;
-  @Input() game;
+  @Input() game: SquarekleGame;
+  @Input() buyShouldAppear: boolean;
+  @Input() reserveShouldAppear: boolean;
 
   constructor(private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
 
   }
-  getCostColor(arr, index) { return getCostColor(arr, index); }
-  getColorCost(arr, index) { return getColorCost(arr, index); }
-  getTotalItemsWithNonZeroCost(arr) { return getTotalItemsWithNonZeroCost(arr); }
-  getColorCodeByIndex(index) { return getColorCodeByIndex(index); }
+  getCostColor(arr: number[], index: number): string { return getCostColor(arr, index); }
+  getColorCost(arr: number[], index: number): number { return getColorCost(arr, index); }
+  getTotalItemsWithNonZeroCost(arr: number[]): number { return getTotalItemsWithNonZeroCost(arr); }
+  getColorCodeByIndex(index: number): string { return getColorCodeByIndex(index); }
 
-  getHashtagsQuantityExistence(hashtagQuantity) {
+  getHashtagsQuantityExistence(hashtagQuantity): boolean {
     return this.card && this.card.hashtags && this.card.hashtags === hashtagQuantity && this.game && this.game.hashtagMode;
+  }
+
+  buyButtonShouldAppear() {
+    return this.buyShouldAppear;
+  }
+
+  reserveButtonShouldAppear() {
+    return this.reserveShouldAppear;
   }
 }

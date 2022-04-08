@@ -1,25 +1,25 @@
 <div class="bonus">
   <h1 class="point-value">3</h1>
-  <h1 class = "hashtag-bonus-cost" *ngIf="victoryTile && victoryTile.length === 0"># 3</h1>
-  <h2 class = "hashtag-bonus-subcaption" *ngIf="victoryTile && victoryTile.length === 0">This is Stealable</h2>
-  <div class="square-cost-carrier" *ngIf="victoryTile && victoryTile.length > 0">
-    <div class="square-cost-carrier-1" *ngIf="getTotalItemsWithNonZeroCost(victoryTile) > 2">
-      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile, 0)}">
+  <h1 class = "hashtag-bonus-cost" *ngIf="victoryTile && victoryTile.cost.length === 0"># 3</h1>
+  <h2 class = "hashtag-bonus-subcaption" *ngIf="victoryTile && victoryTile.cost.length === 0">This is Stealable</h2>
+  <div class="square-cost-carrier" *ngIf="victoryTile && victoryTile.cost.length > 0">
+    <div class="square-cost-carrier-1" *ngIf="getTotalItemsWithNonZeroCost(victoryTile.cost) > 2">
+      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile.cost, 0)}">
 
       </div>
-      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile, 0) }}</h1>
+      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile.cost, 0) }}</h1>
     </div>
     <div class="square-cost-carrier-2">
-      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile, 1)}">
+      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile.cost, 1)}">
 
       </div>
-      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile, 1) }}</h1>
+      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile.cost, 1) }}</h1>
     </div>
     <div class="square-cost-carrier-3">
-      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile, 2)}">
+      <div class="colored-square-for-cost" [ngStyle]="{'background-color': getCostColor(victoryTile.cost, 2)}">
 
       </div>
-      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile, 2) }}</h1>
+      <h1 class="bonus-square-number-cost">{{ getColorCost(victoryTile.cost, 2) }}</h1>
     </div>
   </div>
 </div>

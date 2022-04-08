@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import {SquarekleGame} from './squarekles-game/interfaces/squarekle-game';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class GameStateProviderService {
     return this.httpClient.get(`https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app/getInfluenceGameData/${identifier}`);
   }
 
-  getSquareklesState(identifier: string): Observable<object> {
+  getSquareklesState(game: SquarekleGame): Observable<object> {
     if (this.local) {
-      return this.httpClient.get(`http://localhost:8080/getSquareklesGameData/${identifier}`);
+      return this.httpClient.post(`http://localhost:8080/getSquareklesGameData`, game);
     }
-    return this.httpClient.get(`https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app/getSquareklesGameData/${identifier}`);
+    return this.httpClient.post(`https://aaronjbraithwaiteapplications-atkqo.ondigitalocean.app`, game);
   }
 }

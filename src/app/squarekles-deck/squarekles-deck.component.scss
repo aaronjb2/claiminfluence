@@ -9,37 +9,37 @@
 
 .top-tier-description {
   position: absolute;
-  top: 0px;
+  top: -25px;
   left: 40px;
 }
 
 .middle-tier-description {
   position: absolute;
-  top: 0px;
+  top: -25px;
   left: 20px;
 }
 
 .bottom-tier-description {
   position: absolute;
-  top: 0px;
+  top: -25px;
   left: 20px;
 }
 
 .cards-remaining-text {
   position: absolute;
-  top: 60px;
+  top: 15px;
   text-align: center;
 }
 
 .remaining-cards-double-digit {
   position: absolute;
-  top: 132px;
+  top: 94px;
   left: 75px;
 }
 
 .remaining-cards-single-digit {
   position: absolute;
-  top: 132px;
+  top: 94px;
   left: 85px;
 }
 
@@ -47,6 +47,128 @@
   height: 25px;
   width: 150px;
   position: absolute;
-  bottom: 4px;
+  top: 152px;
   right: 20px;
+}
+
+.view-remaining-card-button {
+  height: 25px;
+  width: 150px;
+  position: absolute;
+  top: 192px;
+  right: 20px;
+}
+
+.remaining-cards-container {
+  height: 300px;
+  width: 650px;
+  border: 4px solid black;
+  background-color: white;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.close-display {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 30px;
+}
+
+.page-description {
+  position: absolute;
+  top: 240px;
+  left: 260px;
+}
+
+.decrease-page-button-enabled {
+  position: absolute;
+  border: 1px solid black;
+  height: 120px;
+  width: 30px;
+  z-index: 3;
+  background-color: gray;
+  top: 35px;
+  right: 0px;
+}
+
+.increase-page-button-enabled {
+  position: absolute;
+  border: 1px solid black;
+  height: 120px;
+  width: 30px;
+  background-color: gray;
+  top: 159px;
+  right: 0px;
+}
+
+.decrease-page-button-disabled {
+  position: absolute;
+  border: 1px solid black;
+  height: 120px;
+  width: 30px;
+  background-color: rgb(50, 50, 50);
+  top: 35px;
+  right: 0px;
+}
+
+.increase-page-button-disabled {
+  position: absolute;
+  border: 1px solid black;
+  height: 120px;
+  width: 30px;
+  background-color: rgb(50, 50, 50);
+  top: 159px;
+  right: 0px;
+}
+
+.decrease-page-arrow {
+  position: absolute;
+  height: 120px;
+  width: 30px;
+  transform: rotate(0deg);
+  top: 0px;
+  left: 0px;
+}
+
+.increase-page-arrow {
+  position: absolute;
+  height: 120px;
+  width: 30px;
+  transform: rotate(180deg);
+  top: 0px;
+  left: 0px;
+}
+
+.card-0 {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  height: 224px;
+  width: 194px;
+}
+
+.card-1 {
+  position: absolute;
+  top: 40px;
+  left: 210px;
+  height: 224px;
+  width: 194px;
+}
+
+.card-2 {
+  position: absolute;
+  top: 40px;
+  left: 415px;
+  height: 224px;
+  width: 194px;
+}
+
+.these-cards-remain-text {
+  position: absolute;
+  top: -10px;
+  left: 5px;
 }

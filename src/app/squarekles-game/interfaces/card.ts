@@ -4,4 +4,6 @@ export interface Card {
   cost: number[];
   pointValue: number;
   hashtags: number;
+  gameVersion: number;
+  cardLocation: number;
 }

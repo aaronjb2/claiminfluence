@@ -1,0 +1,116 @@
+[
+  {
+    "cost": [3, 3, 3, 0, 0],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 0, 0, 4, 4],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [3, 3, 0, 0, 3],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 0, 3, 3, 3],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 0, 4, 4, 0],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [3, 0, 0, 3, 3],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 3, 3, 3, 0],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [4, 4, 0, 0, 0],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [4, 0, 0, 0, 4],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 4, 4, 0, 0],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [],
+    "gameVersion": 0,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [3, 3, 0, 3, 0],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 3, 0, 3, 3],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 4, 0, 4, 0],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [3, 0, 3, 0, 3],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [4, 4, 0, 0, 0],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 0, 0, 4, 4],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [4, 0, 4, 0, 0],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  },
+  {
+    "cost": [0, 0, 4, 0, 4],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
+  }
+]

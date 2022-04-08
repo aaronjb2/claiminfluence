@@ -482,7 +482,7 @@
 
 .items-reserved-container {
   height: 300px;
-  width: 650px;
+  width: 613px;
   border: 4px solid black;
   background-color: white;
   position: absolute;
@@ -588,6 +588,60 @@
   width: 194px;
 }
 
+.secret-card-0 {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  height: 220px;
+  width: 190px;
+  border: 2px solid black;
+}
+
+.secret-card-1 {
+  position: absolute;
+  top: 40px;
+  left: 210px;
+  height: 220px;
+  width: 190px;
+  border: 2px solid black;
+}
+
+.secret-card-2 {
+  position: absolute;
+  top: 40px;
+  left: 415px;
+  height: 220px;
+  width: 190px;
+  border: 2px solid black;
+}
+
+.hide-button-container-0 {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+}
+
+.hide-button-container-1 {
+  position: absolute;
+  top: 40px;
+  left: 210px;
+}
+
+.hide-button-container-2 {
+  position: absolute;
+  top: 40px;
+  left: 415px;
+}
+
+.hide-button {
+  height: 25px;
+  width: 70px;
+  position: absolute;
+  top: 193px;
+  left: 102px;
+  z-index: 10;
+}
+
 .bonus-won-0 {
   position: absolute;
   top: 78px;
@@ -610,4 +664,25 @@
   left: 415px;
   height: 150px;
   width: 194px;
+}
+
+.display-button {
+  height: 25px;
+  width: 70px;
+  position: absolute;
+  bottom: 4px;
+  right: 20px;
+}
+
+.secret-text {
+  position: absolute;
+  top: 30px;
+  left: 57px;
+}
+
+.only-look-if-it-is-yours-text {
+  position: absolute;
+  top: 150px;
+  left: 10px;
+  font-weight: bold;
 }

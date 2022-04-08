@@ -65,11 +65,11 @@
   <button class = "view-items-reserved-button" (click)="setItemBeingDisplayed(1)">View Items Reserved</button>
   <div class = "items-obtained-container" *ngIf="itemBeingDisplayed === 0" [ngStyle]="{'z-index': index + 1}">
     <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
-    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].card" class="card-0" *ngIf="evaluateIfCardShouldExist(0)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].card" class="card-0" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(0)"></app-squarkles-card>
     <app-squarkles-bonus class="bonus-won-0" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].bonus" *ngIf="evaluateIfBonusShouldExist(0)"></app-squarkles-bonus>
-    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].card" class="card-1" *ngIf="evaluateIfCardShouldExist(1)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].card" class="card-1" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(1)"></app-squarkles-card>
     <app-squarkles-bonus class="bonus-won-1" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].bonus" *ngIf="evaluateIfBonusShouldExist(1)"></app-squarkles-bonus>
-    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].card" class="card-2" *ngIf="evaluateIfCardShouldExist(2)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].card" class="card-2" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(2)"></app-squarkles-card>
     <app-squarkles-bonus class="bonus-won-2" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].bonus" *ngIf="evaluateIfBonusShouldExist(2)"></app-squarkles-bonus>
     <div class="decrease-page-button-enabled" (click)="changePageNumber(true)" *ngIf="pageNumber > 1">
       <img class="decrease-page-arrow" src = "assets/images/triangle.jpg"/>
@@ -87,5 +87,32 @@
   </div>
   <div class = "items-reserved-container" *ngIf="itemBeingDisplayed === 1" [ngStyle]="{'z-index': index + 1}">
     <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
+    <div class="secret-card-0" *ngIf="evaluateIfDisplayButtonShouldAppear(index)">
+      <h1 class="secret-text">Secret</h1>
+      <h3 class="only-look-if-it-is-yours-text">Only Look If It's Yours</h3>
+      <button class = "display-button" (click)="startDisplayingAtIndex(0)">Display</button>
+    </div>
+    <div class="secret-being-displayed-0" *ngIf="evaluateIfHideButtonShouldAppear(0)">
+      <button class = "hide-button" (click)="stopDisplayingAtIndex(0)">Hide</button>
+    </div>
+    <app-squarkles-card class="card-0" [game]="game" *ngIf="evaluateIfReservedCardShouldAppear(0)" [card]="getReservedCards()[0]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
+    <div class="secret-card-1" *ngIf="evaluateIfDisplayButtonShouldAppear(1)">
+      <h1 class="secret-text">Secret</h1>
+      <h3 class="only-look-if-it-is-yours-text">Only Look If It's Yours</h3>
+      <button class = "display-button" (click)="startDisplayingAtIndex(1)">Display</button>
+    </div>
+    <div class="secret-being-displayed-1" *ngIf="evaluateIfHideButtonShouldAppear(1)">
+      <button class = "Hide-button" (click)="stopDisplayingAtIndex(1)">Hide</button>
+    </div>
+    <app-squarkles-card class="card-1" [game]="game" *ngIf="evaluateIfReservedCardShouldAppear(1)" [card]="getReservedCards()[1]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
+    <div class="secret-card-2" *ngIf="evaluateIfDisplayButtonShouldAppear(2)">
+      <h1 class="secret-text">Secret</h1>
+      <h3 class="only-look-if-it-is-yours-text">Only Look If It's Yours</h3>
+      <button class = "display-button" (click)="startDisplayingAtIndex(2)">Display</button>
+    </div>
+    <div class="secret-being-displayed-2" *ngIf="evaluateIfHideButtonShouldAppear(2)">
+      <button class = "Hide-button" (click)="stopDisplayingAtIndex(2)">Hide</button>
+    </div>
+    <app-squarkles-card class="card-2" [game]="game" *ngIf="evaluateIfReservedCardShouldAppear(2)" [card]="getReservedCards()[2]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
   </div>
 </div>

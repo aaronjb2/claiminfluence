@@ -20,6 +20,6 @@
       <h1 class="bonus-circle-number-cost">{{ getColorCost(card.cost, 3) }}</h1>
     </div>
   </div>
-  <button class = "buy-button">Buy</button>
-  <button class = "reserve-button">Reserve</button>
+  <button [disabled]="true" class = "buy-button" *ngIf="buyButtonShouldAppear()">Buy</button>
+  <button class = "reserve-button" *ngIf="reserveButtonShouldAppear()">Reserve</button>
 </div>

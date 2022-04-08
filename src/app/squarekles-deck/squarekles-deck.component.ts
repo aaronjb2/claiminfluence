@@ -4,6 +4,9 @@ import { getNthElementWithNonZeroValue } from '../functions/getNthElementWithNon
 import { getTotalItemsWithNonZeroCost } from '../functions/getTotalItemsWithNonZeroCost';
 import { getColorCost } from '../functions/getColorCost';
 import { getCostColor } from '../functions/getCostColor';
+import {Card} from '../squarekles-game/interfaces/card';
+import {SquarekleGame} from '../squarekles-game/interfaces/squarekle-game';
+import {CardLocation} from '../squarekles-game/enums/card-location';
 
 @Component({
   selector: 'app-squarekles-deck',
@@ -12,57 +15,98 @@ import { getCostColor } from '../functions/getCostColor';
 })
 export class SquareklesDeckComponent implements OnInit {
   @Input() tier: string;
-  @Input() game;
+  @Input() game: SquarekleGame;
+  displayingRemainingCards: boolean = false;
+  pageNumber: number = 1;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.getDeckCardsForDisplay();
   }
 
-  getCardsRemaining() {
-    let cardsInDeck = this.tier && this.tier === 'top' ? 20 : this.tier && this.tier === 'middle' ? 30 : 40;
+  getCardsRemaining(): number {
     if (this.game) {
-      if (this.game.players) {
-        for (let i = 0; i < this.game.players.length; i++) {
-          if (this.tier) {
-            if (this.tier === 'bottom') {
-              if (this.game.players[i].bottomTierSquaresBought) {
-                cardsInDeck = cardsInDeck - this.game.players[i].bottomTierSquaresBought.length;
-              }
-              if (this.game.players[i].indexesOfBottomTierKnownReservedCards) {
-                cardsInDeck = cardsInDeck - this.game.players[i].indexesOfBottomTierKnownReservedCards.length;
-              }
-              if (this.game.players[i].indexesOfBottomTierSecretReservedCards) {
-                cardsInDeck = cardsInDeck - this.game.players[i].indexesOfBottomTierSecretReservedCards.length;
-              }
-            }
-            if (this.tier === 'middle') {
-              if (this.game.players[i].middleTierSquaresBought) {
-                cardsInDeck = cardsInDeck - this.game.players[i].middleTierSquaresBought.length;
-              }
-              if (this.game.players[i].indexesOfMiddleTierKnownReservedCards) {
-                cardsInDeck = cardsInDeck - this.game.players[i].indexesOfMiddleTierKnownReservedCards.length;
-              }
-              if (this.game.players[i].indexesOfMiddleTierSecretReservedCards) {
-                cardsInDeck = cardsInDeck - this.game.players[i].indexesOfMiddleTierSecretReservedCards.length;
-              }
-            }
-            if (this.tier === 'top') {
-              if (this.game.players[i].topTierSquaresBought) {
-                cardsInDeck = cardsInDeck - this.game.players[i].topTierSquaresBought.length;
-              }
-              if (this.game.players[i].indexesOfTopTierKnownReservedCards) {
-                cardsInDeck = cardsInDeck - this.game.players[i].indexesOfTopTierKnownReservedCards.length;
-              }
-              if (this.game.players[i].indexesOfTopTierSecretReservedCards) {
-                cardsInDeck = cardsInDeck - this.game.players[i].indexesOfTopTierSecretReservedCards.length;
-              }
-            }
-          }
-        }
+      return this.game.cards.filter(x => x.tier === this.tier && x.cardLocation === CardLocation.Deck).length;
+    }
+    return 0;
+  }
+
+  getGenericCard(): Card {
+    return {
+      tier: 'bottom',
+      color: 0,
+      cost: [1, 1, 1, 1, 0],
+      pointValue: 0,
+      hashtags: 0,
+      gameVersion: 0,
+      cardLocation: CardLocation.Deck
+    };
+  }
+
+  getQuantityOfSecretsHeldByPlayers(): number {
+    if (this.game) {
+      return this.game.cards.filter(x => x.cardLocation === CardLocation.Player0Owned
+        || x.cardLocation === CardLocation.Player1Owned
+        || x.cardLocation === CardLocation.Player2Owned
+        || x.cardLocation === CardLocation.Player3Owned).length;
+    }
+    return 0;
+  }
+
+  getTotalPages() {
+    const totalObtainedItems = this.getCardsRemaining() + this.getQuantityOfSecretsHeldByPlayers();
+    return totalObtainedItems === 0 ? 1 : totalObtainedItems % 3 === 0 ? totalObtainedItems / 3 : totalObtainedItems % 3 === 1 ? (totalObtainedItems + 2) / 3 : (totalObtainedItems + 1) / 3;
+  }
+
+  changePageNumber(decrease = false) {
+    if (decrease) {
+      this.pageNumber--;
+    } else {
+      this.pageNumber++;
+    }
+  }
+
+  startDisplayingRemainingCards() {
+    this.displayingRemainingCards = true;
+  }
+
+  stopDisplayingRemainingCards() {
+    this.displayingRemainingCards = false;
+    this.pageNumber = 1;
+  }
+
+  getDeckCardsForDisplay(): Card[] {
+    if (this.game) {
+      return this.game.cards.filter(x => (x.cardLocation === CardLocation.Deck
+        || x.cardLocation === CardLocation.Player0SecretReserved
+        || x.cardLocation === CardLocation.Player1SecretReserved
+        || x.cardLocation === CardLocation.Player2SecretReserved
+        || x.cardLocation === CardLocation.Player3SecretReserved)
+        && x.tier === this.tier);
+    }
+    return [];
+  }
+
+  getIndexOfItemToLookAt(index): number {
+    return this.pageNumber * 3 - 3 + index;
+  }
+
+  evaluateIfCardShouldAppear(index): boolean {
+    const indexOfItemToLookAt = this.getIndexOfItemToLookAt(index);
+    const deck = this.getDeckCardsForDisplay();
+    return !!deck[indexOfItemToLookAt];
+  }
+
+  getCardThatShouldAppear(index): Card {
+    if (this.game) {
+      const indexOfItemToLookAt = this.getIndexOfItemToLookAt(index);
+      const deck = this.getDeckCardsForDisplay();
+      const card = deck[indexOfItemToLookAt];
+      if (card) {
+        return card;
       }
     }
-    return cardsInDeck - 4;
+    return this.getGenericCard();
   }
-
 }

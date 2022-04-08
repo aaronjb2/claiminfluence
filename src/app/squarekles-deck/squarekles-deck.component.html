@@ -6,4 +6,25 @@
   <h1 class="remaining-cards-double-digit" *ngIf="getCardsRemaining() > 9">{{ getCardsRemaining() }}</h1>
   <h1 class="remaining-cards-single-digit" *ngIf="getCardsRemaining() < 10">{{ getCardsRemaining() }}</h1>
   <button class="reserve-hidden-card-button" *ngIf="getCardsRemaining() > 0">Reserve Unknown</button>
+  <button class="view-remaining-card-button" *ngIf="getCardsRemaining() > 0" (click)="startDisplayingRemainingCards()">View Remaining</button>
+  <div class="remaining-cards-container" *ngIf="displayingRemainingCards" [ngStyle]="{'z-index': tier === 'top' ? 6 : tier === 'middle' ? 7 : 8}">
+    <button class="close-display" (click)="stopDisplayingRemainingCards()">X</button>
+    <div class="decrease-page-button-enabled" (click)="changePageNumber(true)" *ngIf="pageNumber > 1">
+      <img class="decrease-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="decrease-page-button-disabled" *ngIf="pageNumber <= 1">
+      <img class="decrease-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="increase-page-button-enabled" (click)="changePageNumber()" *ngIf="pageNumber < getTotalPages()">
+      <img class="increase-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <div class="increase-page-button-disabled" *ngIf="pageNumber >= getTotalPages()">
+      <img class="increase-page-arrow" src = "assets/images/triangle.jpg"/>
+    </div>
+    <h3 class="these-cards-remain-text">These cards remain in the deck (Unless they're someone's secret reserved card)</h3>
+    <app-squarkles-card [game]="game" [card]="getCardThatShouldAppear(0)" class="card-0" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(0)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [card]="getCardThatShouldAppear(1)" class="card-1" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(1)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [card]="getCardThatShouldAppear(2)" class="card-2" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(2)"></app-squarkles-card>
+    <h1 class="page-description">{{ 'Page ' + pageNumber + ' of ' + getTotalPages() }}</h1>
+  </div>
 </div>
