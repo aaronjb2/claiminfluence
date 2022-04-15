@@ -1,0 +1,113 @@
+.menu {
+  position: absolute;
+  height: 290px;
+  width: 700px;
+  border: 4px solid black;
+  top: 0px;
+  left: 0px;
+}
+
+.settings-text {
+  position: absolute;
+  top: -25px;
+  left: 283px;
+}
+
+.start-game-button {
+  position: absolute;
+  height: 30px;
+  width: 100px;
+  top: 257px;
+  left: 296px;
+}
+
+.game-version-text {
+  position: absolute;
+  top: 20px;
+  left: 93px;
+}
+
+.game-version-selector {
+  position: absolute;
+  top: 60px;
+  left: 117px;
+  height: 30px;
+  width: 60px;
+}
+
+.number-of-players-text {
+  position: absolute;
+  top: 20px;
+  left: 450px;
+}
+
+.player-number-selector {
+  position: absolute;
+  top: 60px;
+  left: 497px;
+  height: 30px;
+  width: 60px;
+}
+
+.hashtag-mode-text {
+  position: absolute;
+  top: 78px;
+  left: 94px;
+}
+
+.hashtag-mode-state {
+  position: absolute;
+  top: 85px;
+  left: 131px;
+  font-size: 25px;
+}
+
+.toggle-hashtag-mode-button {
+  position: absolute;
+  top: 142px;
+  left: 117px;
+  height: 30px;
+  width: 60px;
+}
+
+.must-buy-from-top-row-to-win-text {
+  position: absolute;
+  top: 163px;
+  left: 37px;
+}
+
+.must-buy-from-top-row-to-win-state {
+  position: absolute;
+  top: 169px;
+  left: 128px;
+  font-size: 25px;
+}
+
+.toggle-must-buy-from-top-row-to-win-button {
+  position: absolute;
+  top: 225px;
+  left: 117px;
+  height: 30px;
+  width: 60px;
+}
+
+.must-have-square-of-each-color-to-win-text {
+  position: absolute;
+  top: 78px;
+  left: 370px;
+}
+
+.must-have-square-of-each-color-to-win-state {
+  position: absolute;
+  top: 85px;
+  left: 508px;
+  font-size: 25px;
+}
+
+.toggle-must-have-square-of-each-color-to-win-button {
+  position: absolute;
+  top: 142px;
+  left: 497px;
+  height: 30px;
+  width: 60px;
+}

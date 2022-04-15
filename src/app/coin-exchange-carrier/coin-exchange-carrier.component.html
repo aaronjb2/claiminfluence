@@ -1,8 +1,9 @@
 <div class="coin-exchange-component">
-  <h1 class="quantity-remaining">3</h1>
+  <h1 class="quantity-remaining">{{ getBankQuantityThatShouldAppear() }}</h1>
   <div class = "coin-pile" [ngStyle]="{'background-color': getColorCodeByIndex()}"></div>
   <div class = "coin-plus-quantity-remaining-plus-plus-sign-container">
-    <button class="plus-sign" *ngIf="elementIndex !== 5">+</button>
-    <button class="minus-sign">-</button>
+    <h1 class="quantity-being-changed" *ngIf="game && game.contemplatedCirclesToTake[elementIndex] !==0">{{ game.contemplatedCirclesToTake[elementIndex] > 0 ? '+' + game.contemplatedCirclesToTake[elementIndex] : game.contemplatedCirclesToTake[elementIndex] }}</h1>
+    <button [disabled]="!plusButtonShouldBeEnabled(elementIndex)" class="plus-sign" *ngIf="elementIndex !== 5" (click)="changeTokenCount(elementIndex, true)">+</button>
+    <button [disabled]="!minusButtonShouldBeEnabled(elementIndex)" class="minus-sign" (click)="changeTokenCount(elementIndex, false)">-</button>
   </div>
 </div>

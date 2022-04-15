@@ -2,12 +2,12 @@
   "identifier": "REPLACETHIS",
   "started": false,
   "turn": 0,
-  "gameVersion": 0,
+  "gameVersion": 1,
   "mustBuyTopTierSquareToWin": false,
   "mustHaveOneSquareOfEachColorToWin": false,
-  "hashtagMode": false,
-  "contemplatedCirclesToTake": [0, 0, 0, 0, 0],
-  "contemplatedCirclesToPutBack": [0, 0, 0, 0, 0, 0],
+  "hashtagMode": true,
+  "contemplatedCirclesToTake": [0, 0, 0, 0, 0, 0],
+  "selectABonus": false,
   "players": [
     {
       "name": "player1Name",
@@ -35,7 +35,7 @@
       "cost": [3, 3, 3, 0, 0],
       "gameVersion": 0,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [0, 0, 0, 4, 4],
@@ -53,13 +53,13 @@
       "cost": [0, 0, 3, 3, 3],
       "gameVersion": 0,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [0, 0, 4, 4, 0],
       "gameVersion": 0,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [3, 0, 0, 3, 3],
@@ -77,13 +77,13 @@
       "cost": [4, 4, 0, 0, 0],
       "gameVersion": 0,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [4, 0, 0, 0, 4],
       "gameVersion": 0,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [0, 4, 4, 0, 0],
@@ -107,13 +107,13 @@
       "cost": [0, 3, 0, 3, 3],
       "gameVersion": 1,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [0, 4, 0, 4, 0],
       "gameVersion": 1,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [3, 0, 3, 0, 3],
@@ -125,7 +125,7 @@
       "cost": [4, 4, 0, 0, 0],
       "gameVersion": 1,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [0, 0, 0, 4, 4],
@@ -137,7 +137,7 @@
       "cost": [4, 0, 4, 0, 0],
       "gameVersion": 1,
       "bonusLocation": -1,
-      "otherSideTaken": false
+      "otherSideTaken": true
     },
     {
       "cost": [0, 0, 4, 0, 4],

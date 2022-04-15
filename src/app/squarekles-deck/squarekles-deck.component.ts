@@ -7,6 +7,7 @@ import { getCostColor } from '../functions/getCostColor';
 import {Card} from '../squarekles-game/interfaces/card';
 import {SquarekleGame} from '../squarekles-game/interfaces/squarekle-game';
 import {CardLocation} from '../squarekles-game/enums/card-location';
+import {getTotalReservedCards} from '../functions/get-total-reserved-cards';
 
 @Component({
   selector: 'app-squarekles-deck',
@@ -108,5 +109,9 @@ export class SquareklesDeckComponent implements OnInit {
       }
     }
     return this.getGenericCard();
+  }
+
+  evaluateIfReserveButtonShouldBeEnabled(): boolean {
+    return getTotalReservedCards(this.game.cards, this.game.turn) < 3 && this.game.started;
   }
 }

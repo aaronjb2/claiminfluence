@@ -12,6 +12,14 @@ import {SquarekleGame} from '../squarekles-game/interfaces/squarekle-game';
 import {CardLocation} from '../squarekles-game/enums/card-location';
 import {BonusLocation} from '../squarekles-game/enums/bonus-location';
 import {BonusTile} from '../squarekles-game/interfaces/bonus-tile';
+import {getIntegerRepresentingPlayerCardKnownReservedLocation} from '../functions/get-integer-representing-player-card-known-reserved-location';
+import {getIntegerRepresentingPlayerCardOwnershipLocation} from '../functions/get-integer-representing-player-card-ownership-location';
+import {getIntegerRepresentingPlayerCardSecretReservedLocation} from '../functions/get-integer-representing-player-card-secret-reserved-location';
+import {getIntegerRepresentingPlayerBonusTileOwnershipLocation} from '../functions/get-integer-representing-player-bonus-tile-ownership-location';
+import {getTotalPermanentPurchasePowerOfGivenColor} from '../functions/get-total-permanent-purchase-power-of-given-color';
+import {getTotalHashtagsOfPlayer} from '../functions/get-total-hashtags-of-player';
+import {getPlayerPoints} from '../functions/get-player-points';
+import {Tiers} from "../squarekles-game/enums/tiers";
 
 @Component({
   selector: 'app-squarkles-avatar',
@@ -34,14 +42,25 @@ export class SquarklesAvatarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getIntegerRepresentingPlayerCardKnownReservedLocation(index: number): number { return getIntegerRepresentingPlayerCardKnownReservedLocation(index); }
+  getIntegerRepresentingPlayerCardSecretReservedLocation(index: number): number { return getIntegerRepresentingPlayerCardSecretReservedLocation(index); }
+  getIntegerRepresentingPlayerCardOwnershipLocation(index: number): number { return getIntegerRepresentingPlayerCardOwnershipLocation(index); }
+  getIntegerRepresentingPlayerBonusTileOwnershipLocation(index: number): number { return getIntegerRepresentingPlayerBonusTileOwnershipLocation(index); }
+  getTotalPermanentPurchasePowerOfGivenColor(color: number): number {
+    return getTotalPermanentPurchasePowerOfGivenColor(color, this.index, this.game.cards);
+  }
+
   getColorCodeByIndex(index) { return getColorCodeByIndex(index); }
 
   isDoubleDigit(index) {
     return false;
   }
 
-  getTotalTokens() {
-    return 9;
+  getTotalTokens(): number {
+    if (this.game && this.game.players) {
+      return this.game.players[this.index].circles.reduce((a, b) => a + b) + this.getQuantityOfTopRowTokens();
+    }
+    return 0;
   }
 
   getTotalPermanentPurchasingPower(index) {
@@ -50,10 +69,6 @@ export class SquarklesAvatarComponent implements OnInit {
 
   getTotalPermanentPurchasingPowerPlusOneTimePurchasingPower(index) {
     return 9;
-  }
-
-  getPlayerPoints() {
-    return 0;
   }
 
   toggleChangingName(newName) {
@@ -95,58 +110,6 @@ export class SquarklesAvatarComponent implements OnInit {
       totalObtainedItems += this.game.cards.filter(x => x.cardLocation === cardOwnershipNumber).length;
     }
     return totalObtainedItems;
-  }
-
-  getIntegerRepresentingPlayerCardOwnershipLocation(index: number): number {
-    if (index === 3) {
-      return CardLocation.Player3Owned;
-    }
-    if (index === 2) {
-      return CardLocation.Player2Owned;
-    }
-    if (index === 1) {
-      return CardLocation.Player1Owned;
-    }
-    return CardLocation.Player0Owned;
-  }
-
-  getIntegerRepresentingPlayerCardKnownReservedLocation(index: number): number {
-    if (index === 3) {
-      return CardLocation.Player3KnownReserved;
-    }
-    if (index === 2) {
-      return CardLocation.Player2KnownReserved;
-    }
-    if (index === 1) {
-      return CardLocation.Player1KnownReserved;
-    }
-    return CardLocation.Player0KnownReserved;
-  }
-
-  getIntegerRepresentingPlayerCardSecretReservedLocation(index: number): number {
-    if (index === 3) {
-      return CardLocation.Player3SecretReserved;
-    }
-    if (index === 2) {
-      return CardLocation.Player2SecretReserved;
-    }
-    if (index === 1) {
-      return CardLocation.Player1SecretReserved;
-    }
-    return CardLocation.Player0SecretReserved;
-  }
-
-  getIntegerRepresentingPlayerBonusTileOwnershipLocation(index: number): number {
-    if (index === 3) {
-      return BonusLocation.Player3Owned;
-    }
-    if (index === 2) {
-      return BonusLocation.Player2Owned;
-    }
-    if (index === 1) {
-      return BonusLocation.Player1Owned;
-    }
-    return BonusLocation.Player0Owned;
   }
 
   getTotalPages() {
@@ -320,7 +283,7 @@ export class SquarklesAvatarComponent implements OnInit {
     }
   }
 
-  stopDisplayingAtIndex(index) {
+  stopDisplayingAtIndex(index: number): void {
     if (index === 0) {
       this.displayingIndex0 = false;
     }
@@ -330,5 +293,58 @@ export class SquarklesAvatarComponent implements OnInit {
     if (index === 2) {
       this.displayingIndex2 = false;
     }
+  }
+
+  getCirclesAtIndex(index: number): number {
+    if (this.game && this.game.players) {
+      return this.game.players[this.index].circles[index];
+    }
+    return 0;
+  }
+
+  getTotalPurchasePowerOfColor(color: number): number {
+    return this.getCirclesAtIndex(color) + this.getTotalPermanentPurchasePowerOfGivenColor(color);
+  }
+
+  getTotalHashtagsOfPlayer(index: number): number {
+    if (this.game && this.game.cards) {
+      return getTotalHashtagsOfPlayer(index, this.game.cards);
+    }
+    return 0;
+  }
+
+  getPlayerPoints(index: number): number {
+    if (this.game && this.game.cards && this.game.bonusTiles) {
+      return getPlayerPoints(index, this.game.cards, this.game.bonusTiles);
+    }
+    return 0;
+  }
+
+  hasHashtagAward(): boolean {
+    let hasHashtagAward = false;
+    const bonusOwnerShipNum = getIntegerRepresentingPlayerBonusTileOwnershipLocation(this.index);
+    if (this.game && this.game.bonusTiles) {
+      this.game.bonusTiles.forEach((bonusTile => {
+        if (bonusTile.cost.length === 0 && bonusTile.bonusLocation === bonusOwnerShipNum) {
+          hasHashtagAward = true;
+        }
+      }));
+    }
+    return  hasHashtagAward;
+  }
+
+  getQuantityOfTopRowTokens(): number {
+    if (!this.game) {
+      return 0;
+    }
+    if (!this.game.mustBuyTopTierSquareToWin) {
+      return 0;
+    }
+    if (!this.game.cards) {
+      return 0;
+    }
+    const ownershipNum = getIntegerRepresentingPlayerCardOwnershipLocation(this.index);
+    const quantityOfTopTierCardsOwned = this.game.cards.filter(card => card.tier === Tiers.Top && card.cardLocation === ownershipNum).length;
+    return quantityOfTopTierCardsOwned > 0 ? 1 : 0;
   }
 }

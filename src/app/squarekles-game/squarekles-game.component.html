@@ -2,6 +2,8 @@
   <div class = "game-container">
     <h1 class = "title">TUFFBLUFF</h1>
     <p class="url-description-text">Give this URL to all friends that wish to join or watch: https://tuffbluff.com/squarekles/{{ identifier }}</p>
+    <p class = "what-is-going-on" *ngIf="game && game.started && !game.selectABonus">{{'[' + (game.turn + 1) + '] ' + game.players[game.turn].name + ', it is your turn' }}</p>
+    <app-squarekles-menu [game]="game" *ngIf="this.game && !this.game.started" class="menu-container"></app-squarekles-menu>
     <div class = "player-avatar-container">
       <app-squarkles-avatar class = "player-1-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(0)" [ngStyle]="{'top': getPositionOfPlayerAtIndex(0)}" [game]="game" [index]="0"></app-squarkles-avatar>
       <app-squarkles-avatar class = "player-2-avatar" *ngIf="getWhetherPlayerAvatarShouldExist(1)" [ngStyle]="{'top': getPositionOfPlayerAtIndex(1)}" [game]="game" [index]="1"></app-squarkles-avatar>
@@ -15,6 +17,28 @@
       <app-coin-exchange-carrier class="coin-exchange-carrier-4" [game]="game" [elementIndex]="3"></app-coin-exchange-carrier>
       <app-coin-exchange-carrier class="coin-exchange-carrier-5" [game]="game" [elementIndex]="4"></app-coin-exchange-carrier>
       <app-coin-exchange-carrier class="coin-exchange-carrier-6" [game]="game" [elementIndex]="5"></app-coin-exchange-carrier>
+    </div>
+    <div class="finalize-selection-container">
+      <p class="token-taking-message">{{ getMessage() }}</p>
+      <button class="finalize-section-button" (click)="setItemBeingDisplayed(ItemBeingDisplayed.TakeTokens)">{{ getTotalContemplatedTokens() > 0 ? 'Make Selection' : 'End Turn' }}</button>
+    </div>
+    <div class="confirm-token-selection-box" *ngIf="itemBeingDisplayed === ItemBeingDisplayed.TakeTokens">
+      <h1 class="confirm-selection-text">Confirm Selection</h1>
+      <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
+      <h1 class="exchange-value-at-index-0" *ngIf="game && game.contemplatedCirclesToTake && game.contemplatedCirclesToTake[0] !== 0">{{ game.contemplatedCirclesToTake[0] > 0 ? ('+' + game.contemplatedCirclesToTake[0]) : game.contemplatedCirclesToTake[0] }}</h1>
+      <h1 class="exchange-value-at-index-1" *ngIf="game && game.contemplatedCirclesToTake && game.contemplatedCirclesToTake[1] !== 0">{{ game.contemplatedCirclesToTake[1] > 0 ? ('+' + game.contemplatedCirclesToTake[1]) : game.contemplatedCirclesToTake[1] }}</h1>
+      <h1 class="exchange-value-at-index-2" *ngIf="game && game.contemplatedCirclesToTake && game.contemplatedCirclesToTake[2] !== 0">{{ game.contemplatedCirclesToTake[2] > 0 ? ('+' + game.contemplatedCirclesToTake[2]) : game.contemplatedCirclesToTake[2] }}</h1>
+      <h1 class="exchange-value-at-index-3" *ngIf="game && game.contemplatedCirclesToTake && game.contemplatedCirclesToTake[3] !== 0">{{ game.contemplatedCirclesToTake[3] > 0 ? ('+' + game.contemplatedCirclesToTake[3]) : game.contemplatedCirclesToTake[3] }}</h1>
+      <h1 class="exchange-value-at-index-4" *ngIf="game && game.contemplatedCirclesToTake && game.contemplatedCirclesToTake[4] !== 0">{{ game.contemplatedCirclesToTake[4] > 0 ? ('+' + game.contemplatedCirclesToTake[4]) : game.contemplatedCirclesToTake[4] }}</h1>
+      <h1 class="exchange-value-at-index-5" *ngIf="game && game.contemplatedCirclesToTake && game.contemplatedCirclesToTake[5] !== 0">{{ game.contemplatedCirclesToTake[5] > 0 ? ('+' + game.contemplatedCirclesToTake[5]) : game.contemplatedCirclesToTake[5] }}</h1>
+      <div class="circle-0-confirm-change" [ngStyle]="{'background-color': getColorCodeByIndex(0)}"></div>
+      <div class="circle-1-confirm-change" [ngStyle]="{'background-color': getColorCodeByIndex(1)}"></div>
+      <div class="circle-2-confirm-change" [ngStyle]="{'background-color': getColorCodeByIndex(2)}"></div>
+      <div class="circle-3-confirm-change" [ngStyle]="{'background-color': getColorCodeByIndex(3)}"></div>
+      <div class="circle-4-confirm-change" [ngStyle]="{'background-color': getColorCodeByIndex(4)}"></div>
+      <div class="circle-5-confirm-change" [ngStyle]="{'background-color': getColorCodeByIndex(5)}"></div>
+      <button class="confirm-token-selection-button" (click)="confirmTokenTaking()">Confirm</button>
+      <button class="cancel-token-selection-button" (click)="setItemBeingDisplayed(-1)">Cancel</button>
     </div>
     <div class = bonus-carrier>
       <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot0)" class="bonus-1" *ngIf="bonusExistsAtSlot(BonusLocation.Slot0)"></app-squarkles-bonus>

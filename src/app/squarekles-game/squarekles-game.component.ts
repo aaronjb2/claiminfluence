@@ -11,6 +11,13 @@ import {initializeVictoryTiles} from '../functions/initializeVictoryTiles';
 import {SquarekleGame} from './interfaces/squarekle-game';
 import {BonusLocation} from './enums/bonus-location';
 import {Tiers} from './enums/tiers';
+import {getIntegerRepresentingPlayerCardKnownReservedLocation} from '../functions/get-integer-representing-player-card-known-reserved-location';
+import {getIntegerRepresentingPlayerCardOwnershipLocation} from '../functions/get-integer-representing-player-card-ownership-location';
+import {getIntegerRepresentingPlayerCardSecretReservedLocation} from '../functions/get-integer-representing-player-card-secret-reserved-location';
+import {getIntegerRepresentingPlayerBonusTileOwnershipLocation} from '../functions/get-integer-representing-player-bonus-tile-ownership-location';
+import {getColorCodeByIndex} from '../functions/getColorCodeByIndex';
+import {TokenQuantity} from './enums/token-quantity';
+import {ItemBeingDisplayed} from './enums/item-being-displayed';
 
 @Component({
   selector: 'app-squarekles-game',
@@ -22,9 +29,11 @@ import {Tiers} from './enums/tiers';
 export class SquareklesGameComponent implements OnInit {
   CardLocation = CardLocation;
   BonusLocation = BonusLocation;
+  ItemBeingDisplayed = ItemBeingDisplayed;
   Tiers = Tiers;
   identifier: string;
   game: SquarekleGame;
+  itemBeingDisplayed: number = -1;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -52,6 +61,12 @@ export class SquareklesGameComponent implements OnInit {
     });
   }
 
+  getColorCodeByIndex(index: number): string { return getColorCodeByIndex(index); }
+  getIntegerRepresentingPlayerCardKnownReservedLocation(index: number): number { return getIntegerRepresentingPlayerCardKnownReservedLocation(index); }
+  getIntegerRepresentingPlayerCardSecretReservedLocation(index: number): number { return getIntegerRepresentingPlayerCardSecretReservedLocation(index); }
+  getIntegerRepresentingPlayerCardOwnershipLocation(index: number): number { return getIntegerRepresentingPlayerCardOwnershipLocation(index); }
+  getIntegerRepresentingPlayerBonusTileOwnershipLocation(index: number): number { return getIntegerRepresentingPlayerBonusTileOwnershipLocation(index); }
+
   getGenericGame(): SquarekleGame {
     const player0 = this.getGenericPlayer(0);
     const player1 = this.getGenericPlayer(1);
@@ -62,13 +77,13 @@ export class SquareklesGameComponent implements OnInit {
     return {
       identifier: this.identifier ? this.identifier : 'dontwantthistoexist',
       started: false,
-      turn: -1,
+      turn: 0,
       gameVersion: 0,
       mustBuyTopTierSquareToWin: false,
       mustHaveOneSquareOfEachColorToWin: false,
       hashtagMode: false,
-      contemplatedCirclesToPutBack: [0, 0, 0, 0, 0, 0],
-      contemplatedCirclesToTake: [0, 0, 0, 0, 0],
+      selectABonus: false,
+      contemplatedCirclesToTake: [0, 0, 0, 0, 0, 0],
       cards,
       bonusTiles: victoryTiles,
       players: [
@@ -106,8 +121,8 @@ export class SquareklesGameComponent implements OnInit {
       !!game.mustBuyTopTierSquareToWin,
       !!game.mustHaveOneSquareOfEachColorToWin,
       !!game.hashtagMode,
-      game.contemplatedCirclesToTake ? game.contemplatedCirclesToTake : [0, 0, 0, 0, 0],
-      game.contemplatedCirclesToPutBack ? game.contemplatedCirclesToPutBack : [0, 0, 0, 0, 0, 0],
+      game.contemplatedCirclesToTake ? game.contemplatedCirclesToTake : [0, 0, 0, 0, 0, 0],
+      !!game.selectABonus,
       game.players ? game.players : [this.getGenericPlayer(0), this.getGenericPlayer(1),
         this.getGenericPlayer(2), this.getGenericPlayer(3)],
       game.cards ? game.cards : this.getGenericCardList(),
@@ -119,7 +134,7 @@ export class SquareklesGameComponent implements OnInit {
     return {
       name: 'Player' + playerName + 'name',
       color: index,
-      circles: [0, 0, 0, 0, 0, 0, 0]
+      circles: [0, 0, 0, 0, 0, 0]
     };
   }
 
@@ -198,22 +213,190 @@ export class SquareklesGameComponent implements OnInit {
     return false;
   }
 
-  getWhetherPlayerAvatarShouldExist(index) {
+  getWhetherPlayerAvatarShouldExist(index: number): boolean {
     if (this.game && this.game.players && (this.game.players.length > index || index < 2)) {
       return true;
     }
     return false;
   }
 
-  isUpperCase(str) {
+  isUpperCase(str: string): boolean {
     return str === str.toUpperCase();
   }
 
-  redirectToAllCaps(identifier) {
+  redirectToAllCaps(identifier: string): void {
     this.router.navigate( ['squarekles/' + identifier]);
   }
 
-  getPositionOfPlayerAtIndex(index) {
+  getPositionOfPlayerAtIndex(index: number): string {
     return index === 3 ? '615px' : index === 2 ? '410px' : index === 1 ? '205px' : '0px';
+  }
+
+  getQuantityOfTopRowTokens(index: number): number {
+    if (!this.game) {
+      return 0;
+    }
+    if (!this.game.mustBuyTopTierSquareToWin) {
+      return 0;
+    }
+    if (!this.game.cards) {
+      return 0;
+    }
+    const ownershipNum = getIntegerRepresentingPlayerCardOwnershipLocation(index);
+    const quantityOfTopTierCardsOwned = this.game.cards.filter(card => card.tier === Tiers.Top && card.cardLocation === ownershipNum).length;
+    return quantityOfTopTierCardsOwned > 0 ? 1 : 0;
+  }
+
+  getRemainingRandomTokens(): number {
+    let remaining = 5;
+    if (this.game && this.game.players) {
+      this.game.players.forEach(player => {
+        remaining -= player.circles[5];
+      });
+    }
+    return remaining;
+  }
+
+  getReservedCardsForPlayer(index): number {
+    let reservedCards = 0;
+    if (this.game) {
+      const reservedKnownNum = getIntegerRepresentingPlayerCardKnownReservedLocation(index);
+      const reservedSecretNum = getIntegerRepresentingPlayerCardSecretReservedLocation(index);
+      reservedCards = this.game.cards.filter(card => {
+        return card.cardLocation === reservedKnownNum || card.cardLocation === reservedSecretNum;
+      }).length;
+    }
+    return reservedCards;
+  }
+
+  getTotalTokensOfCertainColorInGame(): number {
+    if (this.game && this.game.players) {
+      if (this.game.players.length === 2) {
+        return TokenQuantity.Players2;
+      }
+      if (this.game.players.length === 3) {{
+        return TokenQuantity.Players3;
+      }}
+    }
+    return TokenQuantity.Players4;
+  }
+
+  getBankQuantity(index: number): number {
+    if (this.game && this.game.contemplatedCirclesToTake) {
+      if (index === 5) {
+        return this.getRemainingRandomTokens();
+      }
+      return this.getTotalTokensOfCertainColorInGame();
+    }
+    return TokenQuantity.Players4;
+  }
+
+  thereExistsFourOfAColorThatCanBeTaken(): boolean {
+    let thereExistsFourOfAColor = false;
+    if (this.game) {
+      for (let i = 0; i < 5; i++) {
+        if (this.getBankQuantity(i) > 3) {
+          thereExistsFourOfAColor = true;
+        }
+      }
+    }
+    return thereExistsFourOfAColor;
+  }
+
+  getColorsWithMoreThanZeroInBank(): number {
+    let colorsWithMoreThanZeroInBank = 0;
+    if (this.game) {
+      for (let i = 0; i < 5; i++) {
+        if (this.getBankQuantity(i) > 0) {
+          colorsWithMoreThanZeroInBank++;
+        }
+      }
+    }
+    return colorsWithMoreThanZeroInBank;
+  }
+
+  getTotalContemplatedTokens(): number {
+    let totalContemplatedTokens = 0;
+    if (this.game && this.game.contemplatedCirclesToTake) {
+      this.game.contemplatedCirclesToTake.forEach(circle => {
+        if (circle > 0) {
+          totalContemplatedTokens++;
+        }
+      });
+    }
+    return totalContemplatedTokens;
+  }
+
+  contemplatingTakingMoreThanOneOfACertainColor(): boolean {
+    let contemplatingTakingMoreThanOneOfACertainColor = false;
+    if (this.game && this.game.contemplatedCirclesToTake) {
+      this.game.contemplatedCirclesToTake.forEach(circle => {
+        if (circle > 1) {
+          contemplatingTakingMoreThanOneOfACertainColor = true;
+        }
+      });
+    }
+    return contemplatingTakingMoreThanOneOfACertainColor;
+  }
+
+  thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable(): boolean {
+    let thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable = false;
+    if (this.game && this.game.contemplatedCirclesToTake) {
+      for (let i = 0; i < 5; i++) {
+        if (this.game.contemplatedCirclesToTake[i] === 0 && this.getBankQuantity(i) > 0) {
+          thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable = true;
+        }
+      }
+    }
+    return thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable;
+  }
+
+  getMessage(): string {
+    let message = '';
+    if (this.game) {
+      const remainingRandomTokens = this.getRemainingRandomTokens();
+      const reservedCardsForPlayer = this.getReservedCardsForPlayer(this.game.turn);
+      const quantityOfTopRowTokens = this.getQuantityOfTopRowTokens(this.game.turn);
+      const currentTotalTokensForPlayer = this.game.players[this.game.turn].circles.reduce(
+        (a, b) => a + b) + quantityOfTopRowTokens;
+      message = 'Buy Something, Reserve Something, Take Tokens, or just end your turn';
+      if (currentTotalTokensForPlayer === 9
+        && remainingRandomTokens > 0
+        && reservedCardsForPlayer < 3) {
+        message = 'If you don\'t buy, You might want to reserve a card and get 1 random token';
+      } else if (currentTotalTokensForPlayer === 8 && this.thereExistsFourOfAColorThatCanBeTaken()
+        && this.getColorsWithMoreThanZeroInBank() > 2) {
+        message = 'You cannot collect 3 total tokens this turn without putting at least 1 back';
+      } else if (currentTotalTokensForPlayer > 9) {
+        message = 'You are at your token limit of 10.  You need to put back to take more.  ';
+        if (reservedCardsForPlayer < 3 && remainingRandomTokens > 0) {
+          message = 'If you wish to reserve, put a token back first or you can\'t get a random token to go with your reserved card';
+        }
+      } else if (currentTotalTokensForPlayer < 8 && !this.contemplatingTakingMoreThanOneOfACertainColor()
+      && this.getTotalContemplatedTokens() < 3 && this.getTotalContemplatedTokens() > 0
+        && this.thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable()) {
+        message = 'You can still take more before ending your turn';
+      } else if (this.getTotalContemplatedTokens() > 2 || this.contemplatingTakingMoreThanOneOfACertainColor()) {
+        message = 'If you are satisfied with your selection, click Make Selection';
+      }
+    }
+    return message;
+  }
+
+  setItemBeingDisplayed(itemBeingDisplayed) {
+    this.itemBeingDisplayed = itemBeingDisplayed;
+  }
+
+  confirmTokenTaking(): void {
+    if (this.game) {
+      const game = JSON.parse(JSON.stringify(this.game));
+      this.setItemBeingDisplayed(-1);
+      for (let i = 0; i < 6; i++) {
+        game.players[game.turn].circles[i] += game.contemplatedCirclesToTake[i];
+        game.contemplatedCirclesToTake[i] = 0;
+      }
+      game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
+      this.webSocketService.emit('update-squarekles-game', game);
+    }
   }
 }

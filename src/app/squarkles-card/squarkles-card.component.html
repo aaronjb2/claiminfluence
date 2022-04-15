@@ -2,6 +2,8 @@
   <h1 class = "point-value">{{card.pointValue === 0 ? '' : card.pointValue}}</h1>
   <h1 class = "hashtags-quantity-1" *ngIf="getHashtagsQuantityExistence(1)">#</h1>
   <h1 class = "hashtags-quantity-2" *ngIf="getHashtagsQuantityExistence(2)">##</h1>
+  <div class="colored-circle-for-top-tier-with-hashtags" [ngStyle]="{'background-color': getColorCodeByIndex(6)}" *ngIf="game && game.mustBuyTopTierSquareToWin && card.tier === Tiers.Top && card.hashtags && game.hashtagMode"></div>
+  <div class="colored-circle-for-top-tier-without-hashtags" [ngStyle]="{'background-color': getColorCodeByIndex(6)}" *ngIf="game && game.mustBuyTopTierSquareToWin && card.tier === Tiers.Top && (!card.hashtags || !game.hashtagMode)"></div>
   <div class="resource-cost-carrier">
     <div class="circle-and-cost-carrier-1" *ngIf="getTotalItemsWithNonZeroCost(card.cost) > 3">
       <div class="colored-circle-for-cost" [ngStyle]="{'background-color': getCostColor(card.cost, 0)}"></div>
@@ -20,6 +22,6 @@
       <h1 class="bonus-circle-number-cost">{{ getColorCost(card.cost, 3) }}</h1>
     </div>
   </div>
-  <button [disabled]="true" class = "buy-button" *ngIf="buyButtonShouldAppear()">Buy</button>
-  <button class = "reserve-button" *ngIf="reserveButtonShouldAppear()">Reserve</button>
+  <button [disabled]="!evaluateIfBuyButtonShouldBeEnabled()" class = "buy-button" *ngIf="buyButtonShouldAppear()">Buy</button>
+  <button [disabled]="!evaluateIfReserveButtonShouldBeEnabled()" class = "reserve-button" *ngIf="reserveButtonShouldAppear()">Reserve</button>
 </div>

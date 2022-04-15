@@ -112,5 +112,11 @@
     "gameVersion": 1,
     "bonusLocation": -1,
     "otherSideTake": false
+  },
+  {
+    "cost": [],
+    "gameVersion": 1,
+    "bonusLocation": -1,
+    "otherSideTake": false
   }
 ]

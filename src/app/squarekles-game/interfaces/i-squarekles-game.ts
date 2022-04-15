@@ -11,7 +11,7 @@ export interface ISquareklesGame {
   mustHaveOneSquareOfEachColorToWin: boolean;
   hashtagMode: boolean;
   contemplatedCirclesToTake: number[];
-  contemplatedCirclesToPutBack: number[];
+  selectABonus: boolean;
   players: Player[];
   cards: Card[];
   bonusTiles: BonusTile[];

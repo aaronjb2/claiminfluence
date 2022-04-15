@@ -12,14 +12,14 @@ export class SquarekleGame implements ISquareklesGame {
   mustHaveOneSquareOfEachColorToWin: boolean;
   hashtagMode: boolean;
   contemplatedCirclesToTake: number[];
-  contemplatedCirclesToPutBack: number[];
+  selectABonus: boolean;
   players: Player[];
   cards: Card[];
   bonusTiles: BonusTile[];
 
   constructor(identifier: string, started: boolean, turn: number, gameVersion: number, mustBuyTopTierSquareToWin: boolean,
               mustHaveOneSquareOfEachColorToWin, hashtagMode: boolean, contemplatedCirclesToTake: number[],
-              contemplatedCirclesToPutBack: number[], players: Player[], cards: Card[], bonusTiles: BonusTile[]) {
+              selectABonus: boolean, players: Player[], cards: Card[], bonusTiles: BonusTile[]) {
     this.identifier = identifier;
     this.started = started;
     this.turn = turn;
@@ -28,7 +28,7 @@ export class SquarekleGame implements ISquareklesGame {
     this.mustHaveOneSquareOfEachColorToWin = mustHaveOneSquareOfEachColorToWin;
     this.hashtagMode = hashtagMode;
     this.contemplatedCirclesToTake = contemplatedCirclesToTake;
-    this.contemplatedCirclesToPutBack = contemplatedCirclesToPutBack;
+    this.selectABonus = selectABonus;
     this.players = players;
     this.cards = cards;
     this.bonusTiles = bonusTiles;

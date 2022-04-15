@@ -5,7 +5,7 @@
   <h1 class="cards-remaining-text">Cards Remaining:</h1>
   <h1 class="remaining-cards-double-digit" *ngIf="getCardsRemaining() > 9">{{ getCardsRemaining() }}</h1>
   <h1 class="remaining-cards-single-digit" *ngIf="getCardsRemaining() < 10">{{ getCardsRemaining() }}</h1>
-  <button class="reserve-hidden-card-button" *ngIf="getCardsRemaining() > 0">Reserve Unknown</button>
+  <button [disabled]="!evaluateIfReserveButtonShouldBeEnabled()" class="reserve-hidden-card-button" *ngIf="getCardsRemaining() > 0">Reserve Unknown</button>
   <button class="view-remaining-card-button" *ngIf="getCardsRemaining() > 0" (click)="startDisplayingRemainingCards()">View Remaining</button>
   <div class="remaining-cards-container" *ngIf="displayingRemainingCards" [ngStyle]="{'z-index': tier === 'top' ? 6 : tier === 'middle' ? 7 : 8}">
     <button class="close-display" (click)="stopDisplayingRemainingCards()">X</button>
