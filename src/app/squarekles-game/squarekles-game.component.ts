@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WebSocketService} from '../web-socket.service';
 import {GameStateProviderService} from '../game-state-provider.service';
@@ -343,12 +343,26 @@ export class SquareklesGameComponent implements OnInit {
     let thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable = false;
     if (this.game && this.game.contemplatedCirclesToTake) {
       for (let i = 0; i < 5; i++) {
-        if (this.game.contemplatedCirclesToTake[i] === 0 && this.getBankQuantity(i) > 0) {
+        if (this.game.contemplatedCirclesToTake[i] === 0 && this.getBankQuantityThatShouldAppear(i) > 0) {
           thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable = true;
         }
       }
     }
     return thereExistsColorThatYouAreNotCurrentlyTakingWithMoreThanZeroAvailable;
+  }
+
+  getBankQuantityThatShouldAppear(index: number): number {
+    let bankQuantityThatShouldAppear = 0;
+    if (this.game) {
+      const totalTokensOfColor = this.game.players.length === 2 ? TokenQuantity.Players2
+        : this.game.players.length === 3 ? TokenQuantity.Players3 : TokenQuantity.Players4;
+      bankQuantityThatShouldAppear = totalTokensOfColor;
+      this.game.players.forEach(player => {
+        bankQuantityThatShouldAppear -= player.circles[index];
+      });
+      bankQuantityThatShouldAppear -= this.game.contemplatedCirclesToTake[index];
+    }
+    return bankQuantityThatShouldAppear;
   }
 
   getMessage(): string {

@@ -82,13 +82,14 @@ export class CoinExchangeCarrierComponent implements OnInit {
 
   plusButtonShouldBeEnabled(index: number): boolean {
     if (this.game && this.game.started) {
-      if (!this.alreadyTakingTwoOfAKind()
+      if ((!this.alreadyTakingTwoOfAKind()
         && this.getDifferentOnesBeingTaken() < 3
         && !this.tryingToTakeASecondOfOneIndexWhileTakingAnotherIndex(index)
         && !this.alreadyHaveOneWhileAnotherWouldLeaveLessThan2(index)
         && !this.alreadyHaveTen()
         && !this.allOut(index)
-        && !this.game.selectABonus) {
+        && !this.game.selectABonus)
+        || this.game.contemplatedCirclesToTake[index] < 0) {
         return true;
       }
     }
