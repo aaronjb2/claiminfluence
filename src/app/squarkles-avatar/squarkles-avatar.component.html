@@ -103,7 +103,7 @@
       <button class = "display-button" (click)="startDisplayingAtIndex(1)">Display</button>
     </div>
     <div class="secret-being-displayed-1" *ngIf="evaluateIfHideButtonShouldAppear(1)">
-      <button class = "Hide-button" (click)="stopDisplayingAtIndex(1)">Hide</button>
+      <button class = "hide-button" (click)="stopDisplayingAtIndex(1)">Hide</button>
     </div>
     <app-squarkles-card class="card-1" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(1)" [card]="getReservedCards()[1]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
     <div class="secret-card-2" *ngIf="evaluateIfDisplayButtonShouldAppear(2)">
@@ -112,7 +112,7 @@
       <button class = "display-button" (click)="startDisplayingAtIndex(2)">Display</button>
     </div>
     <div class="secret-being-displayed-2" *ngIf="evaluateIfHideButtonShouldAppear(2)">
-      <button class = "Hide-button" (click)="stopDisplayingAtIndex(2)">Hide</button>
+      <button class = "hide-button" (click)="stopDisplayingAtIndex(2)">Hide</button>
     </div>
     <app-squarkles-card class="card-2" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(2)" [card]="getReservedCards()[2]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
   </div>

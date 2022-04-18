@@ -342,6 +342,12 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
     return Tiers.Bottom;
   }
 
+  getTierBasedOnItemBeingDisplayed(): string {
+    return this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierUnknownCard ? Tiers.Top
+      : this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierUnknownCard ? Tiers.Middle
+        : Tiers.Bottom;
+  }
+
   getCardsRemainingInDeck(cards: Card[], tier: string): number {
     return cards.filter(x => x.tier === tier && x.cardLocation === CardLocation.Deck).length;
   }
@@ -390,17 +396,22 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
 
   confirmPurchaseOrReservation(): void {
     const cardLocation = this.getCardLocation();
-    if (cardLocation !== CardLocation.Deck) {
-      if (this.game) {
-        const game = JSON.parse(JSON.stringify(this.game));
-        const playerOwnershipNum = getIntegerRepresentingPlayerCardOwnershipLocation(this.game.turn);
-        const playerKnownReservedNum = getIntegerRepresentingPlayerCardKnownReservedLocation(this.game.turn);
-        const playerSecretReservedNum = getIntegerRepresentingPlayerCardSecretReservedLocation(this.game.turn);
-        const newLocationNum = (this.itemBeingDisplayed >= ItemBeingDisplayed.ReservedTopTierUnknownCard
-          && this.itemBeingDisplayed <= ItemBeingDisplayed.ReservedBottomTierUnknownCard)
-          ? playerSecretReservedNum : (this.itemBeingDisplayed >= ItemBeingDisplayed.ReservedTopTierCard0
-            && this.itemBeingDisplayed <= ItemBeingDisplayed.ReservedBottomTierCard3) ? playerKnownReservedNum
-            : playerOwnershipNum;
+    if (this.game) {
+      const game = JSON.parse(JSON.stringify(this.game));
+      const playerOwnershipNum = getIntegerRepresentingPlayerCardOwnershipLocation(this.game.turn);
+      const playerKnownReservedNum = getIntegerRepresentingPlayerCardKnownReservedLocation(this.game.turn);
+      const playerSecretReservedNum = getIntegerRepresentingPlayerCardSecretReservedLocation(this.game.turn);
+      const newLocationNum = (this.itemBeingDisplayed >= ItemBeingDisplayed.ReservedTopTierUnknownCard
+        && this.itemBeingDisplayed <= ItemBeingDisplayed.ReservedBottomTierUnknownCard)
+        ? playerSecretReservedNum : (this.itemBeingDisplayed >= ItemBeingDisplayed.ReservedTopTierCard0
+          && this.itemBeingDisplayed <= ItemBeingDisplayed.ReservedBottomTierCard3) ? playerKnownReservedNum
+          : playerOwnershipNum;
+      if (newLocationNum === playerSecretReservedNum) {
+        const tier = this.getTierBasedOnItemBeingDisplayed();
+        const filteredCards = game.cards.filter(card => card.cardLocation === CardLocation.Deck && card.tier === tier);
+        const r = randomNumber(0, filteredCards.length - 1);
+        filteredCards[r].cardLocation = playerSecretReservedNum;
+      } else {
         const filteredCards = game.cards.filter(card => card.cardLocation === cardLocation);
         if (filteredCards.length > 0) {
           filteredCards[0].cardLocation = newLocationNum;
@@ -412,20 +423,20 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
             cardsStillInDeck[r].cardLocation = cardLocation;
           }
         }
-        if (newLocationNum === playerOwnershipNum) {
-          console.log('you should not be in here yet');
-        } else {
-          game.players[this.game.turn].circles[0] += this.game.contemplatedCirclesToTake[0];
-          game.players[this.game.turn].circles[1] += this.game.contemplatedCirclesToTake[1];
-          game.players[this.game.turn].circles[2] += this.game.contemplatedCirclesToTake[2];
-          game.players[this.game.turn].circles[3] += this.game.contemplatedCirclesToTake[3];
-          game.players[this.game.turn].circles[4] += this.game.contemplatedCirclesToTake[4];
-          game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
-          game.players[this.game.turn].circles[5] += this.getRandomTokenCost();
-          game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
-        }
-        this.webSocketService.emit('update-squarekles-game', game);
       }
+      if (newLocationNum === playerOwnershipNum) {
+        console.log('you should not be in here yet');
+      } else {
+        game.players[this.game.turn].circles[0] += this.game.contemplatedCirclesToTake[0];
+        game.players[this.game.turn].circles[1] += this.game.contemplatedCirclesToTake[1];
+        game.players[this.game.turn].circles[2] += this.game.contemplatedCirclesToTake[2];
+        game.players[this.game.turn].circles[3] += this.game.contemplatedCirclesToTake[3];
+        game.players[this.game.turn].circles[4] += this.game.contemplatedCirclesToTake[4];
+        game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
+        game.players[this.game.turn].circles[5] += this.getRandomTokenCost();
+        game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
+      }
+      this.webSocketService.emit('update-squarekles-game', game);
     }
   }
 

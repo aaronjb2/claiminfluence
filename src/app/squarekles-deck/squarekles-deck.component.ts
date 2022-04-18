@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { getColorCodeByIndex } from '../functions/getColorCodeByIndex';
 import { getNthElementWithNonZeroValue } from '../functions/getNthElementWithNonZeroValue';
 import { getTotalItemsWithNonZeroCost } from '../functions/getTotalItemsWithNonZeroCost';
@@ -8,6 +8,8 @@ import {Card} from '../squarekles-game/interfaces/card';
 import {SquarekleGame} from '../squarekles-game/interfaces/squarekle-game';
 import {CardLocation} from '../squarekles-game/enums/card-location';
 import {getTotalReservedCards} from '../functions/get-total-reserved-cards';
+import {ItemBeingDisplayed} from "../squarekles-game/enums/item-being-displayed";
+import {Tiers} from "../squarekles-game/enums/tiers";
 
 @Component({
   selector: 'app-squarekles-deck',
@@ -17,13 +19,28 @@ import {getTotalReservedCards} from '../functions/get-total-reserved-cards';
 export class SquareklesDeckComponent implements OnInit {
   @Input() tier: string;
   @Input() game: SquarekleGame;
+  @Input() itemBeingDisplayed: number;
+  @Output() getItemBeingDisplayedChange = new EventEmitter<number>();
+
   displayingRemainingCards: boolean = false;
   pageNumber: number = 1;
+  ItemBeingDisplayed = ItemBeingDisplayed;
+  Tiers = Tiers;
 
   constructor() { }
 
   ngOnInit(): void {
     this.getDeckCardsForDisplay();
+  }
+
+  setItemBeingDisplayed(item: number): void {
+    this.getItemBeingDisplayedChange.emit(item);
+  }
+
+  getItemBeingDisplayedNumber(): number {
+    return this.tier === Tiers.Top ? ItemBeingDisplayed.ReservedTopTierUnknownCard
+      : this.tier === Tiers.Middle ? ItemBeingDisplayed.ReservedMiddleTierUnknownCard
+        : ItemBeingDisplayed.ReservedBottomTierUnknownCard;
   }
 
   getCardsRemaining(): number {
