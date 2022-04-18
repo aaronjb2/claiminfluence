@@ -432,3 +432,13 @@
   right: 80px;
   font-size: 35px;
 }
+
+.confirm-card-selection-container {
+  position: absolute;
+  height: 442px;
+  width: 358px;
+  left: 220px;
+  top: -116px;
+  z-index: 2;
+  background-color: white;
+}

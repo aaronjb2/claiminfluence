@@ -1,0 +1,29 @@
+<div class="confirm-squarekle-card-container">
+  <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
+  <h1 *ngIf="itemBeingDisplayed >= ItemBeingDisplayed.ReservedTopTierUnknownCard && itemBeingDisplayed <= ItemBeingDisplayed.ReservedBottomTierCard3" class="confirm-reservation-text">Confirm Reservation</h1>
+  <h1 *ngIf="itemBeingDisplayed >= ItemBeingDisplayed.PurchaseTopTierCard0 && itemBeingDisplayed <= ItemBeingDisplayed.PurchaseBottomTierCard3" class="confirm-purchase-text">Confirm Purchase</h1>
+  <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '030px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(0) > 0 ? '+' + getOneTimeCostThatShouldAppear(0) : getOneTimeCostThatShouldAppear(0) < 0 ? getOneTimeCostThatShouldAppear(0) : ''}}</h2>
+  <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '080px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(1) > 0 ? '+' + getOneTimeCostThatShouldAppear(1) : getOneTimeCostThatShouldAppear(1) < 0 ? getOneTimeCostThatShouldAppear(1) : ''}}</h2>
+  <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '130px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(2) > 0 ? '+' + getOneTimeCostThatShouldAppear(2) : getOneTimeCostThatShouldAppear(2) < 0 ? getOneTimeCostThatShouldAppear(2) : ''}}</h2>
+  <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '180px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(3) > 0 ? '+' + getOneTimeCostThatShouldAppear(3) : getOneTimeCostThatShouldAppear(3) < 0 ? getOneTimeCostThatShouldAppear(3) : ''}}</h2>
+  <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '230px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(4) > 0 ? '+' + getOneTimeCostThatShouldAppear(4) : getOneTimeCostThatShouldAppear(4) < 0 ? getOneTimeCostThatShouldAppear(4) : ''}}</h2>
+  <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '280px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(5) > 0 ? '+' + getOneTimeCostThatShouldAppear(5) : getOneTimeCostThatShouldAppear(5) < 0 ? getOneTimeCostThatShouldAppear(5) : ''}}</h2>
+  <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '035px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(0)}"></div>
+  <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '085px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(1)}"></div>
+  <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '135px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(2)}"></div>
+  <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '185px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(3)}"></div>
+  <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '235px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(4)}"></div>
+  <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '285px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(5)}"></div>
+  <div *ngIf="allCostsAreZero() && !thisIsAReserveNotAPurchase()" class="push-free-text-further-down"></div>
+  <p *ngIf="allCostsAreZero() && !thisIsAReserveNotAPurchase()" class="free-text">Free</p>
+  <p *ngIf="randomTokensAreOut() && !puttingBackRandomTokens() && thisIsAReserveNotAPurchase()" class="random-tokens-gone-text">Random tokens are out</p>
+  <div class = "push-warning-further-down"></div>
+  <p *ngIf="allCostsAreZero() && !randomTokensAreOut() && thisIsAReserveNotAPurchase()" class="get-rid-of-a-token-warning">Cancel and get rid of a token if you want a random token to go with it</p>
+  <div class="secret">
+    <p class="tier-description">{{ getCardThatShouldAppear().tier.toUpperCase() + ' Tier Card' }}</p>
+    <p class ="question-marks">?????</p>
+  </div>
+  <app-squarkles-card (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" class="card" [game]="game" [reserveShouldAppear]="false" [buyShouldAppear]="false" [card]="getCardThatShouldAppear()" *ngIf="itemBeingDisplayed >= ItemBeingDisplayed.ReservedTopTierCard0 && itemBeingDisplayed <= ItemBeingDisplayed.PurchaseBottomTierCard3"></app-squarkles-card>
+  <button class="confirm-token-selection-button" (click)="confirmPurchaseOrReservation()">Confirm</button>
+  <button class="cancel-token-selection-button" (click)="setItemBeingDisplayed(-1)">Cancel</button>
+</div>

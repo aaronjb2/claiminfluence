@@ -6,6 +6,8 @@ import { getColorCost } from '../functions/getColorCost';
 import { getCostColor } from '../functions/getCostColor';
 import {WebSocketService} from '../web-socket.service';
 import {TokenQuantity} from '../squarekles-game/enums/token-quantity';
+import {Tiers} from "../squarekles-game/enums/tiers";
+import {getIntegerRepresentingPlayerCardOwnershipLocation} from "../functions/get-integer-representing-player-card-ownership-location";
 
 @Component({
   selector: 'app-coin-exchange-carrier',
@@ -57,6 +59,17 @@ export class CoinExchangeCarrierComponent implements OnInit {
     return positives;
   }
 
+  puttingBackWillMakeYouExceedTen(index): boolean {
+    if (this.game) {
+      const sumOfCircles = this.game.players[this.game.turn].circles.reduce((a, b) => a + b) + this.getQuantityOfTopRowTokens();
+      const sumOfContemplatedCircles = this.game.contemplatedCirclesToTake.reduce((a, b) => a + b);
+      if (this.game.contemplatedCirclesToTake[index] < 0) {
+        return sumOfContemplatedCircles + sumOfCircles + 1 > 10;
+      }
+    }
+    return false;
+  }
+
   tryingToTakeASecondOfOneIndexWhileTakingAnotherIndex(index: number): boolean {
     const positives = this.getDifferentOnesBeingTaken();
     if (positives > 1 && this.game.contemplatedCirclesToTake[index] > 0) {
@@ -80,6 +93,30 @@ export class CoinExchangeCarrierComponent implements OnInit {
     return this.getTokensRemainingInBankOfACertainColor(index) + this.game.contemplatedCirclesToTake[index] <= 0;
   }
 
+  getQuantityOfTopRowTokens(): number {
+    if (!this.game) {
+      return 0;
+    }
+    if (!this.game.mustBuyTopTierSquareToWin) {
+      return 0;
+    }
+    if (!this.game.cards) {
+      return 0;
+    }
+    const ownershipNum = getIntegerRepresentingPlayerCardOwnershipLocation(this.game.turn);
+    const quantityOfTopTierCardsOwned = this.game.cards.filter(card => card.tier === Tiers.Top && card.cardLocation === ownershipNum).length;
+    return quantityOfTopTierCardsOwned > 0 ? 1 : 0;
+  }
+
+  sumOfContemplatedAndCurrentTotalTokensMeetsOrExceedsTen(): boolean {
+    if (this.game) {
+      const sumOfCircles = this.game.players[this.game.turn].circles.reduce((a, b) => a + b) + this.getQuantityOfTopRowTokens();
+      const sumOfContemplatedCircles = this.game.contemplatedCirclesToTake.reduce((a, b) => a + b);
+      return sumOfCircles + sumOfContemplatedCircles >= 10;
+    }
+    return false;
+  }
+
   plusButtonShouldBeEnabled(index: number): boolean {
     if (this.game && this.game.started) {
       if ((!this.alreadyTakingTwoOfAKind()
@@ -88,8 +125,10 @@ export class CoinExchangeCarrierComponent implements OnInit {
         && !this.alreadyHaveOneWhileAnotherWouldLeaveLessThan2(index)
         && !this.alreadyHaveTen()
         && !this.allOut(index)
+        && !this.sumOfContemplatedAndCurrentTotalTokensMeetsOrExceedsTen()
         && !this.game.selectABonus)
-        || this.game.contemplatedCirclesToTake[index] < 0) {
+        || (this.game.contemplatedCirclesToTake[index] < 0
+          && !this.puttingBackWillMakeYouExceedTen(index))) {
         return true;
       }
     }
@@ -132,7 +171,7 @@ export class CoinExchangeCarrierComponent implements OnInit {
   getBankQuantityThatShouldAppear(): number {
     if (this.game && this.game.contemplatedCirclesToTake) {
       if (this.elementIndex === 5) {
-        return this.getRemainingRandomTokens();
+        return this.getRemainingRandomTokenNumberThatShouldAppearInBank();
       }
       return this.getTotalTokensOfCertainColorInGame() - this.game.contemplatedCirclesToTake[this.elementIndex]
         - this.getQuantityOfCertainTokenColorHeldByPlayers(this.elementIndex);
@@ -147,7 +186,15 @@ export class CoinExchangeCarrierComponent implements OnInit {
         tokensHeldByPlayers += player.circles[5];
       });
     }
-    return 5;
+    return 5 - tokensHeldByPlayers;
+  }
+
+  getRemainingRandomTokenNumberThatShouldAppearInBank(): number {
+    const remainingRandomTokens = this.getRemainingRandomTokens();
+    if (this.game) {
+      return  remainingRandomTokens - this.game.contemplatedCirclesToTake[5];
+    }
+    return remainingRandomTokens;
   }
 
   changeTokenCount(index: number, plus: boolean): void {
@@ -158,5 +205,12 @@ export class CoinExchangeCarrierComponent implements OnInit {
       game.contemplatedCirclesToTake[index]--;
     }
     this.webSocketService.emit('update-squarekles-game', game);
+  }
+
+  plusSignShouldExist() {
+    if (this.game) {
+      return this.game.contemplatedCirclesToTake[5] < 0 || this.elementIndex !== 5;
+    }
+    return true;
   }
 }

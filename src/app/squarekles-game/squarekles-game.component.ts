@@ -34,6 +34,7 @@ export class SquareklesGameComponent implements OnInit {
   identifier: string;
   game: SquarekleGame;
   itemBeingDisplayed: number = -1;
+  // [(itemBeingDisplayed)]=4
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -58,6 +59,7 @@ export class SquareklesGameComponent implements OnInit {
   listen() {
     this.webSocketService.listen('update-squarekles-game').subscribe(response => {
       this.game = this.getGameFromResponse(response);
+      this.itemBeingDisplayed = -1;
     });
   }
 
@@ -169,6 +171,13 @@ export class SquareklesGameComponent implements OnInit {
       gameVersion: 0,
       otherSideTaken: false
     };
+  }
+
+  cardShouldExist(cardLocation): boolean {
+    if (!this.game) {
+      return false;
+    }
+    return this.game.cards.filter(x => x.cardLocation === cardLocation).length > 0;
   }
 
   getCard(tier, cardLocation): Card {
@@ -413,4 +422,5 @@ export class SquareklesGameComponent implements OnInit {
       this.webSocketService.emit('update-squarekles-game', game);
     }
   }
+
 }

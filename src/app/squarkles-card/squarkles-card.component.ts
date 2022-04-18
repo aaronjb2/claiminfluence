@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Card} from '../squarekles-game/interfaces/card';
 import {WebSocketService} from '../web-socket.service';
 import { getColorCodeByIndex } from '../functions/getColorCodeByIndex';
@@ -12,6 +12,8 @@ import {getTotalPurchasePowerBeforeRandomTokens} from '../functions/get-total-pu
 import {canBuy} from '../functions/can-buy';
 import {getTotalReservedCards} from '../functions/get-total-reserved-cards';
 import {Tiers} from '../squarekles-game/enums/tiers';
+import {CardLocation} from '../squarekles-game/enums/card-location';
+import {ItemBeingDisplayed} from '../squarekles-game/enums/item-being-displayed';
 
 @Component({
   selector: 'app-squarkles-card',
@@ -23,6 +25,9 @@ export class SquarklesCardComponent implements OnInit {
   @Input() game: SquarekleGame;
   @Input() buyShouldAppear: boolean;
   @Input() reserveShouldAppear: boolean;
+  @Input() itemBeingDisplayed: number;
+  @Output() getItemBeingDisplayedChange = new EventEmitter<number>();
+
   Tiers = Tiers;
 
   constructor(private webSocketService: WebSocketService) { }
@@ -81,5 +86,49 @@ export class SquarklesCardComponent implements OnInit {
       && getTotalReservedCards(this.game.cards, this.game.turn) < 3
       && !this.positiveContemplatedCircle()
       && !this.game.selectABonus;
+  }
+
+  getItemToDisplay(): number {
+    if (this.card.cardLocation === CardLocation.TopTierSlot0) {
+      return ItemBeingDisplayed.ReservedTopTierCard0;
+    }
+    if (this.card.cardLocation === CardLocation.TopTierSlot1) {
+      return ItemBeingDisplayed.ReservedTopTierCard1;
+    }
+    if (this.card.cardLocation === CardLocation.TopTierSlot2) {
+      return ItemBeingDisplayed.ReservedTopTierCard2;
+    }
+    if (this.card.cardLocation === CardLocation.TopTierSlot3) {
+      return ItemBeingDisplayed.ReservedTopTierCard3;
+    }
+    if (this.card.cardLocation === CardLocation.MiddleTierSlot0) {
+      return ItemBeingDisplayed.ReservedMiddleTierCard0;
+    }
+    if (this.card.cardLocation === CardLocation.MiddleTierSlot1) {
+      return ItemBeingDisplayed.ReservedMiddleTierCard1;
+    }
+    if (this.card.cardLocation === CardLocation.MiddleTierSlot2) {
+      return ItemBeingDisplayed.ReservedMiddleTierCard2;
+    }
+    if (this.card.cardLocation === CardLocation.MiddleTierSlot3) {
+      return ItemBeingDisplayed.ReservedMiddleTierCard3;
+    }
+    if (this.card.cardLocation === CardLocation.BottomTierSlot0) {
+      return ItemBeingDisplayed.ReservedBottomTierCard0;
+    }
+    if (this.card.cardLocation === CardLocation.BottomTierSlot1) {
+      return ItemBeingDisplayed.ReservedBottomTierCard1;
+    }
+    if (this.card.cardLocation === CardLocation.BottomTierSlot2) {
+      return ItemBeingDisplayed.ReservedBottomTierCard2;
+    }
+    if (this.card.cardLocation === CardLocation.BottomTierSlot3) {
+      return ItemBeingDisplayed.ReservedBottomTierCard3;
+    }
+  }
+
+  reserve(): void {
+    const itemToDisplay = this.getItemToDisplay();
+    this.getItemBeingDisplayedChange.emit(itemToDisplay);
   }
 }

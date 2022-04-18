@@ -1,0 +1,101 @@
+.confirm-squarekle-card-container {
+  position: absolute;
+  height: 434px;
+  width: 350px;
+  top: 0px;
+  left: 0px;
+  border: 4px solid black;
+}
+
+.close-display {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  font-size: 30px;
+}
+
+.confirm-reservation-text {
+  position: absolute;
+  top: -20px;
+  left: 33px;
+}
+
+.confirm-purchase-text {
+  position: absolute;
+  top: -20px;
+  left: 50px;
+}
+
+.confirm-token-selection-button {
+  position: absolute;
+  height: 45px;
+  width: 150px;
+  bottom: 5px;
+  left: 15px;
+  font-size: 35px;
+}
+
+.cancel-token-selection-button {
+  position: absolute;
+  height: 45px;
+  width: 150px;
+  bottom: 5px;
+  right: 15px;
+  font-size: 35px;
+}
+
+.card {
+  position: absolute;
+  top: 150px;
+  left: 80px;
+}
+
+.secret {
+  height: 220px;
+  width: 190px;
+  position: absolute;
+  top: 150px;
+  left: 80px;
+  border: 2px solid black;
+}
+
+.tier-description {
+  text-align: center;
+  font-size: 35px;
+}
+
+.question-marks {
+  text-align: center;
+  font-size: 35px;
+}
+
+.push-free-text-further-down {
+  height: 30px;
+  width: 5px;
+}
+
+.free-text {
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.random-tokens-gone-text {
+  text-align: center;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.push-warning-further-down {
+  height: 25px;
+  width: 5px;
+}
+
+.get-rid-of-a-token-warning {
+  text-align: center;
+  font-size: 23px;
+  font-weight: bold;
+  line-height: 23px;
+}

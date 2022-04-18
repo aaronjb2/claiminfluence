@@ -40,6 +40,7 @@
       <button class="confirm-token-selection-button" (click)="confirmTokenTaking()">Confirm</button>
       <button class="cancel-token-selection-button" (click)="setItemBeingDisplayed(-1)">Cancel</button>
     </div>
+    <app-confirm-squarekle-card-container [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="itemBeingDisplayed >= ItemBeingDisplayed.ReservedTopTierUnknownCard && itemBeingDisplayed < ItemBeingDisplayed.TakeTokens" class="confirm-card-selection-container"></app-confirm-squarekle-card-container>
     <div class = bonus-carrier>
       <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot0)" class="bonus-1" *ngIf="bonusExistsAtSlot(BonusLocation.Slot0)"></app-squarkles-bonus>
       <app-squarkles-bonus [game]="game" [victoryTile]="getVictoryTile(BonusLocation.Slot1)" class="bonus-2" *ngIf="bonusExistsAtSlot(BonusLocation.Slot1)"></app-squarkles-bonus>
@@ -49,24 +50,24 @@
     </div>
     <div class="top-tier-cards-carrier">
       <app-squarekles-deck [game]="game" [tier]="Tiers.Top"></app-squarekles-deck>
-      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-1" *ngIf="cardShouldExist(CardLocation.TopTierSlot0)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" *ngIf="cardShouldExist(CardLocation.TopTierSlot1)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" *ngIf="cardShouldExist(CardLocation.TopTierSlot2)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" *ngIf="cardShouldExist(CardLocation.TopTierSlot3)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Top, CardLocation.TopTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
     </div>
     <div class="middle-tier-cards-carrier">
       <app-squarekles-deck [game]="game" [tier]="Tiers.Middle"></app-squarekles-deck>
-      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-1" *ngIf="cardShouldExist(CardLocation.MiddleTierSlot0)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" *ngIf="cardShouldExist(CardLocation.MiddleTierSlot1)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" *ngIf="cardShouldExist(CardLocation.MiddleTierSlot2)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" *ngIf="cardShouldExist(CardLocation.MiddleTierSlot3)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Middle, CardLocation.MiddleTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
     </div>
     <div class="bottom-tier-cards-carrier">
       <app-squarekles-deck [game]="game" [tier]="Tiers.Bottom"></app-squarekles-deck>
-      <app-squarkles-card class="resource-card-slot-1" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-2" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-3" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
-      <app-squarkles-card class="resource-card-slot-4" [game]="game" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-1" *ngIf="cardShouldExist(CardLocation.BottomTierSlot0)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot0)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-2" *ngIf="cardShouldExist(CardLocation.BottomTierSlot1)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot1)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-3" *ngIf="cardShouldExist(CardLocation.BottomTierSlot2)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot2)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
+      <app-squarkles-card class="resource-card-slot-4" *ngIf="cardShouldExist(CardLocation.BottomTierSlot3)" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getCard(Tiers.Bottom, CardLocation.BottomTierSlot3)" [buyShouldAppear]="true" [reserveShouldAppear]="true"></app-squarkles-card>
     </div>
   </div>
 </div>

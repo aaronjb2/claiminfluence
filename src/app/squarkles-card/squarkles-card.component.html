@@ -23,5 +23,5 @@
     </div>
   </div>
   <button [disabled]="!evaluateIfBuyButtonShouldBeEnabled()" class = "buy-button" *ngIf="buyButtonShouldAppear()">Buy</button>
-  <button [disabled]="!evaluateIfReserveButtonShouldBeEnabled()" class = "reserve-button" *ngIf="reserveButtonShouldAppear()">Reserve</button>
+  <button [disabled]="!evaluateIfReserveButtonShouldBeEnabled()" class = "reserve-button" *ngIf="reserveButtonShouldAppear()" (click)="reserve()">Reserve</button>
 </div>
