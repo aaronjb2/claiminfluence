@@ -19,7 +19,9 @@ import {getIntegerRepresentingPlayerBonusTileOwnershipLocation} from '../functio
 import {getTotalPermanentPurchasePowerOfGivenColor} from '../functions/get-total-permanent-purchase-power-of-given-color';
 import {getTotalHashtagsOfPlayer} from '../functions/get-total-hashtags-of-player';
 import {getPlayerPoints} from '../functions/get-player-points';
-import {Tiers} from "../squarekles-game/enums/tiers";
+import {Tiers} from '../squarekles-game/enums/tiers';
+import {ItemBeingDisplayed} from "../squarekles-game/enums/item-being-displayed";
+import {randomNumber} from "../functions/randomNumber";
 
 @Component({
   selector: 'app-squarkles-avatar',
@@ -346,5 +348,114 @@ export class SquarklesAvatarComponent implements OnInit {
     const ownershipNum = getIntegerRepresentingPlayerCardOwnershipLocation(this.index);
     const quantityOfTopTierCardsOwned = this.game.cards.filter(card => card.tier === Tiers.Top && card.cardLocation === ownershipNum).length;
     return quantityOfTopTierCardsOwned > 0 ? 1 : 0;
+  }
+
+  getCostNotCoveredByPermanentPurchasingPower(card: Card, colorIndex: number): number {
+    if (card.cost[colorIndex] === 0) {
+      return 0;
+    }
+    if (this.game && this.game.cards) {
+      const playerOwnershipNum = getIntegerRepresentingPlayerCardOwnershipLocation(this.game.turn);
+      const permanentPurchasePowerOfThatColor = this.game.cards.filter((c) => {
+        return c.cardLocation === playerOwnershipNum && c.color === colorIndex;
+      }).length;
+      if (permanentPurchasePowerOfThatColor >= card.cost[colorIndex]) {
+        return 0;
+      } else {
+        return permanentPurchasePowerOfThatColor - card.cost[colorIndex];
+      }
+    }
+  }
+
+  getRandomTokenCost(): number {
+    const card = this.getReservedCards()[this.itemBeingDisplayed - 2];
+    const notCoveredByPppColor0Cost = this.getCostNotCoveredByPermanentPurchasingPower(card, 0);
+    const notCoveredByPppColor1Cost = this.getCostNotCoveredByPermanentPurchasingPower(card, 1);
+    const notCoveredByPppColor2Cost = this.getCostNotCoveredByPermanentPurchasingPower(card, 2);
+    const notCoveredByPppColor3Cost = this.getCostNotCoveredByPermanentPurchasingPower(card, 3);
+    const notCoveredByPppColor4Cost = this.getCostNotCoveredByPermanentPurchasingPower(card, 4);
+    const oneTimeCost0 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor0Cost, 0);
+    const oneTimeCost1 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor1Cost, 1);
+    const oneTimeCost2 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor2Cost, 2);
+    const oneTimeCost3 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor3Cost, 3);
+    const oneTimeCost4 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor4Cost, 4);
+    return (oneTimeCost0 - notCoveredByPppColor0Cost >= 0 ? ((oneTimeCost0 - notCoveredByPppColor0Cost) * -1) : 0)
+      + (oneTimeCost1 - notCoveredByPppColor1Cost >= 0 ? ((oneTimeCost1 - notCoveredByPppColor1Cost) * -1) : 0)
+      + (oneTimeCost2 - notCoveredByPppColor2Cost >= 0 ? ((oneTimeCost2 - notCoveredByPppColor2Cost) * -1) : 0)
+      + (oneTimeCost3 - notCoveredByPppColor3Cost >= 0 ? ((oneTimeCost3 - notCoveredByPppColor3Cost) * -1) : 0)
+      + (oneTimeCost4 - notCoveredByPppColor4Cost >= 0 ? ((oneTimeCost3 - notCoveredByPppColor4Cost) * -1) : 0);
+  }
+
+  getCostInOneTimePurchasePowerOfGivenColor(costNotCoveredByPpp: number, colorIndex: number): number {
+    if (costNotCoveredByPpp === 0) {
+      return costNotCoveredByPpp;
+    }
+    if (this.game && this.game.players) {
+      return this.game.players[this.game.turn].circles[colorIndex] >= (costNotCoveredByPpp * -1)
+        ? costNotCoveredByPpp : (this.game.players[this.game.turn].circles[colorIndex] * -1);
+    }
+    return 0;
+  }
+
+  getOneTimeCostThatShouldAppear(colorIndex: number): number {
+    if (this.game) {
+      const card = this.getReservedCards()[this.itemBeingDisplayed - 2];
+      const costNotCoveredByPpp = this.getCostNotCoveredByPermanentPurchasingPower(card, colorIndex);
+      const selfAfflictedAdditionalDamage = this.game.contemplatedCirclesToTake[colorIndex] < 0
+        ? this.game.contemplatedCirclesToTake[colorIndex] : 0;
+      if (colorIndex === 5) {
+        return this.getRandomTokenCost() + selfAfflictedAdditionalDamage;
+      }
+      if (costNotCoveredByPpp >= 0) {
+        return selfAfflictedAdditionalDamage;
+      }
+      if (this.game.players[this.game.turn].circles[colorIndex] >= (costNotCoveredByPpp * -1)) {
+        return costNotCoveredByPpp + selfAfflictedAdditionalDamage;
+      }
+      return (this.game.players[this.game.turn].circles[colorIndex] * -1) + selfAfflictedAdditionalDamage;
+    }
+    return 0;
+  }
+
+  allCostsAreZero(): boolean {
+    for (let i = 0; i < 6; i++) {
+      if (this.getOneTimeCostThatShouldAppear(i) !== 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  confirmPurchase(): void {
+    if (this.game) {
+      const card = this.getReservedCards()[this.itemBeingDisplayed - 2];
+      const game = JSON.parse(JSON.stringify(this.game));
+      const filteredCards = game.cards.filter(gameCard => {
+        return card.gameVersion === card.gameVersion
+          && gameCard.cost[0] === card.cost[0]
+          && gameCard.cost[1] === card.cost[1]
+          && gameCard.cost[2] === card.cost[2]
+          && gameCard.cost[3] === card.cost[3]
+          && gameCard.cost[4] === card.cost[4]
+          && gameCard.cardLocation === card.cardLocation
+          && gameCard.hashtags === card.hashtags
+          && gameCard.tier === card.tier
+          && gameCard.color === card.color
+          && gameCard.pointValue === card.pointValue;
+      });
+      if (filteredCards.length >= 0) {
+        filteredCards[0].cardLocation = getIntegerRepresentingPlayerCardOwnershipLocation(this.game.turn);
+        game.players[this.game.turn].circles[0] += this.getOneTimeCostThatShouldAppear(0);
+        game.players[this.game.turn].circles[1] += this.getOneTimeCostThatShouldAppear(1);
+        game.players[this.game.turn].circles[2] += this.getOneTimeCostThatShouldAppear(2);
+        game.players[this.game.turn].circles[3] += this.getOneTimeCostThatShouldAppear(3);
+        game.players[this.game.turn].circles[4] += this.getOneTimeCostThatShouldAppear(4);
+        game.players[this.game.turn].circles[5] += this.getOneTimeCostThatShouldAppear(5);
+        game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
+        game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
+        this.webSocketService.emit('update-squarekles-game', game);
+      }
+    }
+    this.itemBeingDisplayed = -1;
   }
 }

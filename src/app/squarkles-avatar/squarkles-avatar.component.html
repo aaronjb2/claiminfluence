@@ -66,11 +66,11 @@
   <button class = "view-items-reserved-button" (click)="setItemBeingDisplayed(1)">View Items Reserved</button>
   <div class = "items-obtained-container" *ngIf="itemBeingDisplayed === 0" [ngStyle]="{'z-index': index + 1}">
     <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
-    <app-squarkles-card [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].card" class="card-0" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(0)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].card" class="card-0" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(0)" [reserveCardSlot]="-1"></app-squarkles-card>
     <app-squarkles-bonus class="bonus-won-0" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(0)].bonus" *ngIf="evaluateIfBonusShouldExist(0)"></app-squarkles-bonus>
-    <app-squarkles-card [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].card" class="card-1" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(1)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].card" class="card-1" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(1)" [reserveCardSlot]="-1"></app-squarkles-card>
     <app-squarkles-bonus class="bonus-won-1" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(1)].bonus" *ngIf="evaluateIfBonusShouldExist(1)"></app-squarkles-bonus>
-    <app-squarkles-card [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].card" class="card-2" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(2)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" [card]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].card" class="card-2" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldExist(2)" [reserveCardSlot]="-1"></app-squarkles-card>
     <app-squarkles-bonus class="bonus-won-2" [game]="game" [victoryTile]="getItemsObtainedArray()[getIndexOfItemToLookAt(2)].bonus" *ngIf="evaluateIfBonusShouldExist(2)"></app-squarkles-bonus>
     <div class="decrease-page-button-enabled" (click)="changePageNumber(true)" *ngIf="pageNumber > 1">
       <img class="decrease-page-arrow" src = "assets/images/triangle.jpg"/>
@@ -86,7 +86,7 @@
     </div>
     <h1 class="page-description">{{ 'Page ' + pageNumber + ' of ' + getTotalPages() }}</h1>
   </div>
-  <div class = "items-reserved-container" *ngIf="itemBeingDisplayed === 1" [ngStyle]="{'z-index': index + 1}">
+  <div class = "items-reserved-container" *ngIf="itemBeingDisplayed >= 1 && itemBeingDisplayed <= 4" [ngStyle]="{'z-index': index + 1}">
     <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
     <div class="secret-card-0" *ngIf="evaluateIfDisplayButtonShouldAppear(index)">
       <h1 class="secret-text">Secret</h1>
@@ -96,7 +96,28 @@
     <div class="secret-being-displayed-0" *ngIf="evaluateIfHideButtonShouldAppear(0)">
       <button class = "hide-button" (click)="stopDisplayingAtIndex(0)">Hide</button>
     </div>
-    <app-squarkles-card class="card-0" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(0)" [card]="getReservedCards()[0]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
+    <app-squarkles-card class="card-0" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(0)" [card]="getReservedCards()[0]" [buyShouldAppear]="true" [reserveShouldAppear]="false" [reserveCardSlot]="0"></app-squarkles-card>
+    <div class="confirm-purchase-of-reserved-card-div-0" *ngIf="itemBeingDisplayed === 2" [ngStyle]="{'z-index': 35}">
+      <button class="close-display" (click)="setItemBeingDisplayed(1)">X</button>
+      <h1 class="confirm-purchase-text">Confirm Purchase</h1>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '030px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(0) > 0 ? '+' + getOneTimeCostThatShouldAppear(0) : getOneTimeCostThatShouldAppear(0) < 0 ? getOneTimeCostThatShouldAppear(0) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '080px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(1) > 0 ? '+' + getOneTimeCostThatShouldAppear(1) : getOneTimeCostThatShouldAppear(1) < 0 ? getOneTimeCostThatShouldAppear(1) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '130px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(2) > 0 ? '+' + getOneTimeCostThatShouldAppear(2) : getOneTimeCostThatShouldAppear(2) < 0 ? getOneTimeCostThatShouldAppear(2) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '180px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(3) > 0 ? '+' + getOneTimeCostThatShouldAppear(3) : getOneTimeCostThatShouldAppear(3) < 0 ? getOneTimeCostThatShouldAppear(3) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '230px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(4) > 0 ? '+' + getOneTimeCostThatShouldAppear(4) : getOneTimeCostThatShouldAppear(4) < 0 ? getOneTimeCostThatShouldAppear(4) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '280px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(5) > 0 ? '+' + getOneTimeCostThatShouldAppear(5) : getOneTimeCostThatShouldAppear(5) < 0 ? getOneTimeCostThatShouldAppear(5) : ''}}</h2>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '035px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(0)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '085px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(1)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '135px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(2)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '185px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(3)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '235px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(4)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '285px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(5)}"></div>
+      <div *ngIf="allCostsAreZero()" class="push-free-text-further-down"></div>
+      <p *ngIf="allCostsAreZero()" class="free-text">Free</p>
+      <app-squarkles-card (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" class="card" [game]="game" [reserveShouldAppear]="false" [buyShouldAppear]="false" [card]="getReservedCards()[0]"></app-squarkles-card>
+      <button class="confirm-token-selection-button" (click)="confirmPurchase()">Confirm</button>
+      <button class="cancel-token-selection-button" (click)="setItemBeingDisplayed(1)">Cancel</button>
+    </div>
     <div class="secret-card-1" *ngIf="evaluateIfDisplayButtonShouldAppear(1)">
       <h1 class="secret-text">Secret</h1>
       <h3 class="only-look-if-it-is-yours-text">Only Look If It's Yours</h3>
@@ -105,7 +126,28 @@
     <div class="secret-being-displayed-1" *ngIf="evaluateIfHideButtonShouldAppear(1)">
       <button class = "hide-button" (click)="stopDisplayingAtIndex(1)">Hide</button>
     </div>
-    <app-squarkles-card class="card-1" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(1)" [card]="getReservedCards()[1]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
+    <app-squarkles-card class="card-1" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(1)" [card]="getReservedCards()[1]" [buyShouldAppear]="true" [reserveShouldAppear]="false" [reserveCardSlot]="1"></app-squarkles-card>
+    <div class="confirm-purchase-of-reserved-card-div-1" *ngIf="itemBeingDisplayed === 3" [ngStyle]="{'z-index': 35}">
+      <button class="close-display" (click)="setItemBeingDisplayed(1)">X</button>
+      <h1 class="confirm-purchase-text">Confirm Purchase</h1>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '030px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(0) > 0 ? '+' + getOneTimeCostThatShouldAppear(0) : getOneTimeCostThatShouldAppear(0) < 0 ? getOneTimeCostThatShouldAppear(0) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '080px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(1) > 0 ? '+' + getOneTimeCostThatShouldAppear(1) : getOneTimeCostThatShouldAppear(1) < 0 ? getOneTimeCostThatShouldAppear(1) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '130px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(2) > 0 ? '+' + getOneTimeCostThatShouldAppear(2) : getOneTimeCostThatShouldAppear(2) < 0 ? getOneTimeCostThatShouldAppear(2) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '180px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(3) > 0 ? '+' + getOneTimeCostThatShouldAppear(3) : getOneTimeCostThatShouldAppear(3) < 0 ? getOneTimeCostThatShouldAppear(3) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '230px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(4) > 0 ? '+' + getOneTimeCostThatShouldAppear(4) : getOneTimeCostThatShouldAppear(4) < 0 ? getOneTimeCostThatShouldAppear(4) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '280px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(5) > 0 ? '+' + getOneTimeCostThatShouldAppear(5) : getOneTimeCostThatShouldAppear(5) < 0 ? getOneTimeCostThatShouldAppear(5) : ''}}</h2>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '035px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(0)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '085px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(1)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '135px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(2)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '185px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(3)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '235px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(4)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '285px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(5)}"></div>
+      <div *ngIf="allCostsAreZero()" class="push-free-text-further-down"></div>
+      <p *ngIf="allCostsAreZero()" class="free-text">Free</p>
+      <app-squarkles-card (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" class="card" [game]="game" [reserveShouldAppear]="false" [buyShouldAppear]="false" [card]="getReservedCards()[1]"></app-squarkles-card>
+      <button class="confirm-token-selection-button" (click)="confirmPurchase()">Confirm</button>
+      <button class="cancel-token-selection-button" (click)="setItemBeingDisplayed(1)">Cancel</button>
+    </div>
     <div class="secret-card-2" *ngIf="evaluateIfDisplayButtonShouldAppear(2)">
       <h1 class="secret-text">Secret</h1>
       <h3 class="only-look-if-it-is-yours-text">Only Look If It's Yours</h3>
@@ -114,6 +156,27 @@
     <div class="secret-being-displayed-2" *ngIf="evaluateIfHideButtonShouldAppear(2)">
       <button class = "hide-button" (click)="stopDisplayingAtIndex(2)">Hide</button>
     </div>
-    <app-squarkles-card class="card-2" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(2)" [card]="getReservedCards()[2]" [buyShouldAppear]="true" [reserveShouldAppear]="false"></app-squarkles-card>
+    <app-squarkles-card class="card-2" [game]="game" (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" *ngIf="evaluateIfReservedCardShouldAppear(2)" [card]="getReservedCards()[2]" [buyShouldAppear]="true" [reserveShouldAppear]="false" [reserveCardSlot]="2"></app-squarkles-card>
+    <div class="confirm-purchase-of-reserved-card-div-2" *ngIf="itemBeingDisplayed === 4" [ngStyle]="{'z-index': 35}">
+      <button class="close-display" (click)="setItemBeingDisplayed(1)">X</button>
+      <h1 class="confirm-purchase-text">Confirm Purchase</h1>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '030px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(0) > 0 ? '+' + getOneTimeCostThatShouldAppear(0) : getOneTimeCostThatShouldAppear(0) < 0 ? getOneTimeCostThatShouldAppear(0) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '080px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(1) > 0 ? '+' + getOneTimeCostThatShouldAppear(1) : getOneTimeCostThatShouldAppear(1) < 0 ? getOneTimeCostThatShouldAppear(1) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '130px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(2) > 0 ? '+' + getOneTimeCostThatShouldAppear(2) : getOneTimeCostThatShouldAppear(2) < 0 ? getOneTimeCostThatShouldAppear(2) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '180px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(3) > 0 ? '+' + getOneTimeCostThatShouldAppear(3) : getOneTimeCostThatShouldAppear(3) < 0 ? getOneTimeCostThatShouldAppear(3) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '230px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(4) > 0 ? '+' + getOneTimeCostThatShouldAppear(4) : getOneTimeCostThatShouldAppear(4) < 0 ? getOneTimeCostThatShouldAppear(4) : ''}}</h2>
+      <h2 [ngStyle]="{'position': 'absolute', 'top': '26px', 'left': '280px', 'font-size': '30px'}">{{getOneTimeCostThatShouldAppear(5) > 0 ? '+' + getOneTimeCostThatShouldAppear(5) : getOneTimeCostThatShouldAppear(5) < 0 ? getOneTimeCostThatShouldAppear(5) : ''}}</h2>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '035px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(0)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '085px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(1)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '135px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(2)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '185px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(3)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '235px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(4)}"></div>
+      <div *ngIf="!allCostsAreZero()" [ngStyle]="{'position': 'absolute', 'height': '26px', 'width': '26px', 'top': '96px', 'left': '285px', 'border': '2px solid black', 'border-radius': '50%', 'background-color': getColorCodeByIndex(5)}"></div>
+      <div *ngIf="allCostsAreZero()" class="push-free-text-further-down"></div>
+      <p *ngIf="allCostsAreZero()" class="free-text">Free</p>
+      <app-squarkles-card (getItemBeingDisplayedChange)="setItemBeingDisplayed($event)" [itemBeingDisplayed]="itemBeingDisplayed" class="card" [game]="game" [reserveShouldAppear]="false" [buyShouldAppear]="false" [card]="getReservedCards()[2]"></app-squarkles-card>
+      <button class="confirm-token-selection-button" (click)="confirmPurchase()">Confirm</button>
+      <button class="cancel-token-selection-button" (click)="setItemBeingDisplayed(1)">Cancel</button>
+    </div>
   </div>
 </div>

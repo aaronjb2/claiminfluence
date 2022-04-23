@@ -22,9 +22,9 @@
       <img class="increase-page-arrow" src = "assets/images/triangle.jpg"/>
     </div>
     <h3 class="these-cards-remain-text">These cards remain in the deck (Unless they're someone's secret reserved card)</h3>
-    <app-squarkles-card [game]="game" [itemBeingDisplayed]="-1" [card]="getCardThatShouldAppear(0)" class="card-0" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(0)"></app-squarkles-card>
-    <app-squarkles-card [game]="game" [itemBeingDisplayed]="-1" [card]="getCardThatShouldAppear(1)" class="card-1" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(1)"></app-squarkles-card>
-    <app-squarkles-card [game]="game" [itemBeingDisplayed]="-1" [card]="getCardThatShouldAppear(2)" class="card-2" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(2)"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [itemBeingDisplayed]="-1" [card]="getCardThatShouldAppear(0)" class="card-0" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(0)" [reserveCardSlot]="-1"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [itemBeingDisplayed]="-1" [card]="getCardThatShouldAppear(1)" class="card-1" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(1)" [reserveCardSlot]="-1"></app-squarkles-card>
+    <app-squarkles-card [game]="game" [itemBeingDisplayed]="-1" [card]="getCardThatShouldAppear(2)" class="card-2" [buyShouldAppear]="false" [reserveShouldAppear]="false" *ngIf="evaluateIfCardShouldAppear(2)" [reserveCardSlot]="-1"></app-squarkles-card>
     <h1 class="page-description">{{ 'Page ' + pageNumber + ' of ' + getTotalPages() }}</h1>
   </div>
 </div>

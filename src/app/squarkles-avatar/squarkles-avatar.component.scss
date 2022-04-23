@@ -712,3 +712,74 @@
   top: 0px;
   left: 70px;
 }
+
+.confirm-purchase-of-reserved-card-div-0 {
+  position: absolute;
+  height: 434px;
+  width: 350px;
+  top: -160px;
+  left: 5px;
+  border: 4px solid black;
+  background-color: white;
+}
+
+.confirm-purchase-of-reserved-card-div-1 {
+  position: absolute;
+  height: 434px;
+  width: 350px;
+  border: 4px solid black;
+  top: -160px;
+  left: 210px;
+  background-color: white;
+}
+
+.confirm-purchase-of-reserved-card-div-2 {
+  position: absolute;
+  height: 434px;
+  width: 350px;
+  border: 4px solid black;
+  top: -160px;
+  left: 415px;
+  background-color: white;
+}
+
+.confirm-purchase-text {
+  position: absolute;
+  top: -20px;
+  left: 50px;
+}
+
+.push-free-text-further-down {
+  height: 30px;
+  width: 5px;
+}
+
+.free-text {
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.card {
+  position: absolute;
+  top: 150px;
+  left: 80px;
+}
+
+.confirm-token-selection-button {
+  position: absolute;
+  height: 45px;
+  width: 150px;
+  bottom: 5px;
+  left: 15px;
+  font-size: 35px;
+}
+
+.cancel-token-selection-button {
+  position: absolute;
+  height: 45px;
+  width: 150px;
+  bottom: 5px;
+  right: 15px;
+  font-size: 35px;
+}

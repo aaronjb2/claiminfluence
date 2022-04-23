@@ -201,8 +201,6 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
       return 0;
     }
     if (this.thisIsAReserveNotAPurchase() && colorIndex !== 5 && this.game.contemplatedCirclesToTake[colorIndex] < 0) {
-      console.log('in here');
-      console.log('returning: ', this.game.contemplatedCirclesToTake[colorIndex]);
       return this.game.contemplatedCirclesToTake[colorIndex];
     }
     if (this.game && this.game.players) {
@@ -237,13 +235,13 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
       if (colorIndex === 5) {
         return this.getRandomTokenCost() + selfAfflictedAdditionalDamage;
       }
-      if ((costNotCoveredByPpp * -1) <= 0) {
+      if (costNotCoveredByPpp >= 0) {
         return selfAfflictedAdditionalDamage;
       }
       if (this.game.players[this.game.turn].circles[colorIndex] >= (costNotCoveredByPpp * -1)) {
         return costNotCoveredByPpp + selfAfflictedAdditionalDamage;
       }
-      return this.game.players[this.game.turn].circles[colorIndex] + selfAfflictedAdditionalDamage;
+      return (this.game.players[this.game.turn].circles[colorIndex] * -1) + selfAfflictedAdditionalDamage;
     }
     return 0;
   }
@@ -317,11 +315,11 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
       const oneTimeCost2 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor2Cost, 2);
       const oneTimeCost3 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor3Cost, 3);
       const oneTimeCost4 = this.getCostInOneTimePurchasePowerOfGivenColor(notCoveredByPppColor4Cost, 4);
-      return (oneTimeCost0 - notCoveredByPppColor0Cost < 0 ? oneTimeCost0 - notCoveredByPppColor0Cost : 0)
-        + (oneTimeCost1 - notCoveredByPppColor1Cost < 0 ? oneTimeCost1 - notCoveredByPppColor1Cost : 0)
-        + (oneTimeCost2 - notCoveredByPppColor2Cost < 0 ? oneTimeCost2 - notCoveredByPppColor2Cost : 0)
-        + (oneTimeCost3 - notCoveredByPppColor3Cost < 0 ? oneTimeCost3 - notCoveredByPppColor3Cost : 0)
-        + (oneTimeCost4 - notCoveredByPppColor4Cost < 0 ? oneTimeCost3 - notCoveredByPppColor4Cost : 0);
+      return (oneTimeCost0 - notCoveredByPppColor0Cost >= 0 ? ((oneTimeCost0 - notCoveredByPppColor0Cost) * -1) : 0)
+        + (oneTimeCost1 - notCoveredByPppColor1Cost >= 0 ? ((oneTimeCost1 - notCoveredByPppColor1Cost) * -1) : 0)
+        + (oneTimeCost2 - notCoveredByPppColor2Cost >= 0 ? ((oneTimeCost2 - notCoveredByPppColor2Cost) * -1) : 0)
+        + (oneTimeCost3 - notCoveredByPppColor3Cost >= 0 ? ((oneTimeCost3 - notCoveredByPppColor3Cost) * -1) : 0)
+        + (oneTimeCost4 - notCoveredByPppColor4Cost >= 0 ? ((oneTimeCost3 - notCoveredByPppColor4Cost) * -1) : 0);
     }
     return 0;
   }
@@ -354,40 +352,52 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
 
   getCardLocation(): number {
     if (this.itemBeingDisplayed !== -1) {
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard0) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard0
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseTopTierCard0) {
         return CardLocation.TopTierSlot0;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard1) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard1
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseTopTierCard1) {
         return CardLocation.TopTierSlot1;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard2) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard2
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseTopTierCard2) {
         return CardLocation.TopTierSlot2;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard3) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedTopTierCard3
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseTopTierCard3) {
         return CardLocation.TopTierSlot3;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard0) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard0
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseMiddleTierCard0) {
         return CardLocation.MiddleTierSlot0;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard1) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard1
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseMiddleTierCard1) {
         return CardLocation.MiddleTierSlot1;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard2) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard2
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseMiddleTierCard2) {
         return CardLocation.MiddleTierSlot2;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard3) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedMiddleTierCard3
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseMiddleTierCard0) {
         return CardLocation.MiddleTierSlot3;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard0) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard0
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseBottomTierCard0) {
         return CardLocation.BottomTierSlot0;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard1) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard1
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseBottomTierCard1) {
         return CardLocation.BottomTierSlot1;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard2) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard2
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseBottomTierCard2) {
         return CardLocation.BottomTierSlot2;
       }
-      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard3) {
+      if (this.itemBeingDisplayed === ItemBeingDisplayed.ReservedBottomTierCard3
+        || this.itemBeingDisplayed === ItemBeingDisplayed.PurchaseBottomTierCard3) {
         return CardLocation.BottomTierSlot3;
       }
     }
@@ -407,6 +417,7 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
           && this.itemBeingDisplayed <= ItemBeingDisplayed.ReservedBottomTierCard3) ? playerKnownReservedNum
           : playerOwnershipNum;
       if (newLocationNum === playerSecretReservedNum) {
+        console.log('in here');
         const tier = this.getTierBasedOnItemBeingDisplayed();
         const filteredCards = game.cards.filter(card => card.cardLocation === CardLocation.Deck && card.tier === tier);
         const r = randomNumber(0, filteredCards.length - 1);
@@ -425,7 +436,14 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
         }
       }
       if (newLocationNum === playerOwnershipNum) {
-        console.log('you should not be in here yet');
+        game.players[this.game.turn].circles[0] += this.getOneTimeCostThatShouldAppear(0);
+        game.players[this.game.turn].circles[1] += this.getOneTimeCostThatShouldAppear(1);
+        game.players[this.game.turn].circles[2] += this.getOneTimeCostThatShouldAppear(2);
+        game.players[this.game.turn].circles[3] += this.getOneTimeCostThatShouldAppear(3);
+        game.players[this.game.turn].circles[4] += this.getOneTimeCostThatShouldAppear(4);
+        game.players[this.game.turn].circles[5] += this.getOneTimeCostThatShouldAppear(5);
+        game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
+        game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
       } else {
         game.players[this.game.turn].circles[0] += this.game.contemplatedCirclesToTake[0];
         game.players[this.game.turn].circles[1] += this.game.contemplatedCirclesToTake[1];
