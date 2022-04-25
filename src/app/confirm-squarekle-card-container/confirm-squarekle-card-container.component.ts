@@ -10,6 +10,7 @@ import {getIntegerRepresentingPlayerCardKnownReservedLocation} from '../function
 import {getIntegerRepresentingPlayerCardSecretReservedLocation} from '../functions/get-integer-representing-player-card-secret-reserved-location';
 import {WebSocketService} from '../web-socket.service';
 import {randomNumber} from '../functions/randomNumber';
+import {getCostInOneTimePurchasePowerOfColor} from '../functions/get-cost-in-one-time-purchase-power-of-color';
 
 
 @Component({
@@ -27,6 +28,18 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
   constructor(private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
+  }
+
+  getCostInOneTimePurchasePowerOfColor(colorIndex: number, game: SquarekleGame, reserve: boolean = true, card: Card = {
+    color: 0,
+    cost: [1, 1, 1, 1, 0],
+    tier: Tiers.Bottom,
+    gameVersion: 0,
+    hashtags: 0,
+    pointValue: 0,
+    cardLocation: CardLocation.Deck
+  }): number {
+    return getCostInOneTimePurchasePowerOfColor(colorIndex, game, reserve, card);
   }
 
   getColorCodeByIndex(index: number): string { return getColorCodeByIndex(index); }
@@ -417,7 +430,6 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
           && this.itemBeingDisplayed <= ItemBeingDisplayed.ReservedBottomTierCard3) ? playerKnownReservedNum
           : playerOwnershipNum;
       if (newLocationNum === playerSecretReservedNum) {
-        console.log('in here');
         const tier = this.getTierBasedOnItemBeingDisplayed();
         const filteredCards = game.cards.filter(card => card.cardLocation === CardLocation.Deck && card.tier === tier);
         const r = randomNumber(0, filteredCards.length - 1);
@@ -436,22 +448,34 @@ export class ConfirmSquarekleCardContainerComponent implements OnInit {
         }
       }
       if (newLocationNum === playerOwnershipNum) {
-        game.players[this.game.turn].circles[0] += this.getOneTimeCostThatShouldAppear(0);
-        game.players[this.game.turn].circles[1] += this.getOneTimeCostThatShouldAppear(1);
-        game.players[this.game.turn].circles[2] += this.getOneTimeCostThatShouldAppear(2);
-        game.players[this.game.turn].circles[3] += this.getOneTimeCostThatShouldAppear(3);
-        game.players[this.game.turn].circles[4] += this.getOneTimeCostThatShouldAppear(4);
-        game.players[this.game.turn].circles[5] += this.getOneTimeCostThatShouldAppear(5);
+        game.players[this.game.turn].circles[0] += this.getCostInOneTimePurchasePowerOfColor(
+          0, this.game, false, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[1] += this.getCostInOneTimePurchasePowerOfColor(
+          1, this.game, false, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[2] += this.getCostInOneTimePurchasePowerOfColor(
+          2, this.game, false, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[3] += this.getCostInOneTimePurchasePowerOfColor(
+          3, this.game, false, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[4] += this.getCostInOneTimePurchasePowerOfColor(
+          4, this.game, false, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[5] += this.getCostInOneTimePurchasePowerOfColor(
+          5, this.game, false, this.getCardThatShouldAppear());
         game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
         game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
       } else {
-        game.players[this.game.turn].circles[0] += this.game.contemplatedCirclesToTake[0];
-        game.players[this.game.turn].circles[1] += this.game.contemplatedCirclesToTake[1];
-        game.players[this.game.turn].circles[2] += this.game.contemplatedCirclesToTake[2];
-        game.players[this.game.turn].circles[3] += this.game.contemplatedCirclesToTake[3];
-        game.players[this.game.turn].circles[4] += this.game.contemplatedCirclesToTake[4];
+        game.players[this.game.turn].circles[0] += this.getCostInOneTimePurchasePowerOfColor(
+          0, this.game, true, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[1] += this.getCostInOneTimePurchasePowerOfColor(
+          1, this.game, true, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[2] += this.getCostInOneTimePurchasePowerOfColor(
+          2, this.game, true, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[3] += this.getCostInOneTimePurchasePowerOfColor(
+          3, this.game, true, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[4] += this.getCostInOneTimePurchasePowerOfColor(
+          4, this.game, true, this.getCardThatShouldAppear());
+        game.players[this.game.turn].circles[5] += this.getCostInOneTimePurchasePowerOfColor(
+          5, this.game, true, this.getCardThatShouldAppear());
         game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
-        game.players[this.game.turn].circles[5] += this.getRandomTokenCost();
         game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
       }
       this.webSocketService.emit('update-squarekles-game', game);

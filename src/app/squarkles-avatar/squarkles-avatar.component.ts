@@ -22,6 +22,7 @@ import {getPlayerPoints} from '../functions/get-player-points';
 import {Tiers} from '../squarekles-game/enums/tiers';
 import {ItemBeingDisplayed} from "../squarekles-game/enums/item-being-displayed";
 import {randomNumber} from "../functions/randomNumber";
+import {getCostInOneTimePurchasePowerOfColor} from '../functions/get-cost-in-one-time-purchase-power-of-color';
 
 @Component({
   selector: 'app-squarkles-avatar',
@@ -50,6 +51,18 @@ export class SquarklesAvatarComponent implements OnInit {
   getIntegerRepresentingPlayerBonusTileOwnershipLocation(index: number): number { return getIntegerRepresentingPlayerBonusTileOwnershipLocation(index); }
   getTotalPermanentPurchasePowerOfGivenColor(color: number): number {
     return getTotalPermanentPurchasePowerOfGivenColor(color, this.index, this.game.cards);
+  }
+
+  getCostInOneTimePurchasePowerOfColor(colorIndex: number, game: SquarekleGame, reserve: boolean = true, card: Card = {
+    color: 0,
+    cost: [1, 1, 1, 1, 0],
+    tier: Tiers.Bottom,
+    gameVersion: 0,
+    hashtags: 0,
+    pointValue: 0,
+    cardLocation: CardLocation.Deck
+  }): number {
+    return getCostInOneTimePurchasePowerOfColor(colorIndex, game, reserve, card);
   }
 
   getColorCodeByIndex(index) { return getColorCodeByIndex(index); }
@@ -426,6 +439,20 @@ export class SquarklesAvatarComponent implements OnInit {
     return true;
   }
 
+  itIsPlayerTurnSoConfirmPurchaseCanStay(): boolean {
+    if (this.game) {
+      if (this.index !== this.game.turn) {
+        if (this.itemBeingDisplayed !== 0 && this.itemBeingDisplayed !== 1) {
+          if (this.itemBeingDisplayed === 2 || this.itemBeingDisplayed === 3 || this.itemBeingDisplayed === 4) {
+            this.itemBeingDisplayed = 1;
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
   confirmPurchase(): void {
     if (this.game) {
       const card = this.getReservedCards()[this.itemBeingDisplayed - 2];
@@ -445,12 +472,12 @@ export class SquarklesAvatarComponent implements OnInit {
       });
       if (filteredCards.length >= 0) {
         filteredCards[0].cardLocation = getIntegerRepresentingPlayerCardOwnershipLocation(this.game.turn);
-        game.players[this.game.turn].circles[0] += this.getOneTimeCostThatShouldAppear(0);
-        game.players[this.game.turn].circles[1] += this.getOneTimeCostThatShouldAppear(1);
-        game.players[this.game.turn].circles[2] += this.getOneTimeCostThatShouldAppear(2);
-        game.players[this.game.turn].circles[3] += this.getOneTimeCostThatShouldAppear(3);
-        game.players[this.game.turn].circles[4] += this.getOneTimeCostThatShouldAppear(4);
-        game.players[this.game.turn].circles[5] += this.getOneTimeCostThatShouldAppear(5);
+        game.players[this.game.turn].circles[0] += this.getCostInOneTimePurchasePowerOfColor(0, this.game, false, card);
+        game.players[this.game.turn].circles[1] += this.getCostInOneTimePurchasePowerOfColor(1, this.game, false, card);
+        game.players[this.game.turn].circles[2] += this.getCostInOneTimePurchasePowerOfColor(2, this.game, false, card);
+        game.players[this.game.turn].circles[3] += this.getCostInOneTimePurchasePowerOfColor(3, this.game, false, card);
+        game.players[this.game.turn].circles[4] += this.getCostInOneTimePurchasePowerOfColor(4, this.game, false, card);
+        game.players[this.game.turn].circles[5] += this.getCostInOneTimePurchasePowerOfColor(5, this.game, false, card);
         game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
         game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
         this.webSocketService.emit('update-squarekles-game', game);
