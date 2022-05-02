@@ -36,7 +36,7 @@ export class SquarklesBonusComponent implements OnInit {
   selectVictoryTile(): void {
     if (this.game) {
       const game = JSON.parse(JSON.stringify(this.game));
-      const tilesAtThisPosition = game.victoryTile.filter(tile => {
+      const tilesAtThisPosition = game.bonusTiles.filter(tile => {
         return tile.bonusLocation === this.victoryTile.bonusLocation;
       });
       tilesAtThisPosition[0].bonusLocation = getIntegerRepresentingPlayerBonusTileOwnershipLocation(game.turn);

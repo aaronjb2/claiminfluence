@@ -88,7 +88,7 @@
   </div>
   <div class = "items-reserved-container" *ngIf="itemBeingDisplayed >= 1 && itemBeingDisplayed <= 4" [ngStyle]="{'z-index': index + 1}">
     <button class="close-display" (click)="setItemBeingDisplayed(-1)">X</button>
-    <div class="secret-card-0" *ngIf="evaluateIfDisplayButtonShouldAppear(index)">
+    <div class="secret-card-0" *ngIf="evaluateIfDisplayButtonShouldAppear(0)">
       <h1 class="secret-text">Secret</h1>
       <h3 class="only-look-if-it-is-yours-text">Only Look If It's Yours</h3>
       <button class = "display-button" (click)="startDisplayingAtIndex(0)">Display</button>

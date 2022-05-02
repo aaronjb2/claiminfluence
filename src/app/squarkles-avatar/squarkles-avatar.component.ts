@@ -1,10 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { getColorCodeByIndex } from '../functions/getColorCodeByIndex';
-import { getNthElementWithNonZeroValue } from '../functions/getNthElementWithNonZeroValue';
-import { getTotalItemsWithNonZeroCost } from '../functions/getTotalItemsWithNonZeroCost';
-import { getColorCost } from '../functions/getColorCost';
-import { getCostColor } from '../functions/getCostColor';
-import { SquarklesCardComponent } from '../squarkles-card/squarkles-card.component';
+import {getColorCodeByIndex} from '../functions/getColorCodeByIndex';
 import {WebSocketService} from '../web-socket.service';
 import {ItemObtained} from '../squarekles-game/interfaces/itemObtained';
 import {Card} from '../squarekles-game/interfaces/card';
@@ -20,9 +15,10 @@ import {getTotalPermanentPurchasePowerOfGivenColor} from '../functions/get-total
 import {getTotalHashtagsOfPlayer} from '../functions/get-total-hashtags-of-player';
 import {getPlayerPoints} from '../functions/get-player-points';
 import {Tiers} from '../squarekles-game/enums/tiers';
-import {ItemBeingDisplayed} from "../squarekles-game/enums/item-being-displayed";
-import {randomNumber} from "../functions/randomNumber";
 import {getCostInOneTimePurchasePowerOfColor} from '../functions/get-cost-in-one-time-purchase-power-of-color';
+import {gainHashtagAward} from "../functions/gain-hashtag-award";
+import {getVictoryTilesPlayerQualifiesFor} from "../functions/get-victory-tiles-player-qualifies-for";
+import {checkIfGameIsOverAndIfSoEvaluateWinner} from "../functions/check-if-game-is-over-and-if-so-evaluate-winner";
 
 @Component({
   selector: 'app-squarkles-avatar',
@@ -479,7 +475,33 @@ export class SquarklesAvatarComponent implements OnInit {
         game.players[this.game.turn].circles[4] += this.getCostInOneTimePurchasePowerOfColor(4, this.game, false, card);
         game.players[this.game.turn].circles[5] += this.getCostInOneTimePurchasePowerOfColor(5, this.game, false, card);
         game.contemplatedCirclesToTake = [0, 0, 0, 0, 0, 0];
-        game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
+        const bonusOwnershipNum = getIntegerRepresentingPlayerBonusTileOwnershipLocation(game.turn);
+        if (gainHashtagAward(game)) {
+          const bonusTile = game.bonusTiles.filter(tile => tile.cost.length === 0);
+          bonusTile[0].bonusLocation = bonusOwnershipNum;
+        }
+        const victoryTilesQualifiedFor = getVictoryTilesPlayerQualifiesFor(game);
+        if (victoryTilesQualifiedFor.length > 1) {
+          game.selectABonus = true;
+        } else {
+          if (victoryTilesQualifiedFor.length === 1) {
+            const slotNum = victoryTilesQualifiedFor[0] === 0 ? BonusLocation.Slot0
+              : victoryTilesQualifiedFor[0] === 1 ? BonusLocation.Slot1
+                : victoryTilesQualifiedFor[0] === 2 ? BonusLocation.Slot2
+                  : victoryTilesQualifiedFor[0] === 3 ? BonusLocation.Slot3 : BonusLocation.Slot4;
+            const tilesAtThisSpot = game.bonusTiles.filter(tile => tile.bonusLocation === slotNum);
+            if (tilesAtThisSpot.length > 0) {
+              tilesAtThisSpot[0].bonusLocation = bonusOwnershipNum;
+            }
+          }
+          const winningPlayers = checkIfGameIsOverAndIfSoEvaluateWinner(game);
+          if (winningPlayers.length > 0) {
+            game.started = false;
+            game.turn = 0;
+          } else {
+            game.turn = game.turn < game.players.length - 1 ? game.turn + 1 : 0;
+          }
+        }
         this.webSocketService.emit('update-squarekles-game', game);
       }
     }

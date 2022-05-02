@@ -11,10 +11,10 @@ export function hasEnoughForBonus(playerIndex: number, bonusTile: BonusTile, car
       squares[card.color]++;
     }
   });
-  bonusTile.cost.forEach((cost, index) => {
-    if (cost > squares[index]) {
+  for (let i = 0; i < bonusTile.cost.length; i++) {
+    if (bonusTile.cost[i] > squares[i]) {
       insufficientFunds++;
     }
-  });
+  }
   return insufficientFunds > 0;
 }
